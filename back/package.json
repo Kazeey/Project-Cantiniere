@@ -1,0 +1,23 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "Test back de l'appli Quiz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0",
+    "moment": "^2.26.0",
+    "node-fetch": "^2.6.0",
+    "request-promise": "^4.2.5",
+    "require-stack": "^1.0.2",
+    "uuidv4": "^6.1.0"
+  }
+}
