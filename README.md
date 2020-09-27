@@ -1,6 +1,16 @@
 # ProjetCantiniere
 Projet n°1 d'Aston
 
+#Install
+#### Angular
+`npm install -g @angular/cli`
+
+#### Ionic
+`npm install -g @ionic/cli`
+
+#### Express
+`via npm in cmd` in the back folder
+
 # Back
 This project was generated with NodeJS version 14.8.0 and Express version 4.17.1.
 
