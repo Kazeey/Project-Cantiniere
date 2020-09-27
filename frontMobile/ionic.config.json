@@ -1,0 +1,7 @@
+{
+  "name": "frontMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
