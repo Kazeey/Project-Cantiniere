@@ -24,3 +24,11 @@ Run `ng test` to execute the unit tests via Karma.
 
 # Front Mobile
 This project was generated with version 5.0.1.
+
+#### To run
+As i saw, the commands are the same as angular for web.
+
+#### Don't forget
+When you add a new component, don't forget to create the files `nameComponent.module.ts` and `nameComponent-routing.module.ts`.
+Then configure the file like the others, with the class export and other functions.
+And then, if you need to add a route to this component, edit `app-routing.module.ts` to add a path.
