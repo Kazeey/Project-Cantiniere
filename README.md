@@ -9,7 +9,7 @@ Projet n°1 d'Aston
 `npm install -g @ionic/cli`
 
 #### Express
-`via npm in cmd` in the back folder
+`via npm install express in cmd` in the back folder
 
 # Api Java
 This Api was given for the project.
