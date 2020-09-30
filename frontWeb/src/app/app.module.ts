@@ -16,6 +16,12 @@ import { PreferencesComponent } from './preferences/preferences.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzLayoutModule  } from 'ng-zorro-antd/layout';
+import { IconsProviderModule } from './icons-provider.module';
+import { DailyOrderComponent } from './daily-order/daily-order.component';
+import { HistoricComponent } from './historic/historic.component';
+
 
 registerLocaleData(fr);
 
@@ -27,14 +33,19 @@ registerLocaleData(fr);
     PreferencesComponent,
     ManageMenuComponent,
     ManageUserComponent,
-    ManageProductComponent
+    ManageProductComponent,
+    DailyOrderComponent,
+    HistoricComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NzMenuModule,
+    NzLayoutModule,
+    IconsProviderModule 
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]

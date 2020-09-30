@@ -1,36 +1,52 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { DailyOrderComponent } from './daily-order/daily-order.component';
+import { HistoricComponent } from './historic/historic.component';
+import { ManageMenuComponent } from './manage-menu/manage-menu.component';
+import { ManageProductComponent } from './manage-product/manage-product.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ParametersComponent } from './parameters/parameters.component';
+import { PreferencesComponent } from './preferences/preferences.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./authentication/authentication.module').then( m => m.AuthenticationPageModule)
+    path: 'authentication',
+    component : AuthenticationComponent
+  },
+  {
+    path: 'historic',
+    component : HistoricComponent
   },
   {
     path: 'preferences',
-    loadChildren: () => import('./preferences/preferences.module').then( m => m.PreferencesPageModule)
+    component : PreferencesComponent
   },
   {
     path: 'parameters',
-    loadChildren: () => import('./parameters/parameters.module').then( m => m.ParametersPageModule)
+    component : ParametersComponent
+  },
+  {
+    path: 'dailyOrder',
+    component : DailyOrderComponent
   },
   {
     path: 'manageMenu',
-    loadChildren: () => import('./manage-menu/manage-menu.module').then( m => m.ManageMenuPageModule)
+    component : ManageMenuComponent
   },
   {
     path: 'manageUser',
-    loadChildren: () => import('./manage-user/manage-user.module').then( m => m.ManageUserPageModule)
+    component : ManageUserComponent
   },
   {
     path: 'manageProduct',
-    loadChildren: () => import('./manage-product/manage-product.module').then( m => m.ManageProductPageModule)
+    component : ManageProductComponent
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({

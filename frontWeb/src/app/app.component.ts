@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'front';
+  isCollapsed = false;
+ 
+  statut = "admin";
+
+  constructor(){
+    console.log(this.statut);
+  }
 }

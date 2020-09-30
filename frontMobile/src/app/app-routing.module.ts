@@ -3,12 +3,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'authentication',
     loadChildren: () => import('./authentication/authentication.module').then( m => m.AuthenticationPageModule)
   },
   {
     path: 'preferences',
     loadChildren: () => import('./preferences/preferences.module').then( m => m.PreferencesPageModule)
+  },
+  {
+    path: 'historic',
+    loadChildren: () => import('./historic/historic.module').then( m => m.historicPageModule)
+  },
+  {
+    path: 'dailyOrder',
+    loadChildren: () => import('./daily-order/daily-order.module').then( m => m.dailyOrderPageModule)
   },
   {
     path: 'parameters',

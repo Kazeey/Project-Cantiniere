@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManageUserComponent } from './manage-user.component';
+import { HistoricComponent } from './historic.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ManageUserComponent,
+    component: HistoricComponent,
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManageUserPageRoutingModule {}
+export class historicPageRoutingModule {}
