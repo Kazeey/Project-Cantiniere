@@ -7,7 +7,7 @@ methods = {
     }, 
 
     forgotPassword : async function(req, res){
-
+        res.send({response : "test"});
     }
 }
 

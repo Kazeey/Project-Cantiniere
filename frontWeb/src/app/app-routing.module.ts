@@ -9,6 +9,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ParametersComponent } from './parameters/parameters.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 
+// Setup routing
 const routes: Routes = [
   {
     path: 'authentication',

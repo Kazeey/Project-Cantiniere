@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   isCollapsed = false;
  
-  statut = "admin";
+  statut = "admin"; // TODO : faire en sorte que l'opération de vérification de connexion arrive ici
 
   constructor(){
     console.log(this.statut);

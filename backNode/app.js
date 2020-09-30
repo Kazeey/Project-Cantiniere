@@ -16,7 +16,7 @@ const loginImport       = require('./functions/login/index.js');
 const accountImport     = require('./functions/account/index.js');
 
 // ------ Login ------ 
-app.get('/api/login/login'           , loginImport.data.login);          // login to an existing account
+app.get('/api/login'           , loginImport.data.login);          // login to an existing account
 app.post('/api/login/forgotPassword' , loginImport.data.forgotPassword); // If you have forgot your password
 
 // ------ Account ------
