@@ -1,0 +1,150 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+  <!-- https://maven.apache.org/plugins/maven-changes-plugin/changes.html -->
+  <properties>
+    <title>Lunch Time History</title>
+    <author email="admin@ferretrenaud.fr">Admin</author>
+  </properties>
+
+  <body>
+
+    <release version="1.0.0" date="03 01 00:00:00 CEST 2019" description="First Release">
+      <action dev="admin" type="update">First release of this project</action>
+    </release>
+
+    <release version="1.1.0" date="04 12 00:00:00 CEST 2019" description="Second Release">
+      <action dev="admin" type="add">Added support and profile for PostgreSQL</action>
+      <action dev="admin" type="fix">@Lob must be accompanied with @Type for PostgreSQL.</action>
+      <action dev="admin" type="fix">Error in the main startup messages</action>
+      <action dev="admin" type="update">Will use version 2.1.4 for Spring Boot</action>
+    </release>
+
+    <release version="1.1.1" date="04 15 00:00:00 CEST 2019" description="Third Release">
+      <action dev="admin" type="add">Added /login using PUT and JSON</action>
+    </release>
+
+    <release version="1.1.2" date="04 27 00:00:00 CEST 2019" description="Fourth Release">
+      <action dev="admin" type="update">Order service and test in order to be the same as in MongoDB version</action>
+    </release>
+
+    <release version="1.1.3" date="05 03 00:00:00 CEST 2019" description="Fith Release">
+      <action dev="admin" type="fix">Constraint time for DtoIn was not usable</action>
+      <action dev="admin" type="update">Root URL will redirect to Swagger</action>
+      <action dev="admin" type="update">Re-organize controller</action>
+      <action dev="admin" type="update">Documentation</action>
+      <action dev="admin" type="update">Tests are no more activated when building WAR</action>
+      <action dev="admin" type="fix">Error in intiDB tests for H2</action>
+    </release>
+
+    <release version="1.2.0" date="05 06 00:00:00 CEST 2019" description="Seventh Release">
+      <action dev="admin" type="fix">Some log typo</action>
+      <action dev="admin" type="update">Swagger will use JWT</action>
+      <action dev="admin" type="update">Controller will use JWT</action>
+      <action dev="admin" type="update">No more use of HttpSession</action>
+    </release>
+
+    <release version="1.2.1" date="05 14 00:00:00 CEST 2019" description="Eighth Release">
+      <action dev="admin" type="fix">Maven test activation option</action>
+      <action dev="admin" type="update">Gitlab CI support</action>
+      <action dev="admin" type="update">Pom file for Sonar is linked with remote sonar</action>
+      <action dev="admin" type="update">Exception handling in controller</action>
+    </release>
+
+    <release version="1.2.2" date="05 16 00:00:00 CEST 2019" description="Nineth Release">
+      <action dev="admin" type="update">Added some tests</action>
+      <action dev="admin" type="fix">ClassCastException Issue when called some Rest method that does not need
+        authentication</action>
+    </release>
+
+    <release version="1.2.3" date="07 05 00:00:00 CEST 2019" description="Tenth Release">
+      <action dev="admin" type="fix">PostgreSQL SQL script that generates JUnit test error with boolean and smallint
+      </action>
+      <action dev="admin" type="fix">DAO that count LunchLady was corrected for PostgreSQL</action>
+      <action dev="admin" type="fix">ClassLoader.getSystemResource in test was causing problem with June release of
+        Eclipse</action>
+      <action dev="admin" type="update">Spring Boot version upgraded</action>
+      <action dev="admin" type="update">Added logout</action>
+      <action dev="admin" type="update">Added interface for authentication, used for tests and mongo</action>
+    </release>
+
+    <release version="1.2.4" date="07 23 00:00:00 CEST 2019" description="Eleventh Release">
+      <action dev="admin" type="fix">Changed CORS behaviours for Spring Security 5.</action>
+      <action dev="admin" type="fix">Token JWT, that is in the header, is now visible for Angular</action>
+    </release>
+
+    <release version="1.3.0" date="11 13 00:00:00 CEST 2019" description="Twelfth Release">
+      <action dev="admin" type="update">Changed the data base and added a LTRole table. The isLunchLady column is no more
+        in user. This was made in order to have a real and clean example on how to handle roles in an application. Note
+        that this change has no impact on Json at all.</action>
+      <action dev="admin" type="update">New DAO Role responsible for lunchLadyCount. Also new RoleEntity and link with
+        users.</action>
+      <action dev="admin" type="update">All data base script were updated for new LTRole table.</action>
+      <action dev="admin" type="update">Added a lot of swagger annotations in controler.</action>
+      <action dev="admin" type="update">Will use the same Json Exception for errors.</action>
+      <action dev="admin" type="update">Spring Boot version upgraded in pom and other versions upgraded in pom</action>
+      <action dev="admin" type="add">Some Postman collection script in postman folder. Can be used as sample
+        integration tests.</action>
+      <action dev="admin" type="add">A MariaDB SQL script, since the one for MySQL may not work as is.</action>
+    </release>
+
+    <release version="1.3.1" date="12 10 00:00:00 CEST 2019" description="13 Release">
+      <action dev="admin" type="update">Added a profile 'unsecured' that can be used in order to squeeze authentication. When used, you will never need to authenticate and will always be a lunch lady.</action>
+    </release>
+
+    <release version="1.3.2" date="12 13 00:00:00 CEST 2019" description="14 Release">
+      <action dev="admin" type="update">Added a profile for SQL Server. </action>
+      <action dev="admin" type="fix">Error in PostgresSQL dump file due to changes made in version 1.3.0. </action>
+    </release>
+    
+    <release version="1.3.3" date="01 09 00:00:00 CEST 2020" description="15 Release">
+      <action dev="admin" type="fix">Error with /user/register path in Spring Security rules</action>
+    </release>    
+
+    <release version="1.4.0" date="01 21 00:00:00 CEST 2020" description="16 Release">
+      <action dev="admin" type="add">Added a new table for images. It has 3 columns (image64, imagePath, imageBlob) = (image as String encoded in base 64, image path and name, image as byte array). </action>
+      <action dev="admin" type="add">Image update/select will be achievable using specific API URL.</action>
+      <action dev="admin" type="update">All tables that had image64 column are now in relation with the new LTImage table. </action>      
+      <action dev="admin" type="update">Splitted in two fields the creation date of order. Now we have creationDate (that is a date) and creationTime (that is a time). </action>      
+      <action dev="admin" type="update">Dtos (In and Out) were updated regarding the changes of image and order. Dto with image will only handle (image64, imagePath), imageBlob is handled by the entity only.</action>      
+      <action dev="admin" type="update">MySQL, Postgres, SQLServer script have been updated regarding the new database fields.</action>
+            
+      <action dev="admin" type="update">Timestamp has been replaced by DateTime in MySQL script.</action>
+      <action dev="admin" type="update">java.sql.Timestamp has been replaced by LocalDateTime in Java code.</action>
+      <action dev="admin" type="update">java.sql.Time has been replaced by LocalTime in Java code.</action>
+      <action dev="admin" type="update">JUnit tests for better behavior. </action>
+      
+      <action dev="admin" type="update">Migration to Spring Boot 2.2 = Spring 5.2 </action>
+      <action dev="admin" type="update">Migration to OpenAPI instead of Swagger </action>
+      <action dev="admin" type="update">Migration from JUnit 4 to JUnit 5 </action>
+      
+    </release>    
+
+    <release version="1.4.1" date="01 24 00:00:00 CEST 2020" description="17 Release">
+      <action dev="admin" type="fix">Updated POM that caused issues on Giltlab CI and Sonar 8.1</action>
+    </release>
+    
+    <release version="1.4.2" date="01 31 00:00:00 CEST 2020" description="18 Release">
+      <action dev="admin" type="fix">Sex was not updated. Thanks to CDNT 8 from Lille (59000)</action>
+      <action dev="admin" type="update">Copyright added in all files </action>
+    </release>    
+    
+    <release version="1.4.3" date="04 28 00:00:00 CEST 2020" description="19 Release">
+      <action dev="admin" type="update">Update Spring Boot and other versions</action>
+      <action dev="admin" type="fix">Time constraint was reverted</action>
+      <action dev="admin" type="add">Add some tests</action>
+    </release> 
+    
+    <release version="1.4.4" date="04 30 00:00:00 CEST 2020" description="20 Release">
+      <action dev="admin" type="update">Lowercase all table and column name in code and scripts (for better Linux support)</action>
+      <action dev="admin" type="update">Normalize the name of table and column (to be more DBA style)</action>
+      <action dev="admin" type="fix">Some data base doesn't have DATETIME, so they handle nanos. </action>
+      <action dev="admin" type="update">Role handled as enum</action>
+    </release> 
+    
+    <release version="1.5.0" date="07 12 00:00:00 CEST 2020" description="21 Release">
+      <action dev="admin" type="update">Spring boot version to 2.2.8</action>
+      <action dev="admin" type="update">Changed the link between order and menu. Now user can command many menu and/or many meals.</action>
+    </release> 
+    
+  </body>
+</document> 

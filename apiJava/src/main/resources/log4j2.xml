@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="warn" strict="true">
+
+  <Appenders>
+    <Console name="stdout" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%d{dd/MM/yyyy HH:mm:ss}] - %5p - %35c{1} - %m %n" />
+    </Console>
+
+    <File name="localFile" fileName="lunchtime.log" append="false">
+      <PatternLayout pattern="[%d{dd/MM/yyyy HH:mm:ss}] - %5p - %35c{1} - %m %n" />
+    </File>
+
+  </Appenders>
+
+  <Loggers>
+    <Logger name="runtime.log.logsystem.log4j.category" level="OFF" additivity="false" />
+
+    <Logger name="stone.lunchtime" level="DEBUG" additivity="false">
+      <AppenderRef ref="stdout" />
+      <AppenderRef ref="localFile" />
+    </Logger>
+
+    <Root level="WARN">
+      <AppenderRef ref="stdout" />
+      <AppenderRef ref="localFile" />
+    </Root>
+  </Loggers>
+
+</Configuration>

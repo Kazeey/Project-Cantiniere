@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="warn" strict="true">
+
+  <Appenders>
+    <Console name="stdoutTest" target="SYSTEM_OUT">
+      <PatternLayout pattern="TEST - [%d{dd/MM/yyyy HH:mm:ss}] - %5p - %35c{1} - %m %n" />
+    </Console>
+
+    <File name="localFileTest" fileName="lunchtime-test.log" append="false">
+      <PatternLayout pattern="TEST - [%d{dd/MM/yyyy HH:mm:ss}] - %5p - %35c{1} - %m %n" />
+    </File>
+
+  </Appenders>
+
+  <Loggers>
+
+    <Logger name="stone.lunchtime" level="OFF" additivity="false">
+      <AppenderRef ref="stdoutTest" />
+      <AppenderRef ref="localFileTest" />
+    </Logger>
+
+    <Root level="WARN">
+      <AppenderRef ref="stdoutTest" />
+      <AppenderRef ref="localFileTest" />
+    </Root>
+  </Loggers>
+
+</Configuration>

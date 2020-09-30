@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "aeb98bd2-7f97-4c7b-9e07-100437a1c5e7",
+		"name": "Stone Lunchtime",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c728c8e-7853-4ee3-a810-4ef641c7e7d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Authorization is present\", function () {",
+							"    pm.response.to.have.header(\"Authorization\");",
+							"});",
+							"// Add JWT for next request",
+							"pm.environment.set(\"currentAuthorization\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "23c4a3fd-433e-4e3c-93cf-14befe0c9fa3",
+						"exec": [
+							"// Clear JWT old token",
+							"pm.environment.unset(\"currentAuthorization\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{context}}/login?email=toto@gmail.com&password=bonjour",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{context}}",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "toto@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "bonjour"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27bc5e1b-96a1-4fdf-b20c-fc32c4c4d7ed",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Found user id 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e6451fc5-99bb-4450-9c88-c39e1d141c7d",
+						"exec": [
+							"pm.test(\"currentAuthorization is present\", function () {",
+							"    pm.environment.get(\"currentAuthorization\") !== undefined && pm.environment.get(\"currentAuthorization\") !== null && pm.environment.get(\"currentAuthorization\") !== \"\";",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{currentAuthorization}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/{{context}}/user/find/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{context}}",
+						"user",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a order (one menu)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27bc5e1b-96a1-4fdf-b20c-fc32c4c4d7ed",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Found id in return stream\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.be.a('number');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e6451fc5-99bb-4450-9c88-c39e1d141c7d",
+						"exec": [
+							"pm.test(\"currentAuthorization is present\", function () {",
+							"    pm.environment.get(\"currentAuthorization\") !== undefined && pm.environment.get(\"currentAuthorization\") !== null && pm.environment.get(\"currentAuthorization\") !== \"\";",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{currentAuthorization}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"constraintId\": -1,\r\n  \"menuId\": 1,\r\n  \"userId\": 1\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{context}}/order/add",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{context}}",
+						"order",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a8677233-8f00-411e-a711-0352a04276e7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c556ddd3-7343-48b6-a873-e26142d735bd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "23235fda-2af6-49bb-94c4-cb5d2664c97a",
+			"key": "currentAuthorization",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "7b80f05f-ffb7-4d51-9ea5-ae7e6000d347",
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"id": "151c1c86-a1ec-4c91-a423-f793b8de1fff",
+			"key": "context",
+			"value": "lunchtime",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,112 @@
+Lunch Time History
+admin@ferretrenaud.fr
+All information can be found into file /src/changes/changes.xml
+
+** 1.5.0 - 07 12 00:00:00 CEST 2020 - 21 Release
+-> admin (update) Spring boot version to 2.2.8
+-> admin (update) Changed the link between order and menu. Now user can command many menu and/or many meals.
+
+** 1.4.4 - 04 30 00:00:00 CEST 2020 - 20 Release
+-> admin (update) Lowercase all table and column name in code and scripts (for better Linux support)
+-> admin (update) Normalize the name of table and column (to be more DBA style)
+-> admin (fix) Some data base doesn't have DATETIME, so they handle nanos.
+-> admin (update) Role handled as enum
+
+** 1.4.3 - 04 28 00:00:00 CEST 2020 - 19 Release
+-> admin (update) Update Spring Boot and other versions
+-> admin (fix) Time constraint was reverted
+-> admin (add) Add some tests
+
+** 1.4.2 - 01 31 00:00:00 CEST 2020 - 18 Release
+-> admin (fix) Sex was not updated. Thanks to CDNT 8 from Lille (59000)
+-> admin (update) Copyright added in all files
+
+** 1.4.1 - 01 24 00:00:00 CEST 2020 - 17 Release
+-> admin (update) Updates the configuration of Jacoco. 
+-> admin (update) Minor Sonar problem.
+
+** 1.4.0 - 01 23 00:00:00 CEST 2020 - 16 Release
+-> admin (add) Added a new table for images. It has 3 columns (image64, imagePath, imageBlob) = (image as String encoded in base 64, image path and name, image as byte array). 
+-> admin (add) Image update/select will be achievable using specific API URL.
+-> admin (update) All tables that had image64 column are now in relation with the new LTImage table.       
+-> admin (update) Splitted in two fields the creation date of order. Now we have creationDate (that is a date) and creationTime (that is a time).       
+-> admin (update) Dtos (In and Out) were updated regarding the changes of image and order. Dto with image will only handle (image64, imagePath), imageBlob is handled by the entity only.      
+-> admin (update) MySQL, Postgres, SQLServer script have been updated regarding the new database fields.
+-> admin (update) Timestamp has been replaced by DateTime in MySQL script.
+-> admin (update) java.sql.Timestamp has been replaced by LocalDateTime in Java code.
+-> admin (update) java.sql.Time has been replaced by LocalTime in Java code.
+-> admin (update) JUnit tests for better behavior. 
+-> admin (update) Migration to Spring Boot 2.2 = Spring 5.2 
+-> admin (update) Migration to OpenAPI instead of Swagger 
+-> admin (update) Migration from JUnit 4 to JUnit 5  
+
+** 1.3.3 - 01 09 00:00:00 CEST 2020 - 15 Release
+-> admin (fix) Error with /user/register path in Spring Security rules.
+
+** 1.3.2 - 12 13 00:00:00 CEST 2019 - 14 Release
+-> admin (update) Added a profile for SQL Server. 
+-> admin (fix) Error in PostgresSQL dump file due to changes made in version 1.3.0. 
+
+** 1.3.1 - 12 10 00:00:00 CEST 2019 - 13 Release
+-> admin (update) Added a profile 'unsecured' that can be used in order to squeeze authentication. When used, you will never need to authenticate and will always be a lunch lady.
+
+** 1.3.0 - 11 13 00:00:00 CEST 2019 - Twelfth Release
+-> admin (update) Changed the data base and added a LTRole table. The isLunchLady column is no more in user. This was made in order to have a real and clean example on how to handle roles in an application. Note that this change has no impact on Json at all.
+-> admin (update) New DAO Role responsible for lunchLadyCount. Also new RoleEntity and link with users.
+-> admin (update) All data base script were updated for new LTRole table.
+-> admin (update) Added a lot of swagger annotations in controler.
+-> admin (update) Will use the same Json Exception for errors.
+-> admin (update) Spring Boot version upgraded in pom and other versions upgraded in pom
+-> admin (add) Some Postman collection script in postman folder. Can be used as sample integration tests.
+-> admin (add) A MariaDB SQL script, since the one for MySQL may not work as is.
+
+** 1.2.4 - 07 23 00:00:00 CEST 2019 - Eleventh Release
+-> admin (fix) Changed CORS behaviours for Spring Security 5.
+-> admin (fix) Token JWT, that is in the header, is now visible for Angular
+
+** 1.2.3 - 07 05 00:00:00 CEST 2019 - Tenth Release
+-> admin (fix) PostgreSQL SQL script that generates JUnit test error with boolean and smallint
+-> admin (fix) DAO that count LunchLady was corrected for PostgreSQL
+-> admin (fix) ClassLoader.getSystemResource in test was causing problem with June release of Eclipse
+-> admin (update) Spring Boot version upgraded
+-> admin (update) Added logout
+-> admin (update) Added interface for authentication, used for tests and mongo
+
+** 1.2.2 - 05 16 00:00:00 CEST 2019 - Nineth Release
+-> admin (update) Added some tests
+-> admin (fix) ClassCastException Issue when called some Rest method that does not need authentication
+
+** 1.2.1 - 05 14 00:00:00 CEST 2019 - Eighth Release
+-> admin (fix) Maven test activation option
+-> admin (update) Gitlab CI support
+-> admin (update) Pom file for Sonar is linked with remote sonar
+-> admin (update) Exception handling in controller
+
+** 1.2.0 - 05 06 00:00:00 CEST 2019 - Seventh Release
+-> admin (fix) Some log typo
+-> admin (update) Swagger will use JWT
+-> admin (update) Controller will use JWT
+-> admin (update) No more use of HttpSession
+
+** 1.1.3 - 05 03 00:00:00 CEST 2019 - Fith Release
+-> admin (fix) Constraint time for DtoIn was not usable
+-> admin (update) Root URL will redirect to Swagger
+-> admin (update) Re-organize controller
+-> admin (update) Documentation
+-> admin (update) Tests are no more activated when building WAR
+-> admin (fix) Error in intiDB tests for H2
+
+** 1.1.2 - 04 27 00:00:00 CEST 2019 - Fourth Release
+-> admin (update) Order service and test in order to be the same as in MongoDB version
+
+** 1.1.1 - 04 15 00:00:00 CEST 2019 - Third Release
+-> admin (add) Added /login using PUT and JSON
+
+** 1.1.0 - 04 12 00:00:00 CEST 2019 - Second Release
+-> admin (add) Added support and profile for PostgreSQL
+-> admin (fix) @Lob must be accompanied with @Type for PostgreSQL.
+-> admin (fix) Error in the main startup messages
+-> admin (update) Will use version 2.1.4 for Spring Boot
+
+** 1.0.0 - 03 01 00:00:00 CEST 2019 - First Release
+-> admin (update) First release of this project

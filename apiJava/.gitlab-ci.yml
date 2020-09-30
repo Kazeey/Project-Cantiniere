@@ -1,0 +1,42 @@
+# These are the default stages.
+# You don't need to explicitly define them.
+# But you could define any stages you want.
+stages:
+  - compile
+  - test
+  - quality
+  - package
+
+# This is the name of the job.
+# You can choose it freely.
+maven_build:
+    stage: compile
+    tags: 
+       - stone
+    script:
+       - echo "Compile project with Maven"
+       - /usr/bin/mvn clean compile -Dmaven.test.skip=true
+ 
+maven_test:
+    stage: test
+    tags: 
+       - stone
+    script:
+       - echo "Testing project with Maven"
+       - /usr/bin/mvn clean compile test -Dmaven.test.skip=false
+    
+maven_quality:
+   stage: quality
+   tags: 
+      - stone
+   script:
+      - echo "For Sonar"
+      - /usr/bin/mvn clean verify compile sonar:sonar -Dmaven.test.skip=false
+      
+maven_package:
+   stage: package
+   tags: 
+      - stone
+   script:
+      - echo "Build package (WAR)"
+      - /usr/bin/mvn clean package -Dmaven.test.skip=true -Pprod
