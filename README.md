@@ -11,7 +11,10 @@ Projet n°1 d'Aston
 #### Express
 `via npm in cmd` in the back folder
 
-# Back
+# Api Java
+This Api was given for the project.
+
+# Api Node
 This project was generated with NodeJS version 14.8.0 and Express version 4.17.1.
 
 #### Development server
