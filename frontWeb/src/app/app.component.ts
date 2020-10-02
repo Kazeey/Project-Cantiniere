@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,5 @@ export class AppComponent {
  
   statut = "admin"; // TODO : faire en sorte que l'opération de vérification de connexion arrive ici
 
-  constructor(){
-    console.log(this.statut);
-  }
 }
+
