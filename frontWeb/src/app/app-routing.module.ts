@@ -9,7 +9,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ParametersComponent } from './parameters/parameters.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 
-// Setup routing
+// Setup routing, identification de chaque routes, avec chaque url
 const routes: Routes = [
   {
     path: 'authentication',

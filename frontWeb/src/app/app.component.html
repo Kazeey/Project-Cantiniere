@@ -10,7 +10,7 @@
         <h1>Projet Cantinière</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-        <ul *ngIf = "statut === 'admin'">
+        <ul *ngIf = "statut === 'admin'"> <!-- C'est ici qu'est fait la vérification pour chaque affichage de menu, a terme mettre une boucle sur un tableau a deux dimensions -->
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dailyOrder">Commandes du jour</a>
           </li>
@@ -27,7 +27,7 @@
             <a routerLink="/manageUser">Gestion des utilisateurs</a>
           </li>
         </ul>
-        <ul *ngIf = "statut === 'visitor'">
+        <ul *ngIf = "statut === 'visiteur'">
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/authentication">Se connecter</a>
           </li>

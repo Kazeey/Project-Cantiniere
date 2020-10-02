@@ -9,7 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AppComponent {
   isCollapsed = false;
  
-  statut = "admin"; // TODO : faire en sorte que l'opération de vérification de connexion arrive ici
-
+  // TODO : faire en sorte que l'opération de vérification de connexion arrive ici
+  // valeurs possibles pour statut = client/admin/visiteur, change l'affichage en fonction
+  statut = "admin"; 
 }
 
