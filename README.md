@@ -17,12 +17,11 @@ Projet n°1 Aston.
 
 Run pom.xml as `Maven build`.
 
-Run `src/main/java/stone.lunchtime/spring/SpringBootConfiguration.java` as `Java Application`.
-
 If you have specified a username/password for your SQL database, change the configuration in `src/main/java/ressources/application-mysql.properties`. 
 
 # Api Java
 This Api was given for the project.
+To start the API, run `src/main/java/stone.lunchtime/spring/SpringBootConfiguration.java` as `Java Application`.
 
 # Api Node
 This project was generated with NodeJS version 14.8.0 and Express version 4.17.1.
