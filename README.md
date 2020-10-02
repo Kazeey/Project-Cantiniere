@@ -1,6 +1,8 @@
 # ProjetCantiniere
 Projet n°1 Aston.
 
+# Installs
+
 #### Angular
 `npm install -g @angular/cli`.
 
