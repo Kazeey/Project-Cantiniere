@@ -15,6 +15,8 @@ Projet n°1 Aston.
 #### Java
 `Import` > `existing maven project`.
 
+Update de project.
+
 Run pom.xml as `Maven build`.
 
 If you have specified a username/password for your SQL database, change the configuration in `src/main/java/ressources/application-mysql.properties`. 
@@ -56,6 +58,6 @@ As i saw, the commands are the same as angular for web.
 #### Don't forget
 When you add a new component, don't forget to create the files `nameComponent.module.ts` and `nameComponent-routing.module.ts`.
 
-Then configure the file like the others, with the class export and other functions.
+Then configure the files like the others, with the class export and other functions.
 
 And then, if you need to add a route to this component, edit `app-routing.module.ts` to add a path.
