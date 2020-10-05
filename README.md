@@ -13,7 +13,7 @@ Projet n°1 Aston.
 `npm install express` in cmd, in the back folder.
 
 #### Java
-`Import` > `existing maven project`.
+To open it on eclipse, `Files` > `Import` > `existing maven project`.
 
 Update de project.
 
