@@ -15,7 +15,7 @@ Projet n°1 Aston.
 #### Java
 To open it on eclipse, `Files` > `Import` > `existing maven project`.
 
-Update de project.
+Update the project.
 
 Run pom.xml as `Maven build`.
 
