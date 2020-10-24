@@ -10,40 +10,30 @@
         <h1>Projet Cantinière</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-        <ul *ngIf = "statut === 'admin'"> <!-- C'est ici qu'est fait la vérification pour chaque affichage de menu, a terme mettre une boucle sur un tableau a deux dimensions -->
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dailyOrder">Commandes du jour</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/historic">Historique des commandes</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/manageMenu">Gestion des menus</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/manageProduct">Gestion des aliments</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/manageUser">Gestion des utilisateurs</a>
+        <!-- 
+          C'est ici qu'est fait la vérification pour chaque affichage de menu 
+          1 - Vérification du rôle de l'utilisateur
+          2 - Boucle sur le menu qui lui est associé pour afficher les liens
+        -->        
+        <ul *ngIf = "statut === 'admin'"> 
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of admin">
+            <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'visiteur'">
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/authentication">Se connecter</a>
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of visiteur">
+            <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'client'">
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/historic">Historique des commandes</a>
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of client">
+            <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
       <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visitor'">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/preferences">Préférences</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/parameters">Paramètres</a>
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
+            <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
       </li>

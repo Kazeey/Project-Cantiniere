@@ -11,5 +11,4 @@ export class DailyOrderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
