@@ -18,8 +18,8 @@ export class AppComponent {
   // assignation des differents menus aux variables de vérifications de l'utilisateur
   admin = menus.menusAdmin;
   client = menus.menusClient;
-  commun = menus.menusCommuns;
   visiteur = menus.menusVisiteur;
+  communs = menus.menusCommuns;
 }
 
 
