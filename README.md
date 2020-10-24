@@ -61,3 +61,8 @@ When you add a new component, don't forget to create the files `nameComponent.mo
 Then configure the files like the others, with the class export and other functions.
 
 And then, if you need to add a route to this component, edit `app-routing.module.ts` to add a path.
+
+# Config
+A folder used by the mobile front, and the web front.
+
+In this folder, we're gonna put the config files (exemple : menus variables for the loop).
