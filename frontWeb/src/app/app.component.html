@@ -30,9 +30,9 @@
             <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
-      <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visitor'">
+      <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visiteur'">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of commun">
             <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
