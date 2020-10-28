@@ -8,18 +8,18 @@ import { methods as menus }  from '../../../config/menus'; // Import des differe
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   isCollapsed = false;
  
   // TODO : faire en sorte que l'opération de vérification de connexion arrive ici
   // valeurs possibles pour statut = client/admin/visiteur, change l'affichage en fonction
-  statut = "admin"; 
+  statut = "visiteur"; 
 
   // assignation des differents menus aux variables de vérifications de l'utilisateur
-  admin = menus.menusAdmin;
-  client = menus.menusClient;
-  visiteur = menus.menusVisiteur;
   communs = menus.menusCommuns;
+
+  testData = "This is a test";
 }
 
 

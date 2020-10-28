@@ -13,7 +13,8 @@ import { PreferencesComponent } from './preferences/preferences.component';
 const routes: Routes = [
   {
     path: 'authentication',
-    component : AuthenticationComponent
+    component : AuthenticationComponent,
+    data : {test : "Vient de routes"}
   },
   {
     path: 'historic',

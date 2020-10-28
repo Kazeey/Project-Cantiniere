@@ -13,26 +13,37 @@
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
           1 - Vérification du rôle de l'utilisateur
-          2 - Boucle sur le menu qui lui est associé pour afficher les liens
         -->        
         <ul *ngIf = "statut === 'admin'"> 
-          <li nz-menu-item nzMatchRouter *ngFor="let menu of admin">
-            <a routerLink={{menu.path}}>{{menu.name}}</a>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/dailyOrder']">Commandes du jour</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/historic']">Historique des commandes</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/manageMenu']">Gestion des menus</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/manageProduct']">Gestion des aliments</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/manageUser']">Gestion des utilisateurs</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'visiteur'">
-          <li nz-menu-item nzMatchRouter *ngFor="let menu of visiteur">
-            <a routerLink={{menu.path}}>{{menu.name}}</a>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/authentication']" [state]="jean">Se connecter</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'client'">
-          <li nz-menu-item nzMatchRouter *ngFor="let menu of client">
-            <a routerLink={{menu.path}}>{{menu.name}}</a>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/historic']">Historique des commandes</a>
           </li>
         </ul>
       <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visiteur'">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let menu of commun">
+          <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
             <a routerLink={{menu.path}}>{{menu.name}}</a>
           </li>
         </ul>
