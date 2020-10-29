@@ -51,7 +51,7 @@ export class AuthenticationComponent implements OnInit {
         password : password
       }
     ];
-
+    
     console.log(this.inputValue);
   }
 
