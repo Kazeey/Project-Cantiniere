@@ -16,10 +16,10 @@ export class AppComponent {
   // valeurs possibles pour statut = client/admin/visiteur, change l'affichage en fonction
   statut = "visiteur"; 
 
-  // assignation des differents menus aux variables de vérifications de l'utilisateur
+  // assignation des differents menus après vérifications de l'utilisateur
   communs = menus.menusCommuns;
 
-  testData = "This is a test";
+  toSend = "";
 }
 
 

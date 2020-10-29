@@ -13,8 +13,8 @@ import { PreferencesComponent } from './preferences/preferences.component';
 const routes: Routes = [
   {
     path: 'authentication',
-    component : AuthenticationComponent,
-    data : {test : "Vient de routes"}
+    component : AuthenticationComponent
+    // ,data : {test : "Vient de routes"} Envoi un paramètre statique (ceci est un exemple)
   },
   {
     path: 'historic',
@@ -43,11 +43,6 @@ const routes: Routes = [
   {
     path: 'manageProduct',
     component : ManageProductComponent
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
   }
 ];
 

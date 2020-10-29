@@ -13,7 +13,8 @@
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
           1 - Vérification du rôle de l'utilisateur
-        -->        
+          2 - TODO : Définir Home Component -> dailyOrder
+        --> 
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/dailyOrder']">Commandes du jour</a>
@@ -33,7 +34,7 @@
         </ul>
         <ul *ngIf = "statut === 'visiteur'">
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/authentication']" [state]="jean">Se connecter</a>
+            <a [routerLink]="['/authentication']" [queryParams] = "{data : toSend}">Se connecter</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'client'">
