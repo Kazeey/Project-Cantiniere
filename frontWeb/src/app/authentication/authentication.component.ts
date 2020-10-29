@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-authentication',
@@ -9,18 +11,48 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class AuthenticationComponent implements OnInit {
 
+  public sub : Subscription;
+  public staticValue : any;
   public value;
-  public sub;
+  public inputValue : Object;
 
   constructor( private activatedRoute:ActivatedRoute, private router:Router) 
   {
-    console.log(this.router.getCurrentNavigation().extras.state)
+    
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.data.subscribe(returnedData => {
-        this.value = Object.values(returnedData)[0];   
+  ngOnInit(): void // à l'initialisation 
+  {
+    // Pour récupérer un paramètre statique
+    // Récupère d'abord un objet, puis extraction de la data avant insertion dans une variable
+    this.sub = this.activatedRoute.data.subscribe(returnedData => {
+        this.staticValue = Object.values(returnedData)[0];   
     });
+
+    // Pour récupérer un paramètre dynamique
+    this.value = this.activatedRoute.snapshot.queryParamMap.get('toSend');
+  }
+
+  ngOnDestroy(): void // à la destruction
+  {
+    if(this.sub)
+    {
+      this.sub.unsubscribe();
+      this.inputValue = null;
+    }
+  }
+
+  checkForConnection(mail, password)
+  {
+    // Récupère les valeurs du formulaire de connexion 
+    this.inputValue = [
+      {
+        mail : mail,
+        password : password
+      }
+    ];
+
+    console.log(this.inputValue);
   }
 
 }
