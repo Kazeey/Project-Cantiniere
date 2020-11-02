@@ -12,11 +12,6 @@ import { PreferencesComponent } from './preferences/preferences.component';
 // Setup routing, identification de chaque routes, avec chaque url
 const routes: Routes = [
   {
-    path: 'authentication',
-    component : AuthenticationComponent
-    // ,data : {test : "Vient de routes"} Envoi un paramètre statique (ceci est un exemple)
-  },
-  {
     path: 'historic',
     component : HistoricComponent
   },

@@ -32,9 +32,9 @@
             <a [routerLink]="['/manageUser']">Gestion des utilisateurs</a>
           </li>
         </ul>
-        <ul *ngIf = "statut === 'visiteur'">
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/authentication']" [queryParams] = "{data : toSend}">Se connecter</a>
+        <ul id="routingConnectionBox" *ngIf = "statut === 'visiteur'">
+          <li class="routingConnection" (click) = toggleDisplayAuthentication()>
+            <a>Se connecter</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'client'">
@@ -46,6 +46,9 @@
         <ul>
           <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
             <a routerLink={{menu.path}}>{{menu.name}}</a>
+          </li>          
+          <li class="routingConnection" (click) = ngOnDestroy()>
+            <a>Se déconnecter</a>
           </li>
         </ul>
       </li>
@@ -64,6 +67,19 @@
     </nz-header>
     <nz-content>
       <div class="inner-content">
+        <div [hidden]="!isDisplayAuthentication">
+          <section>
+            <article id="formulaireConnexion">
+                <form class="box" method="post">
+                    <h1>Identification</h1>
+                    <input #mail type="mail" id="email" name="email" placeholder="Adresse Email">
+                    <input #password type="password" id="password" name="password" placeholder="Mot de passe">
+                    <button name="submit" value="Envoyer" (click)="checkConnection(mail.value, password.value)">Se connecter</button>
+                </form>
+                <div id="errorZone">Jean massiet</div>
+            </article>
+          </section>
+        </div>
         <router-outlet></router-outlet> 
       </div>
     </nz-content>

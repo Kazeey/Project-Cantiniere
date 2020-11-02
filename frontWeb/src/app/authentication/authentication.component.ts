@@ -14,7 +14,7 @@ export class AuthenticationComponent implements OnInit {
   public sub : Subscription;
   public staticValue : any;
   public value;
-  public inputValue : Object;
+  public inputValue;
 
   constructor( private activatedRoute:ActivatedRoute, private router:Router) 
   {
@@ -46,13 +46,15 @@ export class AuthenticationComponent implements OnInit {
   {
     // Récupère les valeurs du formulaire de connexion 
     this.inputValue = [
-      {
-        mail : mail,
-        password : password
-      }
+        ["mail", mail],
+        ["password", password]
     ];
-    
-    console.log(this.inputValue);
+
+    for(let i = 0; i < this.inputValue.length; i++)
+    {
+      localStorage.setItem(this.inputValue[i][0], this.inputValue[i][1]);
+    }
+
   }
 
 }
