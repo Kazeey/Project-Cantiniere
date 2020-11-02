@@ -21,6 +21,7 @@ import { NzLayoutModule  } from 'ng-zorro-antd/layout';
 import { IconsProviderModule } from './icons-provider.module';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 registerLocaleData(fr);
@@ -45,7 +46,8 @@ registerLocaleData(fr);
     BrowserAnimationsModule,
     NzMenuModule,
     NzLayoutModule,
-    IconsProviderModule 
+    IconsProviderModule,
+    NgbModule 
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]
