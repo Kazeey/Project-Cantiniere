@@ -13,7 +13,6 @@
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
           1 - Vérification du rôle de l'utilisateur
-          2 - TODO : Définir Home Component -> dailyOrder
         --> 
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
@@ -74,9 +73,9 @@
                     <h1>Identification</h1>
                     <input #mail type="mail" id="email" name="email" placeholder="Adresse Email">
                     <input #password type="password" id="password" name="password" placeholder="Mot de passe">
-                    <button name="submit" value="Envoyer" (click)="checkConnection(mail.value, password.value)">Se connecter</button>
+                    <button name="submit" value="Envoyer" (click)="verifInput(mail.value, password.value)">Se connecter</button>
                 </form>
-                <div id="errorZone">Jean massiet</div>
+                <div id="errorZone">{{phraseConnexion}}</div>
             </article>
           </section>
         </div>

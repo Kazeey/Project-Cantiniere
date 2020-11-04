@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthenticationComponent } from './authentication/authentication.component';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
@@ -37,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'manageProduct',
-    component : ManageProductComponent
+    component : ManageProductComponent,
+    data : {test : "Vient de routes"}
   }
 ];
 
@@ -46,3 +46,8 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+// Pour envoyer une donnée statique, l'on peut la modifier en faisant passer une variable depuis app.component.ts
+// path: '',
+// component : ,
+// data : {toSend : "Vient de routes"}

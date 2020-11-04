@@ -10,7 +10,6 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { fr_FR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
-import { AuthenticationComponent } from './authentication/authentication.component';
 import { ParametersComponent } from './parameters/parameters.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
@@ -29,7 +28,6 @@ registerLocaleData(fr);
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent,
     ParametersComponent,
     PreferencesComponent,
     ManageMenuComponent,
