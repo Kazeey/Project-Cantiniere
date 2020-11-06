@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuService } from 'ng-zorro-antd/menu';
-import { methods as menus }  from '../../../config/menus'; // Import des differents menus depuis le dossier config, commun au front et au web
+
+import { methods as menus }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 
@@ -15,16 +14,20 @@ export class AppComponent {
   isCollapsed = false;
  
   // TODO : Récupérer la valeur du user qui tente de se connecter
-  // Valeurs possibles pour statut = client/admin/visiteur, change l'affichage en fonction
+  // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
   statut:String = "visiteur"; 
+
+  // Si true, redirige vers l'accès utilisateur
+  // Pour éviter tout problème d'affichage avec la connexion
+  isConnected:boolean = false;
 
   // Assignation des differents menus après vérifications de l'utilisateur
   communs = menus.menusCommuns;
-
   
   isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
   box:HTMLElement = null; // Menu "Se connecter" sur la gauche
-  nbEssaisConnexion = 4; 
+
+  nbEssaisConnexion = constantes.nbEssaisConnexion; 
   phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
   toSend = ""; // Faire passer une donnée statique entre plusieurs routes
@@ -33,10 +36,10 @@ export class AppComponent {
   {
     this.showStorage()
     
-    let isConnected = verification();
+    this.isConnected = verification();
 
     // A modifier en même temps que l'utilisation de la requête pour avoir le rôle (on fera certainement un passage JAVA > NODE > FRONT)
-    if(isConnected)
+    if(this.isConnected)
     {
       this.statut = "admin"; // Pour le test on le passe a admin
     }
@@ -133,9 +136,10 @@ export class AppComponent {
     
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
 
-
     if(mail == testMail)
     {
+      // TODO : Récupérer le statut du compte si possible pour voir si le compte est bloqué, sinon le définir dans variable locale
+      // Avec si + 4 essais stockage données dans un tableau avec la valeur bloquée, et ensuite on compare
       if(password && password == testPassword)
       {
         let time;
@@ -171,8 +175,20 @@ export class AppComponent {
         }
         else
         {
-          this.setMessage("Votre compte est bloqué.", null);
+          let min;
+
+          switch (constantes.timeBlocked) 
+          {
+            case 0:
+              min = "15 min";
+              break;
+            case 1:
+              min = "24 h";
+              break;
+          }
+          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans " , min);
           this.nbEssaisConnexion--;
+          return;
         }
       }
     }

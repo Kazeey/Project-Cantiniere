@@ -47,6 +47,15 @@ registerLocaleData(fr);
     IconsProviderModule,
     NgbModule 
   ],
+  exports: [
+    ParametersComponent,
+    PreferencesComponent,
+    ManageMenuComponent,
+    ManageUserComponent,
+    ManageProductComponent,
+    DailyOrderComponent,
+    HistoricComponent
+  ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]
 })
