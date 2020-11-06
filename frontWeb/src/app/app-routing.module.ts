@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
+import { DailyMenuComponent } from './daily-menu/daily-menu.component';
 import { HistoricComponent } from './historic/historic.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
@@ -10,6 +11,10 @@ import { PreferencesComponent } from './preferences/preferences.component';
 
 // Setup routing, identification de chaque routes, avec chaque url
 const routes: Routes = [
+  {
+    path: 'dailyMenu',
+    component : DailyMenuComponent
+  },
   {
     path: 'historic',
     component : HistoricComponent

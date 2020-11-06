@@ -21,6 +21,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DailyMenuComponent } from './daily-menu/daily-menu.component';
 
 
 registerLocaleData(fr);
@@ -34,7 +35,8 @@ registerLocaleData(fr);
     ManageUserComponent,
     ManageProductComponent,
     DailyOrderComponent,
-    HistoricComponent
+    HistoricComponent,
+    DailyMenuComponent
   ],
   imports: [
     BrowserModule,

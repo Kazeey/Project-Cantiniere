@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { verification } from '../../../../config/verification';
-import { HttpClient } from '@angular/common/http';
 
+import { verification } from '../../../../config/verification';
 import { DailyOrderService } from '../services/daily-order/daily-order.service';
 import { constantes } from '../../../../config/constantes';
 
@@ -28,6 +27,11 @@ export class DailyOrderComponent implements OnInit {
   {
     this.isConnected = verification(); 
     this.listDailyOrders = this.displayDailyOrders()
+  }
+
+  ngOnDestroy(): void
+  {
+    this.isConnected = false; 
   }
 
   displayDailyOrders()

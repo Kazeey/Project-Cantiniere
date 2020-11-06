@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { verification } from '../../../../config/verification';
+import { HistoricService } from '../services/historic/historic.service';
+import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-historic',
@@ -8,11 +11,14 @@ import { verification } from '../../../../config/verification';
 })
 export class HistoricComponent implements OnInit {
 
-  constructor() { }
+  constructor(private historicService:HistoricService) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   visibility:boolean = false;
+
+  // Variable qui reçoit l'historique 
+  public listHistoric; 
 
   ngOnInit(): void 
   {

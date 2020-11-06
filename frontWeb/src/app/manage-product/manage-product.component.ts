@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { verification } from '../../../../config/verification';
+import { ManageProductService } from '../services/manage-product/manage-product.service';
+import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-manage-product',
@@ -8,11 +11,14 @@ import { verification } from '../../../../config/verification';
 })
 export class ManageProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(private manageProductService:ManageProductService) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   visibility:boolean = false;
+
+  // Variable de mofication des produits
+  public listDailyOrders; 
 
   ngOnInit(): void 
   {

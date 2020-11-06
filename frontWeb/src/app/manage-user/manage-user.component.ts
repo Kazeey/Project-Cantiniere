@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { verification } from '../../../../config/verification';
+import { ManageUserService } from '../services/manage-user/manage-user.service';
+import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-manage-user',
@@ -8,11 +11,14 @@ import { verification } from '../../../../config/verification';
 })
 export class ManageUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private manageUserService:ManageUserService) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   visibility:boolean = false;
+
+  // Variable de modification des utilisateurs
+  public listManageUsers; 
 
   ngOnInit(): void 
   {

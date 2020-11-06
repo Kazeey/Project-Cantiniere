@@ -25,6 +25,7 @@ export class AppComponent {
   communs = menus.menusCommuns;
   
   isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
+  displayComponent = true; //  Variable d'affichage des components pour la déconnexion
   box:HTMLElement = null; // Menu "Se connecter" sur la gauche
 
   nbEssaisConnexion = constantes.nbEssaisConnexion; 
@@ -48,6 +49,7 @@ export class AppComponent {
   ngOnDestroy():void // A utiliser en tant que deconnexion
   {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
+    this.displayComponent = false;
     this.resetStorage() // Vide toute les valeurs du localStorage
   }
 

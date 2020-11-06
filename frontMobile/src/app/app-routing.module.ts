@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./daily-order/daily-order.module').then( m => m.dailyOrderPageModule)
   },
   {
+    path: 'dailyMenu',
+    loadChildren: () => import('./daily-menu/daily-menu.module').then( m => m.dailyMenuPageModule)
+  },
+  {
     path: 'parameters',
     loadChildren: () => import('./parameters/parameters.module').then( m => m.ParametersPageModule)
   },

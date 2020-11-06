@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { verification } from '../../../../config/verification';
+import { ParametersService } from '../services/parameters/parameters.service';
+import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-parameters',
@@ -8,11 +11,14 @@ import { verification } from '../../../../config/verification';
 })
 export class ParametersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private parametersService:ParametersService) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   visibility:boolean = false;
+
+  // Variable de modification des paramètres
+  public listParameters; 
 
   ngOnInit(): void 
   {

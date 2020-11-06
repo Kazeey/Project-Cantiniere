@@ -16,6 +16,9 @@
         --> 
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/dailyMenu']">Menu du jour</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/dailyOrder']">Commandes du jour</a>
           </li>
           <li nz-menu-item nzMatchRouter>
@@ -79,7 +82,7 @@
             </article>
           </section>
         </div>
-        <router-outlet></router-outlet> 
+        <router-outlet *ngIf="statut != 'visiteur'"></router-outlet> 
       </div>
     </nz-content>
   </nz-layout>
