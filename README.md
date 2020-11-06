@@ -17,7 +17,7 @@ To open it on eclipse, `Files` > `Import` > `existing maven project`.
 
 Update the project.
 
-Run pom.xml as `Maven build`.
+Run pom.xml as `Maven build` (Goals : clean package).
 
 If you have specified a username/password for your SQL database, change the configuration in `src/main/java/ressources/application-mysql.properties`. 
 
