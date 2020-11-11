@@ -15,14 +15,25 @@ export class ManageUserComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  visibility:boolean = false;
+  isConnected:boolean = false;
 
   // Variable de modification des utilisateurs
-  public listManageUsers; 
+  public listUsers; 
 
   ngOnInit(): void 
   {
-    this.visibility = verification();
+    this.isConnected = verification();
+    this.listUsers = this.displayAllUsers();
+    console.log(this.listUsers)
   }
 
+  ngOnDestroy(): void
+  {
+    this.isConnected = false; 
+  }
+
+  displayAllUsers()
+  {
+    return this.manageUserService.getAllUsers();
+  }
 }

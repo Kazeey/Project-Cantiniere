@@ -15,13 +15,19 @@ export class ManageMenuComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  visibility:boolean = false;
+  isConnected:boolean = false;
 
   // Variable de modification des menus
   public listManageMenus; 
 
   ngOnInit(): void 
   {
-    this.visibility = verification();
+    this.isConnected = verification();
   }
+
+  ngOnDestroy(): void
+  {
+    this.isConnected = false; 
+  }
+
 }

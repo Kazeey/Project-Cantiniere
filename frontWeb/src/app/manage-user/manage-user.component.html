@@ -1,3 +1,5 @@
-<div *ngIf="visibility">
-    
+<div *ngIf="isConnected">
+    <div>
+        <p *ngFor="let listUser of listUsers | async">{{listUser.address}}</p>
+    </div>
 </div>

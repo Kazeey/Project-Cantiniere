@@ -15,14 +15,20 @@ export class ManageProductComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  visibility:boolean = false;
+  isConnected:boolean = false;
 
   // Variable de mofication des produits
   public listDailyOrders; 
 
   ngOnInit(): void 
   {
-    this.visibility = verification();
+    this.isConnected = verification();
   }
+
+  ngOnDestroy(): void
+  {
+    this.isConnected = false; 
+  }
+
 
 }

@@ -5,6 +5,7 @@ export const constantes = {
     timeConnexion : 0,
     timeBlocked : 0,
     nbEssaisConnexion : 4,
-    urlAPINode : 'http://127.0.0.1:3001/api/'
+    urlAPINode : 'http://127.0.0.1:3001/api/',
+    urlAPIJAVA : 'http://127.0.0.1:8080/lunchtime/'
 }
 

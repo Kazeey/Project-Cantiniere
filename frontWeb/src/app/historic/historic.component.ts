@@ -15,14 +15,20 @@ export class HistoricComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  visibility:boolean = false;
+  isConnected:boolean = false;
 
   // Variable qui reçoit l'historique 
   public listHistoric; 
 
   ngOnInit(): void 
   {
-    this.visibility = verification();
+    this.isConnected = verification();
   }
+
+  ngOnDestroy(): void
+  {
+    this.isConnected = false; 
+  }
+
 
 }

@@ -11,6 +11,10 @@ export class DailyMenuService {
 
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode; // url souhaitée pour la requête de l'API
-
+  private url = constantes.urlAPINode + "login/forgotPassword"; // url souhaitée pour la requête de l'API
+  
+  getDailyMenu(): Observable<Object>
+  {
+    return this.http.get(this.url); // Récupère les données renvoyées par l'API
+  }
 }

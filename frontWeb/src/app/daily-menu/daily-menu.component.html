@@ -1,2 +1,5 @@
 <div *ngIf="isConnected">
+    <div>
+        <p *ngFor="let dailyMenu of listDailyMenus | async">{{dailyMenu.name}}</p>
+    </div>
 </div>

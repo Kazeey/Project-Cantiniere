@@ -25,10 +25,16 @@ export class DailyMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.isConnected = verification(); 
+    this.listDailyMenus = this.displayDailyOMenus()
   }
 
   ngOnDestroy(): void
   {
     this.isConnected = false; 
+  }
+
+  displayDailyOMenus()
+  {
+    return this.dailyMenuService.getDailyMenu();
   }
 }
