@@ -2,8 +2,12 @@
 *   Middleware de l'application 'Projet Cantinière'
 *   Sert à faire toutes les requêtes nécéssaires et non données par l'api JAVA
 *   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum
+*
+*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), 
+*
+*   
+*   Ne pas oublier de décommenter les res.send();
 */
-
 const express = require('express');
 const app = express();
 const fetch = require("node-fetch");
@@ -33,8 +37,8 @@ app.post('/api/account/update' , accountImport.data.update);    // If you want t
 app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete your account
 
 // ------ Users ------
-app.get('/api/users/getAllUsers'          , usersImport.data.getAllUsers);  // Get all users from database
-app.post('/api/users/usersById/'   , usersImport.data.getUserById);  // Get a user with a giver id
+app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
+app.post('/api/users/getUsersById/' , usersImport.data.getUserById);  // Get a user with a giver id
 
 app.listen(3001, function() {
     console.log("connected");

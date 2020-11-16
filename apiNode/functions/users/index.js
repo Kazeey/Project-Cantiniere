@@ -3,28 +3,28 @@ let buildSchema = require('graphql');
 let fetch = require('node-fetch');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
+
 let emptyValue = "Non renseigné(e)";
 
-let arrayDataUsers = [];
-let arrayImgUsers = [];
-let listUsers = [];
+/* 
+*   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
+*   Sinon c'est un client
+*/    
+const isLunchLadyValue = (vanillaValue) => {   
 
-let role = "client";
-let sexe;
-
-const isLunchLadyValue = (vanillaValue) => {    
-    if (vanillaValue == true) // Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
+    if (vanillaValue == true)
     {
         return "Lunch Lady"
     }
-    else                      // Sinon c'est un client
+    else                     
     {
         return "Client"
     }
 }
-
+ 
+// En fonction de la valeur du paramètre retourné depuis la base
 const aliasSex = (vanillaValue) => {
-    switch(vanillaValue) // En fonction de la valeur du paramètre
+    switch(vanillaValue)
     {
         case 0 : 
             return "Homme";
@@ -35,6 +35,7 @@ const aliasSex = (vanillaValue) => {
     }
 }
 
+// Vérifie si le paramètre est "undefined" ou non, si oui retourne "Non renseigné(e)" sinon retourne la valeur
 const isUndefined = (vanillaValue) => {
     if(vanillaValue == undefined)
     {
@@ -47,19 +48,28 @@ const isUndefined = (vanillaValue) => {
 }
 
 methods = {
-    getAllUsers : async function(req, res) {
+    getAllUsers : async function(req, res) 
+    {
+        let arrayDataUsers = [];
+        let arrayImgUsers = [];
+        
+        let listUsers = [], currentUser;
+
+        let role = "client";
+        let sexe;
 
         // Récupère chaque utilisateur de la base
         await fetch(baseUrl + "user/findall")
         .then(response => response.json())
         .then(data => {
-            arrayDataUsers.push(data); // Insère toutes les données dans le tableau déclaré plus haut
+            // Insère toutes les données dans le tableau déclaré plus haut
+            arrayDataUsers.push(data); 
         })
-        
+
         // Pour rajouter l'image au profil
         for(let i = 0; i < arrayDataUsers[0].length; i++) // Pour chaque utilisateur
         {            
-            let currentUser  = arrayDataUsers[0][i];
+            currentUser  = arrayDataUsers[0][i];
 
             let userId  = currentUser.id;
             let phone   = currentUser.phone;
@@ -68,10 +78,9 @@ methods = {
             let town    = currentUser.town;
 
             role = isLunchLadyValue(currentUser.isLunchLady); // Récupère le rôle de l'utilisateur
-
             sexe = aliasSex(currentUser.sex); // Récupère le sexe de l'utilisateur            
 
-            // Vérification des valeurs pouvant être undefined
+            // Vérification des valeurs pouvant être "undefined"
             phone = isUndefined(phone);
             address = isUndefined(address);
             postalCode = isUndefined(postalCode);
@@ -106,18 +115,101 @@ methods = {
                     image64     : currentImage.image64
                 }
             }
-
             listUsers.push(person);
         }
         
         res.send(listUsers);
     }, 
 
-    getUserById : async function(req, res) {
-        userIdToFind = req.body.userId; // Possiblement changer par un req.query.userId une fois qu'on aura passé le paramètre par POST et non GET
+    getUserById : async function(req, res) 
+    {
+        let arrayDataUsers = [];
+        let arrayImgUsers = [];
+        
+        let isException = [];
+        let user = [];
 
-        // TODO : Faire un input qui permet d'envoyer ça en post
-        console.log(userIdToFind)
+        let role = "client";
+        let sexe;
+
+        // Récupération du paramètre userId passe en POST
+        userIdToFind = req.query.userId; 
+
+        // Récupère les données de l'utilisateur ciblé
+        await fetch(baseUrl +  "user/find/" + userIdToFind)
+        .then(response => response.json())
+        .then(data => {
+            if(data.exceptionMessage)
+            {
+                // Vérifie s'il y a une exception (donc si l'utilisateur n'est pas trouvé)
+                isException.push(data.exceptionMessage);
+            }
+            else
+            {
+                // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
+                isException = [];
+                // Insère toutes les données dans le tableau déclaré plus haut
+                arrayDataUsers.push(data); 
+            }
+        })
+
+        if(isException.length != 0)
+        {
+            res.send("Aucun utilisateur trouvé pour cet identifiant.");
+            return false; 
+        }
+
+        userToFind = arrayDataUsers[0];
+
+        let userId  = userToFind.id;
+        let phone   = userToFind.phone;
+        let address = userToFind.address;
+        let postalCode = userToFind.postalCode;
+        let town    = userToFind.town;
+
+        role = isLunchLadyValue(userToFind.isLunchLady); // Récupère le rôle de l'utilisateur
+        sexe = aliasSex(userToFind.sex); // Récupère le sexe de l'utilisateur            
+
+        // Vérification des valeurs pouvant être "undefined"
+        phone = isUndefined(phone);
+        address = isUndefined(address);
+        postalCode = isUndefined(postalCode);
+        town = isUndefined(town);
+
+        await fetch(baseUrl + "user/findimg/" + userIdToFind) // Récupère l'image qui lui est associée
+        .then(response => response.json())
+        .then(data => {
+            arrayImgUsers.push(data); // Insère les données dans le tableau déclaré plus haut
+        })
+
+        let currentImage = arrayImgUsers[0];
+        let imageId = arrayImgUsers[0].id;
+
+        // Création d'un objet pour chaque personne, avec toutes les informations nécéssaires
+        let person = {
+            id          : userId,                     // Id de l'utilisateur, on s'en sert comme token 
+            name        : userToFind.name,         
+            firstname   : userToFind.firstname,
+            sex         : sexe,                 
+            mail        : userToFind.email,
+            role        : role,
+            wallet      : userToFind.wallet,
+            address     : address,
+            town        : town,
+            postalCode  : postalCode,
+            phone       : phone,
+            status      : userToFind.status,
+            image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
+                id          : imageId,
+                imagePath   : currentImage.imagePath,
+                image64     : currentImage.image64
+            }
+        }
+        
+        user.push(person);
+        
+        
+        res.send(user);
     }
 }
 
