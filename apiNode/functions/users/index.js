@@ -1,6 +1,5 @@
-let graphqlHTTP = require('express-graphql');
-let buildSchema = require('graphql');
 let fetch = require('node-fetch');
+const verificationImport = require('../verifiyConnexion');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
@@ -50,6 +49,7 @@ const isUndefined = (vanillaValue) => {
 methods = {
     getAllUsers : async function(req, res) 
     {
+        let isApiAvalaible = await verificationImport.verification();
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         
@@ -123,6 +123,7 @@ methods = {
 
     getUserById : async function(req, res) 
     {
+        let isApiAvalaible = await verificationImport.verification();
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         

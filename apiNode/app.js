@@ -4,7 +4,7 @@
 *   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum.
 *
 *   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.query.parametre(s).
-*
+*   TODO : Faire une vérif pour savoir si l'api est lancée ou non, si non, retourner les données depuis cette api 
 */
 const express = require('express');
 const app = express();
@@ -27,7 +27,7 @@ app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Chec
 app.get('/api/login/forgotPassword' , loginImport.data.forgotPassword);  // If you have forgot your password
 
 // ------ Account ------
-app.post('/api/account/create' , accountImport.data.create);    // If you want to create an account
+app.get('/api/account/create' , accountImport.data.create);    // If you want to create an account
 app.post('/api/account/update' , accountImport.data.update);    // If you want to update informations
 app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
 
