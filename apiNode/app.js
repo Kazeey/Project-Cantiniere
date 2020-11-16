@@ -1,20 +1,15 @@
 /*
-*   Middleware de l'application 'Projet Cantinière'
-*   Sert à faire toutes les requêtes nécéssaires et non données par l'api JAVA
-*   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum
+*   Middleware de l'application 'Projet Cantinière'.
+*   Sert à faire toutes les requêtes nécéssaires et/ou non données par l'api JAVA.
+*   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum.
 *
-*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), 
+*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.query.parametre(s).
 *
-*   
-*   Ne pas oublier de décommenter les res.send();
 */
 const express = require('express');
 const app = express();
-const fetch = require("node-fetch");
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const moment = require('moment');
-const { uuid } = require('uuidv4');
 
 app.use(cors())
 
@@ -33,8 +28,8 @@ app.get('/api/login/forgotPassword' , loginImport.data.forgotPassword);  // If y
 
 // ------ Account ------
 app.post('/api/account/create' , accountImport.data.create);    // If you want to create an account
-app.post('/api/account/update' , accountImport.data.update);    // If you want to update your informations
-app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete your account
+app.post('/api/account/update' , accountImport.data.update);    // If you want to update informations
+app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
 
 // ------ Users ------
 app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database

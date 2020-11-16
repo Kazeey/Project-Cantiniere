@@ -208,7 +208,6 @@ methods = {
         
         user.push(person);
         
-        
         res.send(user);
     }
 }
