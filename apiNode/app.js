@@ -27,7 +27,7 @@ app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Chec
 app.get('/api/login/forgotPassword' , loginImport.data.forgotPassword);  // If you have forgot your password
 
 // ------ Account ------
-app.get('/api/account/create' , accountImport.data.create);    // If you want to create an account
+app.get('/api/account/create'  , accountImport.data.create);    // If you want to create an account
 app.post('/api/account/update' , accountImport.data.update);    // If you want to update informations
 app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
 

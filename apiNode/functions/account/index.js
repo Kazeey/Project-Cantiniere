@@ -8,18 +8,35 @@ methods = {
     create : async function(req, res)
     {
         let isApiAvalaible = await verificationImport.verification();
-        console.log(test)
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
     },
 
     update : async function(req, res)
     {
         let isApiAvalaible = await verificationImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
         
     }, 
 
     delete : async function(req, res)
     {
         let isApiAvalaible = await verificationImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
 
     }
 }

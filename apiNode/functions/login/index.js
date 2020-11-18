@@ -9,17 +9,35 @@ methods = {
     {
         let isApiAvalaible = await verificationImport.verification();
 
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
+
     }, 
 
     checkEmail : async function(req, res)
     {
         let isApiAvalaible = await verificationImport.verification();
 
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
+
     },
 
     forgotPassword : async function(req, res)
     {
         let isApiAvalaible = await verificationImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
 
     }
 }

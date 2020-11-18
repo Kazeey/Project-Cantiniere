@@ -50,6 +50,13 @@ methods = {
     getAllUsers : async function(req, res) 
     {
         let isApiAvalaible = await verificationImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
+
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         
@@ -124,6 +131,13 @@ methods = {
     getUserById : async function(req, res) 
     {
         let isApiAvalaible = await verificationImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(verificationImport.messageError);
+            return false; 
+        }
+
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         

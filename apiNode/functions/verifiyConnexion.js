@@ -5,11 +5,9 @@ const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 /*
 *
 *   Vérifie que l'api de Renaud fonctionne
-*   Si elle fonctionne utilise alors ses requêtes, sinon utilise les requêtes de l'api Node.
-*   (Car les données sont dans les deux cas retournés dans le même format)
+*   Si elle fonctionne utilise alors ses requêtes, si non on renvoi un message le spécifiant a l'utilisateur
 *
 */
-
 const verification = async () => {
     let reponse;
 
@@ -25,4 +23,6 @@ const verification = async () => {
     return reponse;
 }
 
-module.exports = { verification }
+const messageError = "L'API JAVA n'est pas connectée."
+
+module.exports = { verification, messageError }
