@@ -1,9 +1,9 @@
-let fetch = require('node-fetch');
-const verificationImport = require('../verifiyConnexion');
+const fetch = require('node-fetch');
+const configImport = require('../config');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
-let emptyValue = "Non renseigné(e)";
+const emptyValue = "Non renseigné(e)";
 
 /* 
 *   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
@@ -49,11 +49,11 @@ const isUndefined = (vanillaValue) => {
 methods = {
     getAllUsers : async function(req, res) 
     {
-        let isApiAvalaible = await verificationImport.verification();
+        let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
         {
-            res.send(verificationImport.messageError);
+            res.send(messageError);
             return false; 
         }
 
@@ -130,11 +130,11 @@ methods = {
 
     getUserById : async function(req, res) 
     {
-        let isApiAvalaible = await verificationImport.verification();
+        let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
         {
-            res.send(verificationImport.messageError);
+            res.send(messageError);
             return false; 
         }
 
