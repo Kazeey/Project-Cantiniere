@@ -25,6 +25,7 @@ const verification = async () => {
 }
 
 const messageError = "L'API JAVA n'est pas connectée.";
+const userError = "Il n'y a pas d'utilisateur qui corresponde.";
 
 // Configuration de la connexion à la base de données.
 const connexionSQL = mysql.createConnection({
@@ -34,4 +35,4 @@ const connexionSQL = mysql.createConnection({
     database: "lunchtime"
 });
 
-module.exports = { verification, messageError, connexionSQL }
+module.exports = { verification, messageError, connexionSQL, userError }
