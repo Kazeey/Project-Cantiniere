@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DailyMenuManagerComponent } from './daily-menu/daily-menu-manager/daily-menu-manager.component';
+import { DailyMenuModule } from './daily-menu/daily-menu.module';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
-import { DailyMenuComponent } from './daily-menu/daily-menu.component';
 import { HistoricComponent } from './historic/historic.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
@@ -13,7 +14,7 @@ import { PreferencesComponent } from './preferences/preferences.component';
 const routes: Routes = [
   {
     path: 'dailyMenu',
-    component : DailyMenuComponent
+    component : DailyMenuManagerComponent
   },
   {
     path: 'historic',

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DailyMenuComponent } from './daily-menu.component';
+import { DailyMenuManagerComponent } from './daily-menu-manager.component';
 
-describe('DailyMenuComponent', () => {
-  let component: DailyMenuComponent;
-  let fixture: ComponentFixture<DailyMenuComponent>;
+describe('DailyMenuManagerComponent', () => {
+  let component: DailyMenuManagerComponent;
+  let fixture: ComponentFixture<DailyMenuManagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DailyMenuComponent ]
+      declarations: [ DailyMenuManagerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DailyMenuComponent);
+    fixture = TestBed.createComponent(DailyMenuManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
