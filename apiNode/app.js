@@ -33,11 +33,11 @@ app.post('/api/account/delete' , accountImport.data.delete);    // If you want t
 
 // ------ Users ------
 app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
-app.post('/api/users/getUsersById/' , usersImport.data.getUserById);  // Get a user with a giver id
+app.post('/api/users/getUserById/' , usersImport.data.getUserById);  // Get a user with a given id
 
 // ------ Meals ------
-app.get('/api/meals/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
-app.post('/api/meals/getUsersById/' , usersImport.data.getUserById);  // Get a user with a giver id
+app.get('/api/meals/getAllMeals'    , usersImport.data.getAllMeals);  // Get all meals from database
+app.post('/api/meals/getMealById/' , usersImport.data.getMealsById);  // Get a meals with a given id
 
 app.listen(3001, function() {
     console.log("connected");
