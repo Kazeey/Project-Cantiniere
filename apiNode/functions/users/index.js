@@ -2,7 +2,7 @@ let graphqlHTTP = require('express-graphql');
 let buildSchema = require('graphql');
 let fetch = require('node-fetch');
 
-const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
+const baseUrl = 'http://192.168.1.74:8080/lunchtime/';
 
 let emptyValue = "Non renseigné(e)";
 

@@ -1,3 +1,27 @@
 <div *ngIf="isConnected">
-    
-</div>
+    <div class="myProfile">
+      <h1>Mon profil</h1>
+      <img class="imgProfile" src="../../assets/img/photo-profil.jpg"/>
+      <img class="editProfile" src="../../assets/img/user.png"/><br/><br/>
+      <a>Mettre à jour la photo</a>
+    </div><br/>
+  
+    <div class="param">
+      <h1>Notifications</h1>
+      <p>Activer les Notifications</p>
+      <label class="switch notifs">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div><br/>
+  
+    <div class="darkTheme">
+      <h1>Dark theme</h1>
+      <div class="toggle-darkTheme">
+        <label class="switch dark">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  </div>
