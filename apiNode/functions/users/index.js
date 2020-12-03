@@ -1,10 +1,9 @@
-let graphqlHTTP = require('express-graphql');
-let buildSchema = require('graphql');
-let fetch = require('node-fetch');
+const fetch = require('node-fetch');
+const configImport = require('../config');
 
 const baseUrl = 'http://192.168.1.74:8080/lunchtime/';
 
-let emptyValue = "Non renseigné(e)";
+const emptyValue = "Non renseigné(e)";
 
 /* 
 *   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
@@ -50,6 +49,14 @@ const isUndefined = (vanillaValue) => {
 methods = {
     getAllUsers : async function(req, res) 
     {
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         
@@ -101,7 +108,7 @@ methods = {
                 name        : currentUser.name,         
                 firstname   : currentUser.firstname,
                 sex         : sexe,                 
-                mail        : currentUser.email,
+                email        : currentUser.email,
                 role        : role,
                 wallet      : currentUser.wallet,
                 address     : address,
@@ -123,6 +130,14 @@ methods = {
 
     getUserById : async function(req, res) 
     {
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
         let arrayDataUsers = [];
         let arrayImgUsers = [];
         
@@ -191,7 +206,7 @@ methods = {
             name        : userToFind.name,         
             firstname   : userToFind.firstname,
             sex         : sexe,                 
-            mail        : userToFind.email,
+            email        : userToFind.email,
             role        : role,
             wallet      : userToFind.wallet,
             address     : address,

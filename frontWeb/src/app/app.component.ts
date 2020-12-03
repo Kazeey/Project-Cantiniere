@@ -188,7 +188,8 @@ export class AppComponent {
               min = "24 h";
               break;
           }
-          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans " , min);
+          
+          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans ", min);
           this.nbEssaisConnexion--;
           return;
         }
