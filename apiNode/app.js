@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const loginImport       = require('./functions/login/index.js');
 const accountImport     = require('./functions/account/index.js');
 const usersImport       = require('./functions/users/index.js');
+const mealsImport       = require('./functions/meals/index.js');
 
 // ------ Login ------ 
 app.get('/api/login'                , loginImport.data.login);           // login to an existing account
@@ -36,8 +37,8 @@ app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all
 app.post('/api/users/getUserById/' , usersImport.data.getUserById);  // Get a user with a given id
 
 // ------ Meals ------
-app.get('/api/meals/getAllMeals'    , usersImport.data.getAllMeals);  // Get all meals from database
-app.post('/api/meals/getMealById/' , usersImport.data.getMealsById);  // Get a meals with a given id
+app.get('/api/meals/getAllMeals'    , mealsImport.data.getAllMeals);  // Get all meals from database
+app.post('/api/meals/getMealById/' , mealsImport.data.getMealsById);  // Get a meals with a given id
 
 app.listen(3001, function() {
     console.log("connected");
