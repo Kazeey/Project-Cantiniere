@@ -11,7 +11,7 @@ export class ManageUserService {
 
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPIJAVA + "user/findall"; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "user/findall"; // url souhaitée pour la requête de l'API
 
   getAllUsers(): Observable<Object>
   {

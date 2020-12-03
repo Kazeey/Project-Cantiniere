@@ -35,6 +35,10 @@ app.post('/api/account/delete' , accountImport.data.delete);    // If you want t
 app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
 app.post('/api/users/getUsersById/' , usersImport.data.getUserById);  // Get a user with a giver id
 
+// ------ Meals ------
+app.get('/api/meals/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
+app.post('/api/meals/getUsersById/' , usersImport.data.getUserById);  // Get a user with a giver id
+
 app.listen(3001, function() {
     console.log("connected");
 }); 
