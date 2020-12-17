@@ -22,6 +22,8 @@ import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DailyMenuComponent } from './daily-menu/daily-menu.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 registerLocaleData(fr);
@@ -47,7 +49,8 @@ registerLocaleData(fr);
     NzMenuModule,
     NzLayoutModule,
     IconsProviderModule,
-    NgbModule 
+    NgbModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) 
   ],
   exports: [
     ParametersComponent,

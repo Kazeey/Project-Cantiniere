@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
 import { constantes } from '../../../../config/constantes';
+import { NewsletterService } from '../services/Newsletter/newsletter.service';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-parameters',
@@ -11,7 +13,11 @@ import { constantes } from '../../../../config/constantes';
 })
 export class ParametersComponent implements OnInit {
 
-  constructor(private parametersService:ParametersService) { }
+  readonly VAPID_PUBLIC_KEY = "BHa_MshqCGU69xD-g0mImqklDDZorFY11VC6ysjnbHsFtx68pN_zOtYDRVHs6-Fpyayiad8Y2Crj6KCaWuQlYHc";
+
+  constructor(private swPush: SwPush,
+              private parametersService:ParametersService,
+              private newsletterService: NewsletterService) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
@@ -30,4 +36,12 @@ export class ParametersComponent implements OnInit {
     this.isConnected = false; 
   }
 
+  subscribeToNotifications() {
+
+    this.swPush.requestSubscription({
+        serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
+    .then(sub => this.newsletterService.addPushSubscriber(sub).subscribe())
+    .catch(err => console.error("Erreur lors de l'activation des notifications !", err));
+  }
 }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menus }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
+import { SwPush } from '@angular/service-worker';
+/*import { NewsletterService } from './services/Newsletter/newsletter.service';*/
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,14 @@ import { constantes } from '../../../config/constantes';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  readonly VAPID_PUBLIC_KEY = "BHa_MshqCGU69xD-g0mImqklDDZorFY11VC6ysjnbHsFtx68pN_zOtYDRVHs6-Fpyayiad8Y2Crj6KCaWuQlYHc";
+
+  constructor(private swPush: SwPush/*,
+              private newsletterService: NewsletterService*/){
+  }
+
   isCollapsed = false;
  
   // TODO : Récupérer la valeur du user qui tente de se connecter
@@ -200,6 +209,15 @@ export class AppComponent {
       this.setMessage("Email incorrect(s).", null);
     }
   }
+
+  /*subscribeToNotifications() {
+
+    this.swPush.requestSubscription({
+        serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
+    .then(sub => this.newsletterService.addPushSubscriber(sub).subscribe())
+    .catch(err => console.error("Erreur lors de l'activation des notifications !", err));
+  }*/
 }
 
 
