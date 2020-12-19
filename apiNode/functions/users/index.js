@@ -130,6 +130,7 @@ methods = {
 
     getUserById : async function(req, res) 
     {
+        // TODO : Possiblement passer sur un envoi de 2 tableaux, comme pour le login
         let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
