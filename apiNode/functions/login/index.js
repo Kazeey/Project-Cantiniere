@@ -35,11 +35,20 @@ methods = {
             res.send("Au moins un des deux paramètres est vide.");
             return false;
         }
-      
+
         let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password='"+ passwordToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
         con.query(query, function(err, result) {
             if(result[0] != null)
-                res.send(result);
+            {
+                imageId = result[0].image_id;       
+                let queryImg = "SELECT image_64 FROM ltimage WHERE id = "+ imageId +";"; // Recherche l'image qui correspond à l'utilisateur
+
+                con.query(queryImg, function(err, resultImg)
+                {
+                    console.log(resultImg);
+                    res.send({result, resultImg});
+                });
+            }
             else
                 res.send(userError);
         });
