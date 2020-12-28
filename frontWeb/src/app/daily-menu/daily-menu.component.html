@@ -1,5 +1,5 @@
 <div *ngIf="isConnected">
     <div>
-        <p *ngFor="let dailyMenu of listDailyMenus | async">{{dailyMenu.name}}</p>
+        <p *ngFor="let dailyMenu of dailyMenus">{{dailyMenu.label}}</p>
     </div>
 </div>
