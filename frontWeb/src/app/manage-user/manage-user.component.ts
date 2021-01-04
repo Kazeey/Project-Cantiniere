@@ -11,14 +11,14 @@ import { constantes } from '../../../../config/constantes';
 })
 export class ManageUserComponent implements OnInit {
 
-  constructor(private manageUserService:ManageUserService) { }
-
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
 
   // Variable de modification des utilisateurs
   public listUsers; 
+
+  constructor(private manageUserService:ManageUserService) { }
 
   ngOnInit(): void 
   {

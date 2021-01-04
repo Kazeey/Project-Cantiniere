@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menus }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
+import { AuthenticationService } from './services/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,11 @@ export class AppComponent {
   phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
   toSend = ""; // Faire passer une donnée statique entre plusieurs routes
+
+  // Passe ces 2 variables dans le localStorage pour les garder, ou du moins le userId
+  connectedProfil : any;
+
+  constructor(private AuthenticationService:AuthenticationService) { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
@@ -156,11 +162,14 @@ export class AppComponent {
             time = ((900000 * 4) * 24);
             break;
         }
-        
+
         let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
         localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
         localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
         // localStorage.setItem("idUser", id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage
+        
+        this.login(mail, password);
+        this.showStorage();
 
         // Adapte l'UI en fonction du rôle de l'utilisateur
         this.statut = role;
@@ -177,19 +186,19 @@ export class AppComponent {
         }
         else
         {
-          let min;
+          let time;
 
           switch (constantes.timeBlocked) 
           {
             case 0:
-              min = "15 min";
+              time = "15 min";
               break;
             case 1:
-              min = "24 h";
+              time = "24 h";
               break;
           }
           
-          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans ", min);
+          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans ", time);
           this.nbEssaisConnexion--;
           return;
         }
@@ -199,6 +208,16 @@ export class AppComponent {
     {
       this.setMessage("Email incorrect(s).", null);
     }
+  }
+
+  login(email, password)
+  {
+    this.AuthenticationService.login(email, password)
+    .subscribe(res => {
+      console.log(res);
+      this.connectedProfil = res;
+    });
+
   }
 }
 
