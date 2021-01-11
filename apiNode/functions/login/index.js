@@ -27,7 +27,7 @@ methods = {
         }
         
         // Récupération des paramètres email et password passés en POST
-        emailToFind = req.query.email; 
+        emailToFind = req.query.mail; 
         passwordToFind = req.query.password; 
 
         if(!emailToFind || !passwordToFind)
@@ -36,7 +36,7 @@ methods = {
             return false;
         }
 
-        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password='"+ passwordToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
+        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password = '"+ passwordToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
         con.query(query, function(err, result) {
             if(result[0] != null)
             {
@@ -45,12 +45,11 @@ methods = {
 
                 con.query(queryImg, function(err, resultImg)
                 {
-                    console.log(resultImg);
                     res.send({result, resultImg});
                 });
             }
             else
-                res.send(userError);
+                res.send({userError});
         });
     }, 
 
@@ -85,6 +84,24 @@ methods = {
             res.send(messageError);
             return false; 
         }
+
+        // Récupère les données de l'utilisateur ciblé
+        await fetch(baseUrl +  "user/find/" + userIdToFind)
+        .then(response => response.json())
+        .then(data => {
+            if(data.exceptionMessage)
+            {
+                // Vérifie s'il y a une exception (donc si l'utilisateur n'est pas trouvé)
+                isException.push(data.exceptionMessage);
+            }
+            else
+            {
+                // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
+                isException = [];
+                // Insère toutes les données dans le tableau déclaré plus haut
+                arrayDataUsers.push(data); 
+            }
+        })
     }
 }
 

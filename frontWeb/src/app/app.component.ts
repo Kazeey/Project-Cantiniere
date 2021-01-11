@@ -143,6 +143,11 @@ export class AppComponent {
     let testPassword:String = "test";
     
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
+   
+    this.AuthenticationService.login(mail, password)
+    .subscribe(res => {
+      console.log(res);
+    });
 
     if(mail == testMail)
     {
@@ -167,8 +172,8 @@ export class AppComponent {
         localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
         localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
         // localStorage.setItem("idUser", id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage
-        
-        this.login(mail, password);
+     
+
         this.showStorage();
 
         // Adapte l'UI en fonction du rôle de l'utilisateur
@@ -210,15 +215,6 @@ export class AppComponent {
     }
   }
 
-  login(email, password)
-  {
-    this.AuthenticationService.login(email, password)
-    .subscribe(res => {
-      console.log(res);
-      this.connectedProfil = res;
-    });
-
-  }
 }
 
 

@@ -14,8 +14,8 @@ export class AuthenticationService {
 
   private url = constantes.urlAPINode + "login"; // url souhaitée pour la requête de l'API
 
-  login(email, password): Observable<Object>
+  login(mail, password): Observable<Object>
   {
-    return this.http.get(this.url + "?email=" + email + "&password=" + password); // Récupère les données renvoyées par l'API
+    return this.http.get(this.url + "?email=" + mail + "&password=" + password); // Récupère les données renvoyées par l'API
   }
 }

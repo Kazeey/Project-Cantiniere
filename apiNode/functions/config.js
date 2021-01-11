@@ -30,10 +30,11 @@ const weekNumberError = "Le numéro de menu doit être compris entre 1 et 52";
 const menuError = "Aucun menu trouvé";
 
 // Configuration de la connexion à la base de données.
+// Si jamais les requêtes SQL ne fonctionnent pas, voir du côté de flush privileges;
 const connexionSQL = mysql.createConnection({
-    host: "localhost",
+    host: "127.0.0.1",
     user: "root",
-    password: "password",
+    password: "root",
     database: "lunchtime"
 });
 
