@@ -26,7 +26,6 @@ const menuImport        = require('./functions/menu/index.js');
 // ------ Login ------ 
 app.get('/api/login'                , loginImport.data.login);           // login to an existing account
 app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Check the format of your email
-app.get('/api/login/forgotPassword' , loginImport.data.forgotPassword);  // If you have forgot your password
 
 // ------ Account ------
 app.get('/api/account/create'  , accountImport.data.create);    // If you want to create an account

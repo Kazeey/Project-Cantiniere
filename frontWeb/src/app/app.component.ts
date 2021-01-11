@@ -215,6 +215,11 @@ export class AppComponent {
     }
   }
 
+  forgotPassword(mail)
+  {
+    this.AuthenticationService.forgotPassword(mail);
+  }
+
 }
 
 

@@ -64,6 +64,7 @@ public class ForgotPasswordRestController extends AbstractController {
 	public ResponseEntity<?> forgotPassword(
 			@Parameter(description = "A user email", required = true) @RequestParam("email") String pEmail,
 			HttpServletRequest request) throws EntityNotFoundException, SendMailException, InconsistentStatusException {
+		System.out.println(pEmail);
 		final String remoteIP = request.getRemoteAddr();
 		ForgotPasswordRestController.LOG.info("[{}] --> forgotPassword - {}", remoteIP, pEmail);
 		this.service.forgotPassword(pEmail);

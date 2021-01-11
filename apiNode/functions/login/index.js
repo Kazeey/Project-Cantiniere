@@ -4,6 +4,9 @@ const configImport = require('../config');
 const util = require('util');
 const callback = require('callback');
 const { cpuUsage } = require('process');
+const http = require('http');
+const { url } = require('inspector');
+const { type } = require('os');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 const emptyValue = "Non renseigné(e)";
@@ -73,35 +76,6 @@ methods = {
             else
                 res.send("L'adresse mail n'existe pas dans la base de données.");
         });
-    },
-
-    forgotPassword : async function(req, res)
-    {
-        let isApiAvalaible = await configImport.verification();
-
-        if(!isApiAvalaible)
-        {
-            res.send(messageError);
-            return false; 
-        }
-
-        // Récupère les données de l'utilisateur ciblé
-        await fetch(baseUrl +  "user/find/" + userIdToFind)
-        .then(response => response.json())
-        .then(data => {
-            if(data.exceptionMessage)
-            {
-                // Vérifie s'il y a une exception (donc si l'utilisateur n'est pas trouvé)
-                isException.push(data.exceptionMessage);
-            }
-            else
-            {
-                // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
-                isException = [];
-                // Insère toutes les données dans le tableau déclaré plus haut
-                arrayDataUsers.push(data); 
-            }
-        })
     }
 }
 

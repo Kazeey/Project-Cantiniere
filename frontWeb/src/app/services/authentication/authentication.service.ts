@@ -18,4 +18,10 @@ export class AuthenticationService {
   {
     return this.http.get(this.url + "?email=" + mail + "&password=" + password); // Récupère les données renvoyées par l'API
   }
+
+  // TODO : A voir suite au retour de l'information
+  forgotPassword(mail)
+  {
+    this.http.post("http://127.0.0.1:8080/lunchtime/forgotpassword", {email:mail});
+  }
 }
