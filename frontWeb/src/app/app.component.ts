@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menus }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
+import { AccueilService } from '../app/services/accueil.service';
+import { Users } from '../app/interfaces/users';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ParametersComponent } from './parameters/parameters.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,7 @@ import { constantes } from '../../../config/constantes';
 
 export class AppComponent implements OnInit{
 
-  constructor(){
+  constructor(private accueilService: AccueilService ){
   }
 
   isCollapsed = false;
@@ -24,6 +28,20 @@ export class AppComponent implements OnInit{
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+
+  usersData: any = {
+    name : "Ramery",
+    firstname : "Matthias",
+    sex: 2,
+    email: "matthias.ramery@gmail.com",
+    role: "lunchLady",
+    address: "test",
+    town: "violaines",
+    postalCode: 62138,
+    wallet: 3,
+    status: 0,
+    imageId: 1
+  };
 
   // Assignation des differents menus après vérifications de l'utilisateur
   communs = menus.menusCommuns;
@@ -204,6 +222,47 @@ export class AppComponent implements OnInit{
       this.setMessage("Email incorrect(s).", null);
     }
   }
+
+  getUsersData(paramsUser){
+    this.accueilService.getUserById(paramsUser)
+    .subscribe(res =>{
+      console.log(res);
+      //this.usersData = res;
+    })
+  } 
+
+  tinyAlert(){
+    Swal.fire("Bonjour !");
+  }
+
+  successNotification(){
+    Swal.fire("test", "Notification", "Réussi avec succès");
+  }
+
+  alertConfirmation(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This process is irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Removed!',
+          'Product removed successfully.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Product still in our database.)',
+          'error'
+        )
+      }
+    })
+  } 
 }
 
 

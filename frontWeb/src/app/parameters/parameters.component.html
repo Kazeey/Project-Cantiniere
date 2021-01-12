@@ -1,19 +1,21 @@
 <div *ngIf="isConnected">
     <div class="myProfile">
       <h1>Mon profil</h1>
-      <img class="imgProfile" src="../../assets/img/photo-profil.jpg"/>
-      <img class="editProfile" src="../../assets/img/user.png"/><br/><br/>
-      <a>Mettre à jour la photo</a>
-    </div><br/>
+      <img class="imgProfile" [src]="url"> <br/>
+      <div class="majPhoto">
+        <button class="btnModifPhoto">Mettre a jour la photo</button>
+        <input  type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"/>
+      </div><br/>
+    </div>
+
   
     <div class="param">
       <h1>Notifications</h1>
       <p>Activer les Notifications</p>
-      <!--<label class="switch notifs">
-        <input type="checkbox">
+      <label class="switch notifs">
+        <input (change) type="checkbox">
         <span class="slider round"></span>
-      </label>-->
-      <button class="button button-primary" (click)="subscribeToNotifications()">Activer</button>
+      </label>
     </div><br/>
   
     <div class="darkTheme">
@@ -25,4 +27,10 @@
         </label>
       </div>
     </div>
-  </div>
+<!--
+<button (click)="tinyAlert()">Simple Notification</button>
+
+<button (click)="successNotification()">Sucess Notification</button>
+
+<button (click)="alertConfirmation()">Show me Confirmation</button>-->
+ </div>

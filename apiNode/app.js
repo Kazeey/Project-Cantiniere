@@ -22,6 +22,7 @@ const accountImport     = require('./functions/account/index.js');
 const usersImport       = require('./functions/users/index.js');
 const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
+const orderImport       = require('./functions/order/index.js');
 
 // ------ Login ------ 
 app.get('/api/login'                , loginImport.data.login);           // login to an existing account
@@ -51,6 +52,10 @@ app.patch('/api/menu/updateMenuImage'   , menuImport.data.updateMenuImage);    /
 app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       // Get Menu Image
 app.post('/api/menu/getMenuForWeek'     , menuImport.data.getMenuForWeek);     // Get Menu for current week
 app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    // Get Menu for current day
+
+//------ Order -------
+app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day
+app.get('/api/order/getOrderByUser'     , orderImport.data.getOrderByUser);        // Get all user's orders
 
 app.listen(3001, function() {
     console.log("connected");

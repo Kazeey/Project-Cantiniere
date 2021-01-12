@@ -6,9 +6,10 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
-        <img src="" alt="logo">
-        <h1>Projet Cantinière</h1>
+      <h1 class="name">{{usersData.firstname}} {{usersData.name}}</h1> 
+      
     </div>
+    
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
@@ -42,7 +43,7 @@
         <ul *ngIf = "statut === 'client'">
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/historic']">Historique des commandes</a>
-          </li>
+          </li> 
         </ul>
       <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visiteur'">
         <ul>
@@ -55,6 +56,11 @@
         </ul>
       </li>
     </ul>
+    <button *ngIf = "statut === 'admin'" (click)="tinyAlert()">Simple Notification</button>
+
+<button *ngIf = "statut === 'admin'" (click)="successNotification()">Sucess Notification</button>
+
+<button *ngIf = "statut === 'admin'" (click)="alertConfirmation()">Show me Confirmation</button>
   </nz-sider>
   <nz-layout>
     <nz-header>
