@@ -217,7 +217,8 @@ export class AppComponent {
 
   forgotPassword(mail)
   {
-    this.AuthenticationService.forgotPassword(mail);
+    this.AuthenticationService.forgotPassword(mail)
+    .subscribe(res => {})
   }
 
 }

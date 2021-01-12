@@ -20,8 +20,8 @@ export class AuthenticationService {
   }
 
   // TODO : A voir suite au retour de l'information
-  forgotPassword(mail)
+  forgotPassword(mail): Observable<Object>
   {
-    this.http.post("http://127.0.0.1:8080/lunchtime/forgotpassword", {email:mail});
+    return this.http.get(this.url + "/forgotpassword?email="+ mail);
   }
 }

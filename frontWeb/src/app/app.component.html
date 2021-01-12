@@ -77,7 +77,7 @@
                     <input #mail type="mail" id="email" name="email" placeholder="Adresse Email">
                     <input #password type="password" id="password" name="password" placeholder="Mot de passe">
                     <button name="submit" value="Envoyer" (click)="verifInput(mail.value, password.value)">Se connecter</button>
-                    <!-- <button name="forgotPassword" value="forgotPassword" (click)="forgotPassword(mail.value)">Mot de passe oublié</button> -->
+                    <button name="forgotPassword" value="forgotPassword" (click)="forgotPassword(mail.value)">Mot de passe oublié</button>
                 </form>
                 <div id="errorZone">{{phraseConnexion}}</div>
             </article>
