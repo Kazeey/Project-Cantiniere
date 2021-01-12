@@ -38,7 +38,7 @@ methods = {
         }
         
         // Récupération des paramètres email et password passés en POST
-        emailToFind = req.query.mail; 
+        emailToFind = req.query.email; 
         passwordToFind = req.query.password; 
 
         if(!emailToFind || !passwordToFind)
@@ -46,18 +46,26 @@ methods = {
             res.send("Au moins un des deux paramètres est vide.");
             return false;
         }
-
+        
         let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password = '"+ passwordToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
         con.query(query, function(err, result) {
             if(result[0] != null)
             {
-                imageId = result[0].image_id;       
-                let queryImg = "SELECT image_64 FROM ltimage WHERE id = "+ imageId +";"; // Recherche l'image qui correspond à l'utilisateur
+                imageId = result[0].image_id; 
+                userId = result[0].id;
+                let queryUser = "SELECT * FROM ltrole WHERE user_id = " + userId; 
+                con.query(queryUser, function (err, resultUser) {   
+                    let role = 0;
 
-                con.query(queryImg, function(err, resultImg)
-                {
-                    res.send({result, resultImg});
-                });
+                    if (resultUser[0].label == "ROLE_LUNCHLADY") 
+                        role = 1;
+
+                    let queryImg = "SELECT image_64 FROM ltimage WHERE id = "+ imageId +";"; // Recherche l'image qui correspond à l'utilisateur
+                    con.query(queryImg, function(err, resultImg)
+                    {
+                        res.send({result, resultImg, role});
+                    });
+                }) 
             }
             else
                 res.send({userError});
@@ -123,8 +131,7 @@ methods = {
             }         
         })
 
-        res.send("Si l'adresse mail existe, un mail lui a été envoyé (pensez a bien vérifier vos spams).");
-
+        res.send(true);
     }
 }
 
