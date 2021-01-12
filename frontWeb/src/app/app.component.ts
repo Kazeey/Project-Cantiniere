@@ -44,18 +44,13 @@ export class AppComponent {
     this.showStorage()
     
     this.isConnected = verification();
-
-    // A modifier en même temps que l'utilisation de la requête pour avoir le rôle (on fera certainement un passage JAVA > NODE > FRONT)
-    if(this.isConnected)
-    {
-      this.statut = "admin"; // Pour le test on le passe a admin
-    }
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
   {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
+    this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
     this.resetStorage() // Vide toute les valeurs du localStorage
   }
 
@@ -139,84 +134,85 @@ export class AppComponent {
   checkConnection(mail, password) // Fonction enclenchée lorsque l'on clique sur le bouton "Se connecter"
   {
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
-   
     this.AuthenticationService.login(mail, password)
     .subscribe(res => {
-      let data = JSON.parse(res)
-      
-      if(data.userError)
-      {
-        // Vérifie le nombre d'essais de connexion de l'utilisateur
-        if(this.nbEssaisConnexion >= 0)
+
+      this.AuthenticationService.checkEmail(mail)
+      .subscribe(resMail => {
+        if(resMail == "true")
         {
-          this.setMessage("Nombre d'essais restants : ", String(" " + this.nbEssaisConnexion));
-          this.nbEssaisConnexion--;
+          let data = JSON.parse(res)
+          
+          if(data.userError)
+          {
+            // Vérifie le nombre d'essais de connexion de l'utilisateur
+            if(this.nbEssaisConnexion >= 0)
+            {
+              this.setMessage("Nombre d'essais restants : ", String(" " + this.nbEssaisConnexion));
+              this.nbEssaisConnexion--;
+            }
+            else
+            {          
+              this.AuthenticationService.blockAccount(mail)
+              .subscribe(res => {})
+              this.setMessage("Votre compte est bloqué. Veuillez contacter l'administration.", null);
+              this.nbEssaisConnexion--;
+              return;
+            }
+          }
+          else
+          {    
+            let time;
+
+            // Vérifie le rôle de l'utilisateur (retourné par l'api Node)
+            switch(data.role)
+            {
+              case 1:
+                role = "admin";
+                break;
+              case 0:
+                role = "client";
+                break;
+              default : "visiteur";
+            }
+
+            // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
+            switch (constantes.timeConnexion) 
+            {
+              case 0:
+                time = 900000;
+                break;
+              case 1:
+                time = ((900000 * 4) * 24);
+                break;
+            }
+            
+            let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
+            localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
+            localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
+            localStorage.setItem("idUser", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+
+            this.showStorage();
+
+            // Adapte l'UI en fonction du rôle de l'utilisateur
+            this.statut = role;
+            this.setMessage("", null);
+            this.isDisplayAuthentication = !this.isDisplayAuthentication;
+          }      
         }
         else
         {
-          let time;
-
-          switch (constantes.timeBlocked) 
-          {
-            case 0:
-              time = "15 min";
-              break;
-            case 1:
-              time = "24 h";
-              break;
-          }
-          
-          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans ", time);
-          this.nbEssaisConnexion--;
-          return;
+          this.setMessage("Email incorrect ou bloqué.", null);
         }
-      }
-      else
-      {       
-        let time;
-
-        // Vérifie le rôle de l'utilisateur (retourné par l'api Node)
-        switch(data.role)
-        {
-          case 1:
-            role = "admin";
-            break;
-          case 0:
-            role = "client";
-            break;
-          default : "visiteur";
-        }
-
-        // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
-        switch (constantes.timeConnexion) 
-        {
-          case 0:
-            time = 900000;
-            break;
-          case 1:
-            time = ((900000 * 4) * 24);
-            break;
-        }
-        
-        let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
-        localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
-        localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-        localStorage.setItem("idUser", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
-
-        this.showStorage();
-
-        // Adapte l'UI en fonction du rôle de l'utilisateur
-        this.statut = role;
-        this.setMessage("", null);
-        this.isDisplayAuthentication = !this.isDisplayAuthentication;
-      }      
+      })
     });
   }
 
   forgotPassword(mail)
   {
     this.AuthenticationService.forgotPassword(mail)
-    .subscribe(res => {})
+    .subscribe(res => {});
+
     this.setMessage("Si l'adresse mail existe, un mail a été envoyé (Pensez a vérifier vos spams).", null);
   }
 

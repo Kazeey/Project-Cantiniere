@@ -47,7 +47,7 @@ methods = {
             return false;
         }
         
-        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password = '"+ passwordToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
+        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND password = '"+ passwordToFind +"' AND status = 0;"; // Recherche l'utilisateur pour les données qui correspondent
         con.query(query, function(err, result) {
             if(result[0] != null)
             {
@@ -85,12 +85,12 @@ methods = {
         // Récupération du paramètre email passé en POST
         emailToFind = req.query.email; 
 
-        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"';"; // Recherche l'utilisateur pour les données qui correspondent
+        let query = "SELECT * FROM ltuser WHERE email = '"+ emailToFind +"' AND status = 0;"; // Recherche l'utilisateur pour les données qui correspondent
         con.query(query, function(err, result) {
             if(result[0] != null)
-                res.send("L'adresse mail existe déjà dans la base de données.");
+                res.send(true);
             else
-                res.send("L'adresse mail n'existe pas dans la base de données.");
+                res.send(false);
         });
     },
 
@@ -130,6 +130,24 @@ methods = {
                 })
             }         
         })
+
+        res.send(true);
+    },
+
+    blockAccount : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false;
+        }
+        
+        email = req.query.email;
+        
+        let queryUser = "UPDATE ltuser SET status = 1 WHERE email = '" + email + "';";
+        con.query(queryUser, function(err, result) {});
 
         res.send(true);
     }
