@@ -11,10 +11,15 @@ export class ManageUserService {
 
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode + "user/findall"; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "users/"; // url souhaitée pour la requête de l'API
 
-  getAllUsers(): Observable<Object>
+  getAllUsers()
   {
-    return this.http.get(this.url); // Récupère les données renvoyées par l'API
+    return this.http.get(this.url + "getAllUsers"); // Récupère les données renvoyées par l'API
+  }
+
+  getUserById(userId)
+  {
+    return this.http.post(this.url + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API
   }
 }

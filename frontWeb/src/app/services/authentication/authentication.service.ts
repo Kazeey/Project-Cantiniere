@@ -16,7 +16,8 @@ export class AuthenticationService {
 
   login(mail, password)
   {
-    return this.http.get(this.url + "?email=" + mail + "&password=" + password, {responseType:"text"}); // Récupère les données renvoyées par l'API
+    // return this.http.get(this.url + "?email=" + mail + "&password=" + password, {responseType:"text"}); // Récupère les données renvoyées par l'API
+    return this.http.post(this.url, {email : mail, password : password}, {responseType:"text"}); // Récupère les données renvoyées par l'API
   }
 
   checkEmail(mail)

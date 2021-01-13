@@ -17,6 +17,7 @@ export class ManageUserComponent implements OnInit {
 
   // Variable de modification des utilisateurs
   public listUsers; 
+  public simpleUser;
 
   constructor(private manageUserService:ManageUserService) { }
 
@@ -35,5 +36,10 @@ export class ManageUserComponent implements OnInit {
   displayAllUsers()
   {
     return this.manageUserService.getAllUsers();
+  }
+
+  displayOneUser(userId)
+  {
+    this.simpleUser = this.manageUserService.getUserById(userId);
   }
 }
