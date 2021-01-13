@@ -1,4 +1,3 @@
-<app-parameters (notifs)='gererNotifs($event)'></app-parameters>
 <nz-layout class="app-layout">
   <nz-sider class="menu-sidebar"
             nzCollapsible
@@ -6,9 +5,8 @@
             nzBreakpoint="md"
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
-    <div class="sidebar-logo">
+    <div *ngIf="isConnected | async" class="sidebar-logo">
       <h1 class="name">{{usersData.firstname}} {{usersData.name}}</h1> 
-      
     </div>
     
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -97,4 +95,4 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-
+<!--<app-parameters (notifs)='gererNotifs($event)'></app-parameters>-->

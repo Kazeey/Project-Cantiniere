@@ -12,11 +12,11 @@ export class AccueilService {
 
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode + "user/"; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "users/"; // url souhaitée pour la requête de l'API
 
-  getUserById(paramsUser: Users): Observable<Object>
+  getUserById(userId): Observable<Object>
   {
-    return this.http.get(this.url + "getUserById/"); // Récupère les données renvoyées par l'API
+    return this.http.get(this.url + "getUserById/?userId=" + userId); // Récupère les données renvoyées par l'API
   }
 
   

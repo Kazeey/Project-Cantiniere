@@ -14,7 +14,7 @@ import { AppComponent } from '../app.component';
 })
 export class ParametersComponent implements OnInit {
 
-  @Output() notifs = new EventEmitter();
+ //@Output() notifs = new EventEmitter();
 
   constructor() { }
 
@@ -57,12 +57,12 @@ export class ParametersComponent implements OnInit {
   }
 
   subscribeToNotifications(agreed: boolean){
-    this.notifs.emit(agreed);
+    //this.notifs.emit(agreed);
     console.log('Notifications en place');
   }
 
   unsubscribeToNotifications(agreed: boolean){
-    this.notifs.emit(agreed);
+   // this.notifs.emit(agreed);
     console.log('Notifications annulées');
   }
 }

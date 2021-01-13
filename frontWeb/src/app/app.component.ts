@@ -4,6 +4,7 @@ import { methods as menu }  from '../../../config/menus';
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AccueilService } from '../app/services/accueil.service';
+import { AuthenticationService } from '../app/services/authentication/authentication.service';
 import { Users } from '../app/interfaces/users';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ParametersComponent } from './parameters/parameters.component';
@@ -29,19 +30,7 @@ export class AppComponent implements OnInit{
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
 
-  usersData: any = {
-    name : "Ramery",
-    firstname : "Matthias",
-    sex: 2,
-    email: "matthias.ramery@gmail.com",
-    role: "lunchLady",
-    address: "test",
-    town: "violaines",
-    postalCode: 62138,
-    wallet: 3,
-    status: 0,
-    imageId: 1
-  };
+  usersData: any;
 
   // Assignation des differents menus après vérifications de l'utilisateur
   communs = menu.menusCommuns;
@@ -130,6 +119,9 @@ export class AppComponent implements OnInit{
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
+          this.getUsersData(localStorage.getItem("userId"));
+          console.log(this.getUsersData(localStorage.getItem("userId")));
+          
         }
         else
         {
@@ -205,7 +197,7 @@ export class AppComponent implements OnInit{
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("idUser", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
 
             this.showStorage();
 
@@ -213,6 +205,7 @@ export class AppComponent implements OnInit{
             this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = !this.isDisplayAuthentication;
+            this.isConnected = true;
           }      
         }
         else
@@ -231,12 +224,13 @@ export class AppComponent implements OnInit{
     this.setMessage("Si l'adresse mail existe, un mail a été envoyé (Pensez a vérifier vos spams).", null);
   }
 
-  getUsersData(paramsUser){
-    this.accueilService.getUserById(paramsUser)
+  getUsersData(userId){
+    this.accueilService.getUserById(userId)
     .subscribe(res =>{
       console.log(res);
-      //this.usersData = res;
+      this.usersData = res;
     })
+    console.log(this.usersData)
   } 
 
   gererNotifs(agreed :boolean){
