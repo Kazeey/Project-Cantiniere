@@ -38,9 +38,9 @@ methods = {
         }
         
         // Récupération des paramètres email et password passés en POST
-        emailToFind = req.query.email; 
-        passwordToFind = req.query.password; 
-
+        emailToFind = req.body.email; 
+        passwordToFind = req.body.password; 
+        
         if(!emailToFind || !passwordToFind)
         {
             res.send("Au moins un des deux paramètres est vide.");

@@ -67,9 +67,9 @@ methods = {
             headers: {'content-type' : 'application/json'},
             url:     baseUrl + 'menu/add',
             body:    JSON.stringify(req.body.menu)
-          }, function(error, response, body){
+        }, function(error, response, body){
             console.log(body);
-          });
+        });
 
         if(isException.length != 0)
         {

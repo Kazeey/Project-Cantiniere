@@ -130,7 +130,6 @@ methods = {
 
     getUserById : async function(req, res) 
     {
-        // TODO : Possiblement passer sur un envoi de 2 tableaux, comme pour le login
         let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
@@ -149,7 +148,7 @@ methods = {
         let sexe;
 
         // Récupération du paramètre userId passe en POST
-        userIdToFind = req.query.userId; 
+        userIdToFind = req.body.userId; 
 
         // Récupère les données de l'utilisateur ciblé
         await fetch(baseUrl +  "user/find/" + userIdToFind)
@@ -223,7 +222,7 @@ methods = {
         }
         
         user.push(person);
-        
+        console.log(user);
         res.send(user);
     }
 }

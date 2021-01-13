@@ -22,9 +22,10 @@ const accountImport     = require('./functions/account/index.js');
 const usersImport       = require('./functions/users/index.js');
 const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
+const constraintImport  = require('./functions/constraints/index.js');
 
 // ------ Login ------ 
-app.get('/api/login'                , loginImport.data.login);           // login to an existing account
+app.post('/api/login'                , loginImport.data.login);           // login to an existing account
 app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Check the format of your email
 app.get('/api/login/forgotpassword' , loginImport.data.forgotPassword);  // To send a new password
 app.get('/api/login/blockaccount'   , loginImport.data.blockAccount);  // To send a new password
@@ -52,6 +53,12 @@ app.patch('/api/menu/updateMenuImage'   , menuImport.data.updateMenuImage);    /
 app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       // Get Menu Image
 app.post('/api/menu/getMenuForWeek'     , menuImport.data.getMenuForWeek);     // Get Menu for current week
 app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    // Get Menu for current day
+
+// ------ Contraintes ------
+app.get('/api/constraints/getAllConstraints'  , constraintImport.data.getAllConstraints);   // Get all the constraints
+app.post('/api/constraints/getConstraintById' , constraintImport.data.getConstraintById);   // Get a constraint with a given id
+app.put('/api/constraints/addConstraint'      , constraintImport.data.addConstraint);       // Add a constraint to the database
+
 
 app.listen(3001, function() {
     console.log("connected");

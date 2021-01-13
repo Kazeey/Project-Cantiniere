@@ -185,7 +185,7 @@ export class AppComponent {
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("idUser", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("userId", data.result[0].id);
 
             this.showStorage();
 
@@ -193,6 +193,7 @@ export class AppComponent {
             this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = !this.isDisplayAuthentication;
+            this.isConnected = true;
           }      
         }
         else
