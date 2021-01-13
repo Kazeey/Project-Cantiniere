@@ -1,0 +1,29 @@
+<div class="card">
+
+    <img src="../../../assets/Croque-monsieur.png" id="card_asset"/>
+
+    <div id="card_body">
+
+        <div id="card_header">
+
+            <p id="card_title">{{ meal.label }}</p>
+    
+            <div id="quantity_container" *ngIf="isAuthenticate">
+                <img class="quantity_btn" id="minus_btn" src="../../../assets/minus_outlined.svg" (click)="onMinusBtn()"/>
+                <p id="quantity">{{ quantity }}</p>
+                <img class="quantity_btn" id="plus_btn" src="../../../assets/plus_outlined.svg" (click)="onPlusBtn()"/>
+            </div>
+    
+        </div>
+
+        <div id="card_content">
+            <p id="card_description">{{ meal.description === undefined ? placeholder : 'meal.description' }}</p>
+        </div>
+    
+        <div id="card_footer">
+            <p id="card_price">{{ meal.priceDF }} €</p>
+        </div>
+
+    </div>
+
+</div>

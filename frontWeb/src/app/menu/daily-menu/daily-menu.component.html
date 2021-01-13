@@ -1,0 +1,29 @@
+<div>
+
+    <div *ngIf="!isLunchLady">
+
+        <div id="menu_container">
+
+            <app-menu 
+                *ngFor="let menu of menus; index as i"
+                [menu]="menu"
+                [isAuthenticate]="isAuthenticate"
+                (onQuantityChange)="onMeal($event)">
+            </app-menu>
+    
+        </div>
+    
+        <app-shopping-card 
+            [products]="products"
+            [userId]="userId"
+            [userWallet]="userWallet"
+            *ngIf="isAuthenticate">
+        </app-shopping-card>
+
+    </div>
+
+    <div *ngIf="isLunchLady">
+        <p>LunchLady</p>
+    </div>
+
+</div>

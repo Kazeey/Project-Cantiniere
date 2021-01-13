@@ -53,7 +53,7 @@ methods = {
 
         if(!isApiAvalaible)
         {
-            res.send(messageError);
+            res.send(configImport.messageError);
             return false; 
         }
 
@@ -134,7 +134,7 @@ methods = {
 
         if(!isApiAvalaible)
         {
-            res.send(messageError);
+            res.send(configImport.configImport.messageError);
             return false; 
         }
 

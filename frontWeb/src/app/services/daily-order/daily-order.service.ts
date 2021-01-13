@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Order } from '../../interfaces/order'
 
 import { constantes } from '../../../../../config/constantes';
 
@@ -11,10 +12,13 @@ export class DailyOrderService {
   
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode + "login/forgotPassword"; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "order/"; // url souhaitée pour la requête de l'API
 
-  getDailyOrder(): Observable<Object>
-  {
-    return this.http.get(this.url); // Récupère les données renvoyées par l'API
+  addOrder(order: Order): Observable<Object> {
+    return this.http.post(this.url + "addOrder/", {order: order});
   }
+
+  /*getDailyOrder(): Observable<Object> {
+    return this.http.get(this.url); // Récupère les données renvoyées par l'API
+  }*/
 }

@@ -4,7 +4,6 @@
 *   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum.
 *
 *   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.query.parametre(s).
-*   TODO : Faire une vérif pour savoir si l'api est lancée ou non, si non, retourner les données depuis cette api 
 */
 const express = require('express');
 const app = express();
@@ -22,6 +21,7 @@ const accountImport     = require('./functions/account/index.js');
 const usersImport       = require('./functions/users/index.js');
 const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
+const orderImport       = require('./functions/order/index.js');
 
 // ------ Login ------ 
 app.get('/api/login'                , loginImport.data.login);           // login to an existing account
@@ -43,14 +43,17 @@ app.post('/api/meals/getMealById/' , mealsImport.data.getMealById);  // Get a me
 
 // ------ Menu -------
 app.post('/api/menu/addMenu', menuImport.data.addMenu); // Add Menu
-app.patch('/api/menu/updateMenu', menuImport.data.updateMenu); // Update Menu
+app.post('/api/menu/updateMenu', menuImport.data.updateMenu); // Update Menu
 app.post('/api/menu/getMenuById', menuImport.data.getMenuById); // Get Menu by Id
-app.delete('/api/menu/deleteMenu', menuImport.data.deleteMenu); // delete Menu
+app.post('/api/menu/deleteMenu', menuImport.data.deleteMenu); // delete Menu
 app.get('/api/menu/getAllMenus', menuImport.data.getAllMenus); // Get all Menus
 app.patch('/api/menu/updateMenuImage', menuImport.data.updateMenuImage); // Update Menu Image
 app.get('/api/menu/getMenuImage', menuImport.data.getMenuImage); // Get Menu Image
 app.post('/api/menu/getMenuForWeek', menuImport.data.getMenuForWeek); // Get Menu for current week
 app.get('/api/menu/getMenuForToday', menuImport.data.getMenuForToday); // Get Menu for current day
+
+// ------ Order -------
+//app.post('/api/order/addOrder', orderImport.data.addMenu);
 
 app.listen(3001, function() {
     console.log("connected");

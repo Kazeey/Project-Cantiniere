@@ -133,7 +133,7 @@ export class AppComponent {
   checkConnection(mail, password) // Fonction enclenchée lorsque l'on clique sur le bouton "Se connecter"
   {
     // A terme, appeler l'api JAVA pour vérfier les paramètres envoyés, sûrement retourner un IdUtilisateur
-    let testMail:String = "quentinpeze@hotmail.fr";
+    let testMail:String = "eliott.dupau@gmail.com";
     let testPassword:String = "test";
     
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
