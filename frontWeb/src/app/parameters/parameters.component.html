@@ -13,8 +13,9 @@
       <h1>Notifications</h1>
       <p>Activer les Notifications</p>
       <label class="switch notifs">
-        <input (change) type="checkbox">
+        <input (change)="notifications($event)" type="checkbox" checked>
         <span class="slider round"></span>
+        <!--<span *ngIf="marked" class="slider round">Vrai</span><span *ngIf="!marked" class="slider round">Faux</span>-->
       </label>
     </div><br/>
   

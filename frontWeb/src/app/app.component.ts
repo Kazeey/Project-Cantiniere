@@ -231,6 +231,14 @@ export class AppComponent implements OnInit{
     })
   } 
 
+  gererNotifs(agreed :boolean){
+    console.log('test');
+    if(agreed == true){
+      this.tinyAlert();
+    }else{
+      this.successNotification();
+    }
+  }
   tinyAlert(){
     Swal.fire("Bonjour !");
   }

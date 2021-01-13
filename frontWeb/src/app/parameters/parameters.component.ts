@@ -14,8 +14,7 @@ import { AppComponent } from '../app.component';
 })
 export class ParametersComponent implements OnInit {
 
-  @Output() notifs = new EventEmitter<Boolean>();
-  checked = false;
+  @Output() notifs = new EventEmitter();
 
   constructor() { }
 
@@ -49,15 +48,21 @@ export class ParametersComponent implements OnInit {
     }
   }
 
+  notifications(event){
+    if(event.srcElement.checked == true){
+      this.subscribeToNotifications(true);
+    }else{
+      this.unsubscribeToNotifications(false);
+    }
+  }
+
   subscribeToNotifications(agreed: boolean){
     this.notifs.emit(agreed);
-    this.checked = true;
     console.log('Notifications en place');
   }
 
   unsubscribeToNotifications(agreed: boolean){
     this.notifs.emit(agreed);
-    this.checked = false;
     console.log('Notifications annulées');
   }
 }
