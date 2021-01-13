@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { methods as menus }  from '../../../config/menus'; 
+import { methods as menu }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from './services/authentication/authentication.service';
@@ -14,7 +14,6 @@ import { AuthenticationService } from './services/authentication/authentication.
 export class AppComponent {
   isCollapsed = false;
  
-  // TODO : Récupérer la valeur du user qui tente de se connecter
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
   statut:String = "visiteur"; 
 
@@ -23,7 +22,7 @@ export class AppComponent {
   isConnected:boolean = false;
 
   // Assignation des differents menus après vérifications de l'utilisateur
-  communs = menus.menusCommuns;
+  communs = menu.menusCommuns;
   
   isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
   displayComponent = true; //  Variable d'affichage des components pour la déconnexion
@@ -33,9 +32,6 @@ export class AppComponent {
   phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
   toSend = ""; // Faire passer une donnée statique entre plusieurs routes
-
-  // Passe ces 2 variables dans le localStorage pour les garder, ou du moins le userId
-  connectedProfil : any;
 
   constructor(private AuthenticationService:AuthenticationService) { }
   
@@ -62,7 +58,7 @@ export class AppComponent {
 
   showStorage()
   {
-    console.log({...localStorage}); // TODO : tester chaque valeur du localStorage
+    console.log({...localStorage});
   }
 
   toggleDisplayAuthentication() // Permet d'afficher le conteneur de connexion
@@ -136,7 +132,6 @@ export class AppComponent {
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
     this.AuthenticationService.login(mail, password)
     .subscribe(res => {
-
       this.AuthenticationService.checkEmail(mail)
       .subscribe(resMail => {
         if(resMail == "true")
@@ -154,7 +149,7 @@ export class AppComponent {
             else
             {          
               this.AuthenticationService.blockAccount(mail)
-              .subscribe(res => {})
+              .subscribe(res => {});
               this.setMessage("Votre compte est bloqué. Veuillez contacter l'administration.", null);
               this.nbEssaisConnexion--;
               return;
@@ -167,11 +162,11 @@ export class AppComponent {
             // Vérifie le rôle de l'utilisateur (retourné par l'api Node)
             switch(data.role)
             {
-              case 1:
-                role = "admin";
-                break;
               case 0:
                 role = "client";
+                break;
+              case 1:
+                role = "admin";
                 break;
               default : "visiteur";
             }
@@ -202,9 +197,9 @@ export class AppComponent {
         }
         else
         {
-          this.setMessage("Email incorrect ou bloqué.", null);
+          this.setMessage("Adresse mail incorrect ou bloqué.", null);
         }
-      })
+      });
     });
   }
 
