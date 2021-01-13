@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { methods as menus }  from '../../../config/menus'; 
+import { methods as menu }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AccueilService } from '../app/services/accueil.service';
@@ -16,12 +16,12 @@ import { ParametersComponent } from './parameters/parameters.component';
 
 export class AppComponent implements OnInit{
 
-  constructor(private accueilService: AccueilService ){
+  constructor(private accueilService: AccueilService,
+    private AuthenticationService:AuthenticationService ){
   }
 
   isCollapsed = false;
  
-  // TODO : Récupérer la valeur du user qui tente de se connecter
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
   statut:String = "visiteur"; 
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit{
   };
 
   // Assignation des differents menus après vérifications de l'utilisateur
-  communs = menus.menusCommuns;
+  communs = menu.menusCommuns;
   
   isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
   displayComponent = true; //  Variable d'affichage des components pour la déconnexion
@@ -54,24 +54,19 @@ export class AppComponent implements OnInit{
   phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
   toSend = ""; // Faire passer une donnée statique entre plusieurs routes
-  
-  ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
+
+    ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
     
     this.isConnected = verification();
-
-    // A modifier en même temps que l'utilisation de la requête pour avoir le rôle (on fera certainement un passage JAVA > NODE > FRONT)
-    if(this.isConnected)
-    {
-      this.statut = "admin"; // Pour le test on le passe a admin
-    }
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
   {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
+    this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
     this.resetStorage() // Vide toute les valeurs du localStorage
   }
 
@@ -83,7 +78,7 @@ export class AppComponent implements OnInit{
 
   showStorage()
   {
-    console.log({...localStorage}); // TODO : tester chaque valeur du localStorage
+    console.log({...localStorage});
   }
 
   toggleDisplayAuthentication() // Permet d'afficher le conteneur de connexion
@@ -154,73 +149,86 @@ export class AppComponent implements OnInit{
 
   checkConnection(mail, password) // Fonction enclenchée lorsque l'on clique sur le bouton "Se connecter"
   {
-    // A terme, appeler l'api JAVA pour vérfier les paramètres envoyés, sûrement retourner un IdUtilisateur
-    let testMail:String = "quentinpeze@hotmail.fr";
-    let testPassword:String = "test";
-    
     let role:String = "admin"; // Rôle de l'utilisateur récupéré depuis l'API
-
-    if(mail == testMail)
-    {
-      // TODO : Récupérer le statut du compte si possible pour voir si le compte est bloqué, sinon le définir dans variable locale
-      // Avec si + 4 essais stockage données dans un tableau avec la valeur bloquée, et ensuite on compare
-      if(password && password == testPassword)
-      {
-        let time;
-
-        // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
-        switch (constantes.timeConnexion) 
+    this.AuthenticationService.login(mail, password)
+    .subscribe(res => {
+      this.AuthenticationService.checkEmail(mail)
+      .subscribe(resMail => {
+        if(resMail == "true")
         {
-          case 0:
-            time = 900000;
-            break;
-          case 1:
-            time = ((900000 * 4) * 24);
-            break;
-        }
-        
-        let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
-        localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
-        localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-        // localStorage.setItem("idUser", id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage
+          let data = JSON.parse(res)
+          
+          if(data.userError)
+          {
+            // Vérifie le nombre d'essais de connexion de l'utilisateur
+            if(this.nbEssaisConnexion >= 0)
+            {
+              this.setMessage("Nombre d'essais restants : ", String(" " + this.nbEssaisConnexion));
+              this.nbEssaisConnexion--;
+            }
+            else
+            {          
+              this.AuthenticationService.blockAccount(mail)
+              .subscribe(res => {});
+              this.setMessage("Votre compte est bloqué. Veuillez contacter l'administration.", null);
+              this.nbEssaisConnexion--;
+              return;
+            }
+          }
+          else
+          {    
+            let time;
 
-        // Adapte l'UI en fonction du rôle de l'utilisateur
-        this.statut = role;
-        this.setMessage("", null);
-        this.isDisplayAuthentication = !this.isDisplayAuthentication;
-      }
-      else
-      {
-        // Vérifie le nombre d'essais de connexion de l'utilisateur
-        if(this.nbEssaisConnexion >= 0)
-        {
-          this.setMessage("Nombre d'essais restants : ", String(" " + this.nbEssaisConnexion));
-          this.nbEssaisConnexion--;
+            // Vérifie le rôle de l'utilisateur (retourné par l'api Node)
+            switch(data.role)
+            {
+              case 0:
+                role = "client";
+                break;
+              case 1:
+                role = "admin";
+                break;
+              default : "visiteur";
+            }
+
+            // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
+            switch (constantes.timeConnexion) 
+            {
+              case 0:
+                time = 900000;
+                break;
+              case 1:
+                time = ((900000 * 4) * 24);
+                break;
+            }
+            
+            let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
+            localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
+            localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
+            localStorage.setItem("idUser", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+
+            this.showStorage();
+
+            // Adapte l'UI en fonction du rôle de l'utilisateur
+            this.statut = role;
+            this.setMessage("", null);
+            this.isDisplayAuthentication = !this.isDisplayAuthentication;
+          }      
         }
         else
         {
-          let min;
-
-          switch (constantes.timeBlocked) 
-          {
-            case 0:
-              min = "15 min";
-              break;
-            case 1:
-              min = "24 h";
-              break;
-          }
-          
-          this.setMessage("Votre compte est bloqué. Veuillez réessayer dans ", min);
-          this.nbEssaisConnexion--;
-          return;
+          this.setMessage("Adresse mail incorrect ou bloqué.", null);
         }
-      }
-    }
-    else
-    {
-      this.setMessage("Email incorrect(s).", null);
-    }
+      });
+    });
+  }
+
+  forgotPassword(mail)
+  {
+    this.AuthenticationService.forgotPassword(mail)
+    .subscribe(res => {});
+
+    this.setMessage("Si l'adresse mail existe, un mail a été envoyé (Pensez a vérifier vos spams).", null);
   }
 
   getUsersData(paramsUser){

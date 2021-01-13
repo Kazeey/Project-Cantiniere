@@ -14,6 +14,17 @@
   </ion-header>
 
   <div id="container">
-    <p>Affichage de la page d'authentification</p>
+    <form class="box" method="post">
+        <h1>Identification</h1>
+        <input #mail type="mail" id="email" name="email" placeholder="Adresse Email">
+        <br>
+        <input #password type="text" id="password" name="password" placeholder="Mot de passe">
+        <br>
+        <button name="submit" value="Envoyer" (click)="verifInput(mail.value, password.value)">Se connecter</button>
+        <br>
+        <button name="forgotPassword" value="forgotPassword" (click)="forgotPassword(mail.value)">Mot de passe oublié</button>
+      </form>
   </div>
+
+  <div id="errorZone">{{phraseConnexion}}</div>
 </ion-content>
