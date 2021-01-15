@@ -18,7 +18,7 @@ methods = {
 
     getOrderByUser : async function(req, res){
         // Récupération du paramètre userId passe en POST
-        userIdToFind = req.query.userId; 
+        userIdToFind = req.body.userId; 
 
         let orderList;
         let isException = [];

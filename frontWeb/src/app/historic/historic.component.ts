@@ -28,11 +28,8 @@ export class HistoricComponent implements OnInit {
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
     this.usersData = this.getUserData(this.userId);
+    this.getOrdersData(this.userId);
     console.log(this.userId);
-    console.log(this.usersData);
-    this.ordersData = this.getOrdersData(this.userId);
-    console.log(this.ordersData);
-
   }
 
   ngOnDestroy(): void
@@ -42,11 +39,13 @@ export class HistoricComponent implements OnInit {
 
   getUserData(userId)
   {
-    this.simpleUser =  this.manageUserService.getUserById(userId);    
+    this.simpleUser = this.manageUserService.getUserById(userId);    
   }
 
-  getOrdersData(userId){
-   return this.historicService.getOrderByUser(userId);
+  getOrdersData(userId)
+  {
+   this.ordersData = this.historicService.getOrderByUser(userId);
+   console.log(this.ordersData)
   }
 
 }

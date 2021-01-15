@@ -3,19 +3,19 @@
 
     <div class="historic">
 
-        <h1>{{simpleUser.firstname}} {{simpleUser.name}}</h1>
+        <h1 *ngFor="let user of simpleUser | async">{{user.firstname}} {{user.name}}</h1>
         
         <div class="commandes">
-          <h2>Commande du : {{ordersData.creationDate}} : </h2><br>
-
           <div *ngFor="let order of ordersData | async" class="orders">
+            <h2>Commande du : {{order.creationDate}} : </h2><br>
+
             <div class="meal">
               <img src="../../assets/icons/pizza.png"/>
-              <p>{{order.quantity.meal.label}}&emsp;</p>
+              <p>{{order.quantity[0].meal.label}}&emsp;</p>
             </div>
 
             <div class="price">
-              <p>&emsp;{{order.quantity.meal.priceDF}}€</p>
+              <p>&emsp;{{order.quantity[0].meal.priceDF}}€</p>
             </div>
 
           </div><br><br>

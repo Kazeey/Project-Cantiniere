@@ -15,12 +15,13 @@ export class HistoricService {
   private urlUser = constantes.urlAPINode + "users/"; // url souhaitée pour la requête de l'API
 
 
-  getOrderByUser(userId){
+  getOrderByUser(userId)
+  {
     return this.http.post(this.urlOrder + "getOrderByUser", {userId:userId}); // Récupère les données renvoyées par l'API
   }
 
-  getUserById(userId){
+  getUserById(userId)
+  {
     return this.http.post(this.urlUser + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API
-    
   }
 }

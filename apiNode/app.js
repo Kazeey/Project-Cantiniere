@@ -56,7 +56,7 @@ app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    /
 
 //------ Order -------
 app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day
-app.post('/api/order/getOrderByUser'     , orderImport.data.getOrderByUser);        // Get all user's orders
+app.post('/api/order/getOrderByUser'         , orderImport.data.getOrderByUser);        // Get all user's orders
 
 app.listen(3001, function() {
     console.log("connected");
