@@ -13,7 +13,6 @@ const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 const emptyValue = "Non renseigné(e)";
 
 let con = configImport.connexionSQL;
-let messageError = configImport.messageError;
 let userError = configImport.userError;
 let emailError = configImport.emailError;
 

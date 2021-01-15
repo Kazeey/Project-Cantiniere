@@ -3,6 +3,7 @@ const configImport = require('../config');
 const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
+let messageError = configImport.messageError;
 
 methods = {
     getAllConstraints : async function(req, res) 
@@ -17,7 +18,6 @@ methods = {
 
         let arrayConstraint = [];
         let arrayToSend = [];
-
         // Récupère chaque contraintes de la base
         await fetch(baseUrl + "constraint/findall")
         .then(response => response.json())
@@ -51,13 +51,13 @@ methods = {
             res.send(messageError);
             return false; 
         }
-  
+        
         let arrayConstraint = [];
         let arrayToSend = [];
         let isException = [];
 
         // Récupération du paramètre userId passe en POST
-        constraintIdToFind = req.query.constraintId; 
+        constraintIdToFind = req.body.constraintId; 
 
         // Récupère la contrainte ciblée
         await fetch(baseUrl +  "constraint/find/" + constraintIdToFind)
@@ -162,7 +162,13 @@ methods = {
             res.send(messageError);
             return false; 
         }
-  
+
+        let constraintIdToDelete = req.body.constraintId;
+
+        // Supprime la contrainte ciblée
+        await fetch(baseUrl +  "constraint/delete/" + constraintIdToDelete)
+        .then(response => response.json())
+        .then(data => {});
     }
 }
 
