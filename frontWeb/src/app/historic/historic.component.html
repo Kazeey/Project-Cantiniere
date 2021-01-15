@@ -3,19 +3,19 @@
 
     <div class="historic">
 
-        <h1>{{usersData.firstname}} {{usersData.name}}</h1>
+        <h1>{{simpleUser.firstname}} {{simpleUser.name}}</h1>
         
         <div class="commandes">
           <h2>Commande du : {{ordersData.creationDate}} : </h2><br>
 
-          <div class="orders">
+          <div *ngFor="let order of ordersData | async" class="orders">
             <div class="meal">
               <img src="../../assets/icons/pizza.png"/>
-              <p>{{ordersData.quantity.meal.label}}&emsp;</p>
+              <p>{{order.quantity.meal.label}}&emsp;</p>
             </div>
 
             <div class="price">
-              <p>&emsp;{{ordersData.quantity.meal.priceDF}}€</p>
+              <p>&emsp;{{order.quantity.meal.priceDF}}€</p>
             </div>
 
           </div><br><br>
@@ -29,7 +29,6 @@
 <!-- Front Cantiniere -->
 <!--<div *ngIf="isConnected">
     <div class="historic">
-        <img class="imgProfile" src=""/>
         <h1>{{usersData.firstname}} {{usersData.name}}</h1>
       </div><br/>
 </div>-->

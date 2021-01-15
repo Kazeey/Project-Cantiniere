@@ -164,6 +164,7 @@ methods = {
                 // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
                 isException = [];
                 // Insère toutes les données dans le tableau déclaré plus haut
+                console.log(data);
                 arrayDataUsers.push(data); 
             }
         })

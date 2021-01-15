@@ -120,7 +120,7 @@ export class AppComponent implements OnInit{
           this.setMessage("", null);
           this.checkConnection(mail, password);
           this.getUsersData(localStorage.getItem("userId"));
-          console.log(this.getUsersData(localStorage.getItem("userId")));
+          console.log(localStorage.getItem("userId"));
           
         }
         else
@@ -227,14 +227,11 @@ export class AppComponent implements OnInit{
   getUsersData(userId){
     this.accueilService.getUserById(userId)
     .subscribe(res =>{
-      console.log(res);
       this.usersData = res;
     })
-    console.log(this.usersData)
   } 
 
   gererNotifs(agreed :boolean){
-    console.log('test');
     if(agreed == true){
       this.tinyAlert();
     }else{

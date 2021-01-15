@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Users }from '../interfaces/users'
 
 import { constantes } from '../../../../config/constantes';
 
@@ -16,7 +15,7 @@ export class AccueilService {
 
   getUserById(userId): Observable<Object>
   {
-    return this.http.get(this.url + "getUserById/?userId=" + userId); // Récupère les données renvoyées par l'API
+    return this.http.post(this.url + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API 
   }
 
   

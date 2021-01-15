@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { verification } from '../../../../config/verification';
 import { HistoricService } from '../services/historic/historic.service';
+import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { constantes } from '../../../../config/constantes';
-import { AccueilService } from '../../app/services/accueil.service';
-import { Users } from '../../app/interfaces/users';
-import { Orders } from '../../app/interfaces/order';
 
 @Component({
   selector: 'app-historic',
@@ -14,40 +12,27 @@ import { Orders } from '../../app/interfaces/order';
 })
 export class HistoricComponent implements OnInit {
 
-  constructor(private historicService:HistoricService,
-              private accueilService:AccueilService) { }
-
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+  userId: any;
+  public usersData;
+  public ordersData;
+  public simpleUser;
 
-  usersData: any = {
-    name : "Ramery",
-    firstname : "Matthias",
-    sex: 2,
-    email: "matthias.ramery@gmail.com",
-    role: "lunchLady",
-    address: "test",
-    town: "violaines",
-    postalCode: 62138,
-    wallet: 3,
-    status: 0,
-    imageId: 1
-  };
-
-  ordersData: any = {
-    creationDate: "15-09-2012",
-    quantity : {
-      meal : {
-        label : "Tartelette",
-        priceDF : 6.83
-      }
-    }
-  };
+  constructor(private historicService:HistoricService,
+                     private manageUserService:ManageUserService) { }
 
   ngOnInit(): void 
   {
+    this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
+    this.usersData = this.getUserData(this.userId);
+    console.log(this.userId);
+    console.log(this.usersData);
+    this.ordersData = this.getOrdersData(this.userId);
+    console.log(this.ordersData);
+
   }
 
   ngOnDestroy(): void
@@ -55,20 +40,13 @@ export class HistoricComponent implements OnInit {
     this.isConnected = false; 
   }
 
-  getUsersData(paramsUser){
-    this.accueilService.getUserById(paramsUser)
-    .subscribe(res =>{
-      console.log(res);
-      //this.usersData = res;
-    })
+  getUserData(userId)
+  {
+    this.simpleUser =  this.manageUserService.getUserById(userId);    
   }
 
-  getOrdersData(paramsOrder){
-    this.historicService.getOrderByUser(paramsOrder)
-    .subscribe(res =>{
-      console.log(res);
-      //this.ordersData = res;
-    })
+  getOrdersData(userId){
+   return this.historicService.getOrderByUser(userId);
   }
 
 }

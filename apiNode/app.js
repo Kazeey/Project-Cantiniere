@@ -25,7 +25,7 @@ const menuImport        = require('./functions/menu/index.js');
 const orderImport       = require('./functions/order/index.js');
 
 // ------ Login ------ 
-app.get('/api/login'                , loginImport.data.login);           // login to an existing account
+app.post('/api/login'                , loginImport.data.login);           // login to an existing account
 app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Check the format of your email
 app.get('/api/login/forgotpassword' , loginImport.data.forgotPassword);  // To send a new password
 app.get('/api/login/blockaccount'   , loginImport.data.blockAccount);  // To send a new password
@@ -56,7 +56,7 @@ app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    /
 
 //------ Order -------
 app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day
-app.get('/api/order/getOrderByUser'     , orderImport.data.getOrderByUser);        // Get all user's orders
+app.post('/api/order/getOrderByUser'     , orderImport.data.getOrderByUser);        // Get all user's orders
 
 app.listen(3001, function() {
     console.log("connected");
