@@ -1,8 +1,10 @@
 <div *ngIf="isConnected">
-    <input #userId type="number" name="userId" value="userId" (change)="displayOneUser(userId.value)" min="0">
+    <input #userName type="text" name="userName" placeholder="Recherche" [(ngModel)]="quantity" (ngModelChange)="displaySearchedUser($event)">
     <div>
         <p *ngFor="let user of simpleUser | async">{{user.name}} {{user.firstname}} {{user.address}}</p>
         <hr>
-        <p *ngFor="let listUser of listUsers | async">{{listUser.name}} {{listUser.firstname}} {{listUser.address}}</p>
+        <div *ngIf=!isLookingFor>
+            <p *ngFor="let listUser of listUsers | async">{{listUser.name}} {{listUser.firstname}} {{listUser.address}}</p>
+        </div>
     </div>
 </div>

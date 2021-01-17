@@ -5,6 +5,7 @@ const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
 const emptyValue = "Non renseigné(e)";
 let messageError = configImport.messageError;
+let con = configImport.connexionSQL;
 
 /* 
 *   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
@@ -223,8 +224,28 @@ methods = {
         }
         
         user.push(person);
-        console.log(user);
+        
         res.send(user);
+    },
+
+    getUserBySearchField : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        toSearch = req.body.userName;
+        
+        let query = "SELECT * FROM ltuser WHERE name LIKE '%" + toSearch + "%' OR firstname LIKE '%" + toSearch + "%';"; 
+
+        con.query(query, function(err, result) {
+            if(result[0] != null)
+                res.send(result);
+        });
     }
 }
 

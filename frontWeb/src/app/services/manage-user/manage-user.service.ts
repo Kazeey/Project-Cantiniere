@@ -22,4 +22,9 @@ export class ManageUserService {
   {
     return this.http.post(this.url + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API
   }
+
+  getUserBySearchField(userName)
+  {
+    return this.http.post(this.url + "getUserBySearchField", {userName:userName}); // Récupère les données renvoyées par l'API
+  }
 }

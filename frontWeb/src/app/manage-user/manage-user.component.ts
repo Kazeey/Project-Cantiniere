@@ -14,6 +14,7 @@ export class ManageUserComponent implements OnInit {
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+  isLookingFor:boolean =false;
 
   // Variable de modification des utilisateurs
   public listUsers; 
@@ -38,8 +39,16 @@ export class ManageUserComponent implements OnInit {
     return this.manageUserService.getAllUsers();
   }
 
-  displayOneUser(userId)
+  displaySearchedUser(userName)
   {
-    this.simpleUser = this.manageUserService.getUserById(userId);
+    if(userName == "")
+    {
+      this.isLookingFor = false;
+    }
+    else
+    {
+      this.isLookingFor = true;
+    }
+    this.simpleUser = this.manageUserService.getUserBySearchField(userName);
   }
 }
