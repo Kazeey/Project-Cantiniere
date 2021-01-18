@@ -149,6 +149,24 @@ methods = {
         con.query(queryUser, function(err, result) {});
 
         res.send(true);
+    },
+
+    activeAccount : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false;
+        }
+        
+        email = req.query.email;
+        
+        let queryUser = "UPDATE ltuser SET status = 0 WHERE email = '" + email + "';";
+        con.query(queryUser, function(err, result) {});
+
+        res.send(true);
     }
 }
 

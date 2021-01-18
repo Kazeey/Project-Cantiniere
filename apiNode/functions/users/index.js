@@ -118,6 +118,7 @@ methods = {
                 postalCode  : postalCode,
                 phone       : phone,
                 status      : currentUser.status,
+                registrationDate : currentUser.registrationDate,
                 image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                     id          : imageId,
                     imagePath   : currentImage.imagePath,
@@ -216,6 +217,7 @@ methods = {
             postalCode  : postalCode,
             phone       : phone,
             status      : userToFind.status,
+            registrationDate : userToFind.registrationDate,
             image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                 id          : imageId,
                 imagePath   : currentImage.imagePath,

@@ -1,6 +1,6 @@
 #container
 {
-    margin-left : 30%;
+    margin-left : 35%;
     display: flex;
     flex-wrap : wrap !important;
 }
@@ -9,4 +9,9 @@
 {
     margin-bottom: 5%;
     margin-right: 5%;
+}
+
+.btn-outline-danger
+{
+    float : left;
 }

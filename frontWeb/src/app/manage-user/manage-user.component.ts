@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { verification } from '../../../../config/verification';
 import { ManageUserService } from '../services/manage-user/manage-user.service';
-import { constantes } from '../../../../config/constantes';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
+import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-manage-user',
@@ -17,20 +19,21 @@ export class ManageUserComponent implements OnInit {
   isConnected:boolean = false;
   isLookingFor:boolean =false;
   closeResult = '';
+  quantity;
 
   // Variable de modification des utilisateurs
   public listUsers; 
   public simpleUser;
   public numbers;
-
-  constructor(private manageUserService:ManageUserService, private modalService: NgbModal) { }
+  public update;  
+  
+  constructor(private manageUserService:ManageUserService, private modalService: NgbModal, private authenticationService:AuthenticationService) { }
 
   ngOnInit(): void 
   {
     this.numbers = Array(3).fill(0);
     this.isConnected = verification();
     this.listUsers = this.displayAllUsers();
-    console.log(this.listUsers)
   }
 
   ngOnDestroy(): void
@@ -53,24 +56,56 @@ export class ManageUserComponent implements OnInit {
     {
       this.isLookingFor = true;
     }
-    this.simpleUser = this.manageUserService.getUserBySearchField(userName);
+    this.listUsers = this.manageUserService.getUserBySearchField(userName);
   }
   
-  open(content) {
+  open(content) 
+  {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = `Closed`;
+    }, 
+    (reason) => {
+      this.closeResult = `Dismissed`;
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+  saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status, userName)
+  {
+    this.listUsers = this.manageUserService.saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status);
+    this.quantity = "";
+  }
+
+  blockUser(userMail, formMail)
+  {
+    if(userMail == formMail)
+    {
+      console.log(userMail);
+      this.authenticationService.blockAccount(userMail)
+      .subscribe(res => {});
+
+      this.quantity = "";
+      this.listUsers = this.displayAllUsers();
+    }
+    else
+    {
+      // TODO : Insérer notif pour dire que ça va pas
+    }
+  }
+
+  activeUser(userMail, formMail)
+  {
+    if(userMail == formMail)
+    {
+      console.log(userMail);
+      this.authenticationService.activeAccount(userMail)
+      .subscribe(res => {});
+
+      this.quantity = "";
+      this.listUsers = this.displayAllUsers();
+    }
+    else
+    {
+      // TODO : Insérer notif pour dire que ça va pas
     }
   }
 }
