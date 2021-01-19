@@ -13,7 +13,6 @@ const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 const emptyValue = "Non renseigné(e)";
 
 let con = configImport.connexionSQL;
-let messageError = configImport.messageError;
 let userError = configImport.userError;
 let emailError = configImport.emailError;
 
@@ -38,9 +37,9 @@ methods = {
         }
         
         // Récupération des paramètres email et password passés en POST
-        emailToFind = req.query.email; 
-        passwordToFind = req.query.password; 
-
+        emailToFind = req.body.email; 
+        passwordToFind = req.body.password; 
+        
         if(!emailToFind || !passwordToFind)
         {
             res.send("Au moins un des deux paramètres est vide.");
@@ -147,6 +146,24 @@ methods = {
         email = req.query.email;
         
         let queryUser = "UPDATE ltuser SET status = 1 WHERE email = '" + email + "';";
+        con.query(queryUser, function(err, result) {});
+
+        res.send(true);
+    },
+
+    activeAccount : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false;
+        }
+        
+        email = req.query.email;
+        
+        let queryUser = "UPDATE ltuser SET status = 0 WHERE email = '" + email + "';";
         con.query(queryUser, function(err, result) {});
 
         res.send(true);

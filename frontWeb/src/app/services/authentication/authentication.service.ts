@@ -16,7 +16,7 @@ export class AuthenticationService {
 
   login(mail, password)
   {
-    return this.http.get(this.url + "?email=" + mail + "&password=" + password, {responseType:"text"}); // Récupère les données renvoyées par l'API
+    return this.http.post(this.url, {email : mail, password : password}, {responseType:"text"}); // Récupère les données renvoyées par l'API
   }
 
   checkEmail(mail)
@@ -32,5 +32,10 @@ export class AuthenticationService {
   blockAccount(mail): Observable<Object>
   {
     return this.http.get(this.url + "/blockaccount?email=" + mail);
+  }
+
+  activeAccount(mail): Observable<Object>
+  {
+    return this.http.get(this.url + "/activeaccount?email=" + mail);
   }
 }

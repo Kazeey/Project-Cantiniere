@@ -3,6 +3,7 @@ const configImport = require('../config');
 const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
+let messageError = configImport.messageError;
 
 methods = {
     getMenuForWeek : async function(req, res) 
@@ -67,9 +68,9 @@ methods = {
             headers: {'content-type' : 'application/json'},
             url:     baseUrl + 'menu/add',
             body:    JSON.stringify(req.body.menu)
-          }, function(error, response, body){
+        }, function(error, response, body){
             console.log(body);
-          });
+        });
 
         if(isException.length != 0)
         {
