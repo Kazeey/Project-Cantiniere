@@ -22,6 +22,7 @@ const accountImport     = require('./functions/account/index.js');
 const usersImport       = require('./functions/users/index.js');
 const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
+const orderImport       = require('./functions/order/index.js');
 
 // ------ Login ------ 
 app.get('/api/login'                , loginImport.data.login);           // login to an existing account
@@ -39,8 +40,10 @@ app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all
 app.post('/api/users/getUserById/'  , usersImport.data.getUserById);  // Get a user with a given id
 
 // ------ Meals ------
-app.get('/api/meals/getAllMeals'    , mealsImport.data.getAllMeals);  // Get all meals from database
-app.post('/api/meals/getMealById/'  , mealsImport.data.getMealById);  // Get a meals with a given id
+app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);
+app.post('/api/meals/getMealsForToday/'  , mealsImport.data.getMealsForToday);
+app.get('/api/meals/getAllMeals'        , mealsImport.data.getAllMeals);  // Get all meals from database
+app.post('/api/meals/getMealById/'      , mealsImport.data.getMealById);  // Get a meals with a given id
 
 // ------ Menu -------
 app.post('/api/menu/addMenu'            , menuImport.data.addMenu);            // Add Menu
@@ -52,6 +55,9 @@ app.patch('/api/menu/updateMenuImage'   , menuImport.data.updateMenuImage);    /
 app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       // Get Menu Image
 app.post('/api/menu/getMenuForWeek'     , menuImport.data.getMenuForWeek);     // Get Menu for current week
 app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    // Get Menu for current day
+
+//------ Order -------
+app.post('/api/order/addOrder'          , orderImport.data.addOrder);
 
 app.listen(3001, function() {
     console.log("connected");
