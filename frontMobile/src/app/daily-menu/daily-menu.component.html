@@ -30,15 +30,15 @@
   </div>
 
   <div id="meals_container">
-    <ion-card *ngFor="let meal of meals">
+    <ion-card *ngFor="let item of meals, i as index">
       <ion-card-header>
-        <ion-img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"></ion-img>
-        <ion-card-title id="meal_title">{{ meal.label }}</ion-card-title>
+        <ion-img src="{{ item.image.image64 }}"></ion-img>
+        <ion-card-title id="meal_title">{{ item.meal.label }}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content id="meal_card_footer">
-        <p class="price">{{ meal.priceDF }} €</p>
-        <ion-button class="ion_button" *ngIf="isAddedToCart(meal)" (click)="onAdd(meal)">Add</ion-button>
+        <p class="price">{{ item.meal.priceDF }} €</p>
+        <ion-button class="ion_button" *ngIf="isAddedToCart(item.meal)" (click)="onAdd(item.meal)">Add</ion-button>
       </ion-card-content>
 
     </ion-card>

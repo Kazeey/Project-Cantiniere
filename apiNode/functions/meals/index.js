@@ -88,6 +88,45 @@ methods = {
         res.send(this.mealList);
     },
 
+    getImage: async function(req, res) {
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        let isException = [];
+
+        let id = req.body.id;
+
+        await fetch(baseUrl + 'meal/findimg/' + id)
+        .then(response => response.json())
+        .then(data => {
+            if(data.exceptionMessage)
+            {
+                // Vérifie s'il y a une exception (donc si l'utilisateur n'est pas trouvé)
+                isException.push(this.data.exceptionMessage);
+            }
+            else
+            {
+                // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
+                isException = [];
+
+                this.image = data;
+            }
+        })
+
+        if(isException.length != 0)
+        {
+            res.send(configImport.menuError);
+            return false; 
+        }
+
+        res.send(this.image);
+    },
+
     getAllMeals : async function(req, res) 
     {
         

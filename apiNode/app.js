@@ -47,6 +47,7 @@ app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);
 app.post('/api/meals/getMealsForToday/'  , mealsImport.data.getMealsForToday);
 app.get('/api/meals/getAllMeals'        , mealsImport.data.getAllMeals);  // Get all meals from database
 app.post('/api/meals/getMealById/'      , mealsImport.data.getMealById);  // Get a meals with a given id
+app.post('/api/meals/getImage/'      , mealsImport.data.getImage); 
 
 // ------ Menu -------
 app.post('/api/menu/addMenu'            , menuImport.data.addMenu);            // Add Menu

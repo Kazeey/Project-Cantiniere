@@ -6,6 +6,7 @@ const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 let messageError = configImport.messageError;
 
 methods = {
+
     getAllConstraints : async function(req, res) 
     {
         let isApiAvalaible = await configImport.verification();
@@ -111,11 +112,7 @@ methods = {
             return false; 
         }
 
-        let constraintToAdd = {
-            orderTimeLimit : req.body.orderTimeLimit,
-            maximumOrderPerDay : req.body.maximumOrderPerDay,
-            rateVAT : req.body.rateVAT
-        };
+        let constraintToAdd = req.body.constraint;
 
         request.put({
             headers: {'content-type' : 'application/json'},

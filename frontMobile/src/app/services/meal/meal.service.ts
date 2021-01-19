@@ -20,4 +20,8 @@ export class MealService {
   getMealsForToday(): Observable<Object> {
     return this.http.post(this.url + "getMealsForToday/", {});
   }
+
+  getImage(mealId: number): Observable<Object> {
+    return this.http.post(this.url + "getImage/", {id: mealId});
+  }
 }

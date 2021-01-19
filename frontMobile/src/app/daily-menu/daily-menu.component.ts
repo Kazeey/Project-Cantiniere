@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DailyMenuService } from '../services/daily-menu/daily-menu.service';
 import { DailyOrderService } from '../services/daily-order/daily-order.service';
 import { MealService } from '../services/meal/meal.service';
 
@@ -13,6 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class DailyMenuComponent implements OnInit {
   menus: any = [];
   meals: any = [];
+  images: any = [];
   products: any = [];
 
   amountToPay: number;
@@ -21,14 +21,11 @@ export class DailyMenuComponent implements OnInit {
   userWallet: number = 82.13;
   userId: number = 1;
 
-  constructor(private dailyMenuService: DailyMenuService, 
-    private dailyOrderService: DailyOrderService, 
-    private mealService: MealService, 
+  constructor(private dailyOrderService: DailyOrderService, 
+    private mealService: MealService,
     public alertController: AlertController) { }
 
   ngOnInit() {
-    //this.getDailyMenu(3)
-
     this.getDailyMeals()
   }
 
@@ -36,9 +33,25 @@ export class DailyMenuComponent implements OnInit {
   getDailyMeals() {
     this.mealService.getMealsForToday()
       .subscribe(res => {
-        this.meals = res
+        let meals: any = res;
+        //this.meals = res
 
-        console.log(res);
+        for (let meal of meals) {
+          this.getImageFromMeal(meal);
+        }
+
+        //console.log(this.meals);
+      })
+  }
+
+  getImageFromMeal(meal: any) {
+    this.mealService.getImage(meal.id)
+      .subscribe(res => {
+        let image = res;
+
+        this.meals.push({meal: meal, image: image});
+
+        console.log(this.meals)
       })
   }
 
@@ -126,18 +139,20 @@ export class DailyMenuComponent implements OnInit {
   onOrder() {
     let message: string = ""
     let positiveBtn: string = "Ok"
+    let isValid: boolean = false;
 
     if (this.amountToPay < this.userWallet) {
-      message = "Voulez vous procéder à l'enregistrement de votre commande ?"
-      positiveBtn = "Valider"
+      message = "Voulez vous procéder à l'enregistrement de votre commande ?";
+      positiveBtn = "Valider";
+      isValid = true;
     } else {
-      message = "Votre solde est insuffisant"
+      message = "Votre solde est insuffisant";
     }
 
-    this.showAlert(message, positiveBtn);
+    this.showAlert(message, positiveBtn, isValid);
   }
 
-  async showAlert(message: string, positiveBtn: string) {
+  async showAlert(message: string, positiveBtn: string, isValid: boolean) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       subHeader: message,
@@ -146,13 +161,15 @@ export class DailyMenuComponent implements OnInit {
           text: positiveBtn,
           cssClass: 'primary',
           handler: (onPositive) => {
-            let order = this.generateOrder();
+            if (isValid) {
+              let order = this.generateOrder();
 
-            console.log(order);
-
-            this.dailyOrderService.addOrder(order).subscribe(res => {
-              console.log(res);
-            })
+              console.log(order);
+  
+              this.dailyOrderService.addOrder(order).subscribe(res => {
+                console.log(res);
+              })
+            }
           }
         }
       ]
@@ -163,7 +180,7 @@ export class DailyMenuComponent implements OnInit {
 
   generateOrder(): any {
     let userId = this.userId;
-    let constraintId = 1;
+    let constraintId = 5;
     let quantity: any = []
 
     for (let i = 0; i < this.products.length; i++) {
