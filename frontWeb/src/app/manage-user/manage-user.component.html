@@ -65,14 +65,16 @@
                         >
                         Désactiver
                       </button>
-                      <button 
-                          #elseButton
-                          type="button" 
-                          class="btn btn-outline-primary" 
-                          (click)="activeUser(user.email, mail.value)"
-                        >
-                        Activer
-                      </button>
+                      <ng-template #elseButton>
+                        <button 
+                            #elseButton
+                            type="button" 
+                            class="btn btn-outline-primary" 
+                            (click)="activeUser(user.email, mail.value)"
+                          >
+                          Activer
+                        </button>
+                      </ng-template>
                       </div>
                     <div>
                     <button 
