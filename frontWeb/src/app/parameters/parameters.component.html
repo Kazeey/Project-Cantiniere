@@ -6,7 +6,7 @@
             <th scope="col" sortable="name" (sort)="onSort($event)">Heure limite</th>
             <th scope="col" sortable="area" (sort)="onSort($event)">Nombre de commande maximum</th>
             <th scope="col" sortable="population" (sort)="onSort($event)">Taux TVA</th>
-            <th scope="col" sortable="population" (sort)="onSort($event)">Modifier</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,65 @@
                 {{constraint.rateVAT}}
             </td>
             <td>
-
+                <a type="button" class="btn btn-outline-secondary" (click)="open(content)">Modifier</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" (click)="deleteConstraint">Supprimer</button>
             </td>
+
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 #id class="modal-title" id="modal-basic-title">Mise à jour de la contrainte - {{constraint.id}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">              
+                      <label for="name">Nom</label>
+                      <div class="input-group">
+                        <input id="name" class="form-control" name="name" type="text" #name value="{{constraint.orderTimeLimit}}">
+                      </div>
+                      <label for="firstname">Prénom</label>
+                      <div class="input-group">
+                        <input id="firstname" class="form-control" name="firstname" type="text" #firstname value="{{constraint.maximumOrderPerDay}}">
+                      </div>
+                      <label for="mail">Mail</label>
+                      <div class="input-group">
+                        <input id="mail" class="form-control" name="mail" type="mail" #mail value="{{constraint.rateVAT}}">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" (click)="modal.close('Save click')">
+                  <div>
+                  <button 
+                      type="button" 
+                      class="btn btn-outline-dark" 
+                      (click)="saveUser(
+                                user.id, 
+                                name.value, 
+                                firstname.value, 
+                                user.sex, 
+                                mail.value,
+                                phone.value, 
+                                user.role, 
+                                address.value, 
+                                town.value, 
+                                postalCode.value, 
+                                wallet.value,
+                                user.status,
+                                userName.value
+                              )" 
+                    >
+                    Sauvegarder
+                  </button>
+                  </div>
+                </div>
+              </ng-template>
         </tr>
         </tbody>
-      </table>
+    </table>
+
+    <button type="button" class="btn btn-success" (click)="createConstraint">Ajouter</button>
 </div>

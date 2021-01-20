@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { verification } from '../../../../config/verification';
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { constantes } from '../../../../config/constantes';
 
 @Component({

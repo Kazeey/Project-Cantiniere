@@ -49,6 +49,7 @@ export class AppComponent {
     else
     {
       this.statut = "visiteur"
+      this.resetStorage();
     }
   }
 
@@ -57,7 +58,7 @@ export class AppComponent {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
-    this.resetStorage() // Vide toute les valeurs du localStorage
+    this.resetStorage(); // Vide toute les valeurs du localStorage
   }
 
   resetStorage()
