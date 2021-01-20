@@ -4,13 +4,9 @@ const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
-let messageError = configImport.messageError;
-let actionMessage = configImport.actionMessage;
-
 methods = {
     
-    addOrder : async function(req, res) 
-    {
+    addOrder : async function(req, res) {
         let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
@@ -25,11 +21,10 @@ methods = {
             body: JSON.stringify(req.body.order)
         }, 
             function(error, response, body) {
-                res.send(JSON.stringify(actionMessage))
+                res.send(JSON.stringify(response))
             }
         );
-    },
-    
+    }
 }
 
 exports.data = methods;

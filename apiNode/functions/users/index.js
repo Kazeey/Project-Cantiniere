@@ -4,6 +4,8 @@ const configImport = require('../config');
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
 const emptyValue = "Non renseigné(e)";
+let messageError = configImport.messageError;
+let con = configImport.connexionSQL;
 
 /* 
 *   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
@@ -116,6 +118,7 @@ methods = {
                 postalCode  : postalCode,
                 phone       : phone,
                 status      : currentUser.status,
+                registrationDate : currentUser.registrationDate,
                 image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                     id          : imageId,
                     imagePath   : currentImage.imagePath,
@@ -148,7 +151,7 @@ methods = {
         let sexe;
 
         // Récupération du paramètre userId passe en POST
-        userIdToFind = req.query.userId; 
+        userIdToFind = req.body.userId; 
 
         // Récupère les données de l'utilisateur ciblé
         await fetch(baseUrl +  "user/find/" + userIdToFind)
@@ -214,6 +217,7 @@ methods = {
             postalCode  : postalCode,
             phone       : phone,
             status      : userToFind.status,
+            registrationDate : userToFind.registrationDate,
             image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                 id          : imageId,
                 imagePath   : currentImage.imagePath,
@@ -224,6 +228,26 @@ methods = {
         user.push(person);
         
         res.send(user);
+    },
+
+    getUserBySearchField : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        toSearch = req.body.userName;
+        
+        let query = "SELECT * FROM ltuser WHERE name LIKE '%" + toSearch + "%' OR firstname LIKE '%" + toSearch + "%';"; 
+
+        con.query(query, function(err, result) {
+            if(result[0] != null)
+                res.send(result);
+        });
     }
 }
 

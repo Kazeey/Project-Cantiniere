@@ -68,13 +68,19 @@ methods = {
 
         request.put({
             headers: {'content-type' : 'application/json'},
-            url: baseUrl + 'menu/add',
-            body: JSON.stringify(req.body.menu)
-        }, 
-            function(error, response, body) {
-                res.send(JSON.stringify(actionMessage))
-            }
-        );
+            url:     baseUrl + 'menu/add',
+            body:    JSON.stringify(req.body.menu)
+        }, function(error, response, body){
+            console.log(body);
+        });
+
+        if(isException.length != 0)
+        {
+            res.send(configImport.menuError);
+            return false; 
+        }
+
+        res.send(this.menu);
     },
 
     updateMenu : async function(req, res) 

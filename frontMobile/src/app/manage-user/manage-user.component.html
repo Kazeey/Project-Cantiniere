@@ -1,3 +1,109 @@
-<p>
-  manage-user works!
-</p>
+<div *ngIf="isConnected">
+  
+  <div class="container">
+    <input #userName type="text" name="userName" placeholder="Recherche" [(ngModel)]="quantity" (ngModelChange)="displaySearchedUser($event)" id="inputSearch">
+      <div class="row">
+          <div class="card" style="width: 18rem;" *ngFor="let user of listUsers | async">
+              <div class="card-body">
+                  <h5 class="card-title">{{user.name}} {{user.firstname}}</h5>
+                  <p class="card-text">Solde : {{user.wallet}}</p>
+                  <a class="btn btn-primary" (click)="open(content)">Éditer</a>
+              </div>
+
+              <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 #id class="modal-title" id="modal-basic-title">Mise à jour du profil - {{user.id}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">              
+                      <label for="name">Nom</label>
+                      <div class="input-group">
+                        <input id="name" class="form-control" name="name" type="text" #name value="{{user.name}}">
+                      </div>
+                      <label for="firstname">Prénom</label>
+                      <div class="input-group">
+                        <input id="firstname" class="form-control" name="firstname" type="text" #firstname value="{{user.firstname}}">
+                      </div>
+                      <label for="mail">Mail</label>
+                      <div class="input-group">
+                        <input id="mail" class="form-control" name="mail" type="mail" #mail value="{{user.email}}">
+                      </div>
+                      <label for="phone">Téléphone</label>
+                      <div class="input-group">
+                        <input id="phone" class="form-control" name="phone" type="phone" #phone value="{{user.phone}}">
+                      </div>
+                      <label for="address">Adresse</label>
+                      <div class="input-group">
+                        <input id="address" class="form-control" name="address" type="text" #address value="{{user.address}}">
+                      </div>
+                      <label for="town">Ville</label>
+                      <div class="input-group">
+                        <input id="town" class="form-control" name="town" type="text" #town value="{{user.town}}">
+                      </div>
+                      <label for="postalCode">Code Postal</label>
+                      <div class="input-group">
+                        <input id="postalCode" class="form-control" name="postalCode" type="text" #postalCode value="{{user.postal_code}}">
+                      </div>
+                      <label for="wallet">Solde</label>
+                      <div class="input-group">
+                        <input id="wallet" class="form-control" name="wallet" type="number" #wallet value="{{user.wallet}}">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" (click)="modal.close('Save click')">
+                  <div>
+                    <button 
+                        *ngIf="user.status == 0; else elseButton"
+                        type="button" 
+                        class="btn btn-outline-danger" 
+                        (click)="blockUser(user.email, mail.value)"
+                      >
+                      Désactiver
+                    </button>
+                    <ng-template #elseButton>
+                      <button 
+                          #elseButton
+                          type="button" 
+                          class="btn btn-outline-primary" 
+                          (click)="activeUser(user.email, mail.value)"
+                        >
+                        Activer
+                      </button>
+                    </ng-template>
+                    </div>
+                  <div>
+                  <button 
+                      type="button" 
+                      class="btn btn-outline-dark" 
+                      (click)="saveUser(
+                                user.id, 
+                                name.value, 
+                                firstname.value, 
+                                user.sex, 
+                                mail.value,
+                                phone.value, 
+                                user.role, 
+                                address.value, 
+                                town.value, 
+                                postalCode.value, 
+                                wallet.value,
+                                user.status,
+                                userName.value
+                              )" 
+                    >
+                    Sauvegarder
+                  </button>
+                  </div>
+                </div>
+              </ng-template>
+          </div>
+      </div> 
+  </div>
+
+  
+</div>
