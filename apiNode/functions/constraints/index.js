@@ -125,6 +125,8 @@ methods = {
         {
             console.log(body);
         });
+
+        res.send(true);
     },
 
     updateConstraint : async function(req, res) 
@@ -137,6 +139,8 @@ methods = {
             return false; 
         }
 
+        let constraintId = req.body.constraintId;
+
         let constraintToUpdate = {
             orderTimeLimit : req.body.orderTimeLimit,
             maximumOrderPerDay : req.body.maximumOrderPerDay,
@@ -145,12 +149,14 @@ methods = {
 
         request.patch({
             headers: {'content-type' : 'application/json'},
-            url:     baseUrl + 'constraint/update',
+            url:     baseUrl + 'constraint/update/' + constraintId,
             body:    JSON.stringify(constraintToUpdate)
         }, function(error, response, body) 
         {
             console.log(body);
         })
+
+        res.send(true);
     },
 
     deleteConstraint : async function(req, res) 
@@ -163,12 +169,19 @@ methods = {
             return false; 
         }
 
-        let constraintIdToDelete = req.body.constraintId;
+        let constraintId = req.body.constraintId;
 
         // Supprime la contrainte ciblée
-        await fetch(baseUrl +  "constraint/delete/" + constraintIdToDelete)
-        .then(response => response.json())
-        .then(data => {});
+        request.delete({
+            headers: {'content-type' : 'application/json'},
+            url:     baseUrl + "constraint/delete/" + constraintId,
+            body:    JSON.stringify(constraintId)
+        }, function(error, response, body) 
+        {
+            console.log(body);
+        })
+
+        res.send(true);
     }
 }
 

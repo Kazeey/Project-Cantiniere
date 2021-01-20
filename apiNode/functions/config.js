@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const mysql = require('mysql');
+const nodemailer = require('nodemailer');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
@@ -29,6 +30,14 @@ const userError = "Il n'y a pas d'utilisateur qui corresponde.";
 const weekNumberError = "Le numéro de menu doit être compris entre 1 et 52";
 const menuError = "Aucun menu trouvé";
 
+let transporter = nodemailer.createTransport({
+    service: 'Yahoo',                       // Service utilisé pour l'envoi de l'email
+    auth: {
+      user: 'projetcantiniere@yahoo.com',   // Email que j'ai créé pour avoir une boite sur Yahoo
+      pass: 'uvnvydpvdbzjprum'              // Mot de passe généré par Yahoo pour l'application
+    }
+});
+
 // Configuration de la connexion à la base de données.
 // Si jamais les requêtes SQL ne fonctionnent pas, voir du côté de flush privileges;
 const connexionSQL = mysql.createConnection({
@@ -38,4 +47,4 @@ const connexionSQL = mysql.createConnection({
     database: "lunchtime"
 });
 
-module.exports = { verification, messageError, connexionSQL, userError, weekNumberError, menuError }
+module.exports = { verification, messageError, connexionSQL, userError, weekNumberError, menuError, transporter }

@@ -3,7 +3,7 @@
 *   Sert à faire toutes les requêtes nécéssaires et/ou non données par l'api JAVA.
 *   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum.
 *
-*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.query.parametre(s).
+*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.body.parametre(s).
 */
 
 const express = require('express');
@@ -17,12 +17,13 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Import des fonctions
-const loginImport       = require('./functions/login/index.js');
-const accountImport     = require('./functions/account/index.js');
-const usersImport       = require('./functions/users/index.js');
-const mealsImport       = require('./functions/meals/index.js');
-const menuImport        = require('./functions/menu/index.js');
-const constraintImport  = require('./functions/constraints/index.js');
+const loginImport        = require('./functions/login/index.js');
+const accountImport      = require('./functions/account/index.js');
+const usersImport        = require('./functions/users/index.js');
+const mealsImport        = require('./functions/meals/index.js');
+const menuImport         = require('./functions/menu/index.js');
+const constraintImport   = require('./functions/constraints/index.js');
+const notificationImport = require('./functions/notifications/index.js');
 
 // ------ Login ------ 
 app.post('/api/login'               , loginImport.data.login);           // login to an existing account
@@ -60,8 +61,11 @@ app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    /
 app.get('/api/constraints/getAllConstraints'  , constraintImport.data.getAllConstraints);   // Get all the constraints
 app.post('/api/constraints/getConstraintById' , constraintImport.data.getConstraintById);   // Get a constraint with a given id
 app.put('/api/constraints/addConstraint'      , constraintImport.data.addConstraint);       // Add a constraint to the database
-app.patch('/api/constraints/updateConstraint' , constraintImport.data.updateConstraint);    // Update a constraint in the database
+app.post('/api/constraints/updateConstraint'  , constraintImport.data.updateConstraint);    // Update a constraint in the database
 app.post('/api/constraints/deleteConstraint'  , constraintImport.data.deleteConstraint);    // Delete a constraint with a given id
+
+// ------ Notifications ------
+app.post('/api/notification/submit' , notificationImport.data.submit)
 
 app.listen(3001, function() {
     console.log("connected");

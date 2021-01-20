@@ -12,34 +12,44 @@ import { AuthenticationService } from './services/authentication/authentication.
 })
 
 export class AppComponent {
-  isCollapsed = false;
+  public isCollapsed = false;
  
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
-  statut:String = "visiteur"; 
+  public statut:String = "visiteur"; 
 
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
 
   // Assignation des differents menus après vérifications de l'utilisateur
-  communs = menu.menusCommuns;
+  public communs = menu.menusCommuns;
   
-  isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
-  displayComponent = true; //  Variable d'affichage des components pour la déconnexion
-  box:HTMLElement = null; // Menu "Se connecter" sur la gauche
+  public isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
+  public displayComponent = true; //  Variable d'affichage des components pour la déconnexion
+  public box:HTMLElement = null; // Menu "Se connecter" sur la gauche
 
-  nbEssaisConnexion = constantes.nbEssaisConnexion; 
-  phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
+  public nbEssaisConnexion = constantes.nbEssaisConnexion; 
+  public phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
-  toSend = ""; // Faire passer une donnée statique entre plusieurs routes
+  public toSend = ""; // Faire passer une donnée statique entre plusieurs routes
+
+  public role:string;
 
   constructor(private AuthenticationService:AuthenticationService) { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
-    
     this.isConnected = verification();
+
+    if(localStorage.getItem('role'))
+    {
+      this.statut = localStorage.getItem('role');
+    }
+    else
+    {
+      this.statut = "visiteur"
+    }
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
@@ -163,12 +173,11 @@ export class AppComponent {
             switch(data.role)
             {
               case 0:
-                role = "client";
+                this.role = "client";
                 break;
               case 1:
-                role = "admin";
+                this.role = "admin";
                 break;
-              default : "visiteur";
             }
 
             // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
@@ -186,6 +195,7 @@ export class AppComponent {
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id);
+            localStorage.setItem("role", this.role);
 
             this.showStorage();
 

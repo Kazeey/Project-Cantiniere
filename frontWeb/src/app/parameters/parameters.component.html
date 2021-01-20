@@ -1,3 +1,30 @@
 <div *ngIf="isConnected">
-    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Identifiant</th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">Heure limite</th>
+            <th scope="col" sortable="area" (sort)="onSort($event)">Nombre de commande maximum</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)">Taux TVA</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)">Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let constraint of listConstraints | async">
+            <th scope="row">{{ constraint.id }}</th>
+            <td>
+                {{constraint.orderTimeLimit}}
+            </td>
+            <td>
+                {{constraint.maximumOrderPerDay}}
+            </td>
+            <td>
+                {{constraint.rateVAT}}
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+      </table>
 </div>

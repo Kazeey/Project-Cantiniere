@@ -209,7 +209,7 @@ methods = {
             name        : userToFind.name,         
             firstname   : userToFind.firstname,
             sex         : sexe,                 
-            email        : userToFind.email,
+            email       : userToFind.email,
             role        : role,
             wallet      : userToFind.wallet,
             address     : address,

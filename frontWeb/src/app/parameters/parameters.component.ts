@@ -1,8 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
 
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
-import { constantes } from '../../../../config/constantes';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+interface Constraint {
+  id: number; 
+  orderTimeLimit: String;
+  maximumOrderPerDay: number;
+  rateVAT : number;
+}
 
 @Component({
   selector: 'app-parameters',
@@ -15,19 +25,25 @@ export class ParametersComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
 
   // Variable de modification des paramètres
-  public listParameters; 
+  public listConstraints;
 
   ngOnInit(): void 
   {
     this.isConnected = verification();
+    this.listConstraints = this.getAllConstraints();
   }
 
   ngOnDestroy(): void
   {
     this.isConnected = false; 
+  }
+
+  getAllConstraints()
+  {
+    return this.parametersService.getAllConstraints();
   }
 
 }

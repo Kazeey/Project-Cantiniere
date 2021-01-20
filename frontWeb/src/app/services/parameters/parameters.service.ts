@@ -11,5 +11,10 @@ export class ParametersService {
 
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "constraints"; // url souhaitée pour la requête de l'API
+
+  getAllConstraints()
+  {
+    return this.http.get(this.url + "/getAllConstraints");
+  }
 }
