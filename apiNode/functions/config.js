@@ -29,6 +29,7 @@ const messageError = "L'API JAVA n'est pas connectée.";
 const userError = "Il n'y a pas d'utilisateur qui corresponde.";
 const weekNumberError = "Le numéro de menu doit être compris entre 1 et 52";
 const menuError = "Aucun menu trouvé";
+const actionMessage = "L'action a été effectuée";
 
 let transporter = nodemailer.createTransport({
     service: 'Yahoo',                       // Service utilisé pour l'envoi de l'email
@@ -43,8 +44,9 @@ let transporter = nodemailer.createTransport({
 const connexionSQL = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
-    password: "root",
+    password: "password",
     database: "lunchtime"
 });
 
-module.exports = { verification, messageError, connexionSQL, userError, weekNumberError, menuError, transporter }
+module.exports = { verification, messageError, connexionSQL, userError, weekNumberError, menuError, transporter, actionMessage }
+

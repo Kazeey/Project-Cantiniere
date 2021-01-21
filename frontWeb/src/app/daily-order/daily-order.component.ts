@@ -42,6 +42,6 @@ export class DailyOrderComponent implements OnInit {
 
   displayDailyOrders()
   {
-    return this.dailyOrderService.getDailyOrder();
+    //return this.dailyOrderService.getDailyOrder();
   }
 }
