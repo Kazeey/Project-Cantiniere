@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MenuModule} from './menu/menu.module'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,11 +19,12 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzLayoutModule  } from 'ng-zorro-antd/layout';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { IconsProviderModule } from './icons-provider.module';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DailyMenuComponent } from './daily-menu/daily-menu.component';
 
 
 registerLocaleData(fr);
@@ -36,8 +38,7 @@ registerLocaleData(fr);
     ManageUserComponent,
     ManageProductComponent,
     DailyOrderComponent,
-    HistoricComponent,
-    DailyMenuComponent
+    HistoricComponent
   ],
   imports: [
     CommonModule,
@@ -48,8 +49,11 @@ registerLocaleData(fr);
     BrowserAnimationsModule,
     NzMenuModule,
     NzLayoutModule,
+    NzButtonModule,
     IconsProviderModule,
-    NgbModule 
+    NgbModule,
+    MenuModule,
+    NzModalModule
   ],
   exports: [
     ParametersComponent,

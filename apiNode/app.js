@@ -70,6 +70,9 @@ app.put('/api/constraints/addConstraint'      , constraintImport.data.addConstra
 app.patch('/api/constraints/updateConstraint' , constraintImport.data.updateConstraint);    // Update a constraint in the database
 app.post('/api/constraints/deleteConstraint'  , constraintImport.data.deleteConstraint);    // Delete a constraint with a given id
 
+// ------ Order -------
+//app.post('/api/order/addOrder', orderImport.data.addMenu);
+
 app.listen(3001, function() {
     console.log("connected");
 }); 
