@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { verification } from '../../../../config/verification';
 import { DailyOrderService } from '../services/daily-order/daily-order.service';
 import { MealService } from '../services/meal/meal.service';
 
@@ -16,6 +17,7 @@ export class DailyMenuComponent implements OnInit {
   products: any = [];
 
   amountToPay: number;
+  isConnected:boolean = false;
 
   isAuthenticate: boolean = true;
   userWallet: number = 82.13;
@@ -200,7 +202,6 @@ export class DailyMenuComponent implements OnInit {
       quantity: quantity
     };
 
-    return order;
+    return order;  
   }
-
 }

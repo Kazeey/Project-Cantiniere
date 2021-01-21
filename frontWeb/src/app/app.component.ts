@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menu }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
-import { AuthenticationService } from './services/authentication/authentication.service';
-import { loadTranslations } from '@angular/localize';
+import { AccueilService } from '../app/services/accueil.service';
+import { AuthenticationService } from '../app/services/authentication/authentication.service';
+import { ManageUserService } from './services/manage-user/manage-user.service';
+
 
 @Component({
   selector: 'app-root',
@@ -12,8 +14,14 @@ import { loadTranslations } from '@angular/localize';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  public isCollapsed = false;
+export class AppComponent implements OnInit{
+
+  constructor(private accueilService: AccueilService,
+    private AuthenticationService:AuthenticationService,
+    private manageUserService:ManageUserService ){
+  }
+
+  isCollapsed = false;
  
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
   public statut:string; 
@@ -22,6 +30,9 @@ export class AppComponent {
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
+
+  public usersData;
+  public userId;
 
   // Assignation des differents menus après vérifications de l'utilisateur
   public communs = menu.menusCommuns;
@@ -37,12 +48,11 @@ export class AppComponent {
 
   public role:string;
 
-  constructor(private AuthenticationService:AuthenticationService) { }
-  
-  ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
+    ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
     this.isConnected = verification();
+
 
     if(localStorage.getItem('role'))
     {
@@ -59,7 +69,8 @@ export class AppComponent {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
-    this.resetStorage(); // Vide toute les valeurs du localStorage
+    this.resetStorage() // Vide toute les valeurs du localStorage
+    this.usersData = null;
   }
 
   resetStorage()
@@ -123,6 +134,8 @@ export class AppComponent {
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
+          this.userId = localStorage.getItem("userId");
+          this.usersData = this.getUserData(this.userId);
         }
         else
         {
@@ -197,8 +210,8 @@ export class AppComponent {
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("userId", data.result[0].id);
-            localStorage.setItem("role", this.statut);
+            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
+            localStorage.setItem("statut", data.role); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
 
             this.showStorage();
 
@@ -224,6 +237,9 @@ export class AppComponent {
     this.setMessage("Si l'adresse mail existe, un mail a été envoyé (Pensez a vérifier vos spams).", null);
   }
 
+  getUserData(userId){
+    return this.manageUserService.getUserById(userId);
+  }
 }
 
 

@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const configImport = require('../config');
+const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
@@ -226,12 +227,11 @@ methods = {
         }
         
         user.push(person);
-        
         res.send(user);
     },
 
-    getUserBySearchField : async function(req, res)
-    {        
+    updateUserImg : async function(req, res) 
+    {
         let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
@@ -239,16 +239,22 @@ methods = {
             res.send(messageError);
             return false; 
         }
+            
+        let userId = req.body.userId;
 
-        toSearch = req.body.userName;
-        
-        let query = "SELECT * FROM ltuser WHERE name LIKE '%" + toSearch + "%' OR firstname LIKE '%" + toSearch + "%';"; 
-
-        con.query(query, function(err, result) {
-            if(result[0] != null)
-                res.send(result);
-        });
+        let imgToUpdate = {
+            imagePath: req.body.imgPath,
+            image64 : req.body.url
+        };
+  
+        request.patch({
+            headers: {'content-type' : 'application/json'},
+            url:     baseUrl + 'user/updateimg/' + userId,
+            body:    JSON.stringify(imgToUpdate)
+        },  function(error, response, body) {
+                console.log(body);
+            }
+        )}
     }
-}
 
 exports.data = methods;

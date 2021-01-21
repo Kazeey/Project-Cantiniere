@@ -44,9 +44,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dailyMenu',
     pathMatch: 'full'
-  },
+  }
+
 ];
 
 @NgModule({

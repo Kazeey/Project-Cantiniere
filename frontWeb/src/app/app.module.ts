@@ -25,6 +25,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../environments/environment';
 
 
 registerLocaleData(fr);
@@ -54,6 +55,7 @@ registerLocaleData(fr);
     NgbModule,
     MenuModule,
     NzModalModule
+
   ],
   exports: [
     ParametersComponent,

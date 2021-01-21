@@ -1,96 +1,11 @@
-#meals_container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.footer{
+    position: absolute;
+    bottom: 0px;
+    background-color: gray;
 }
 
-ion-card {
-    margin: 8px;
-    padding: 0px;
-}
-
-#meal_title {
-    font-size: 1em;
-    margin-top: 8px;
-}
-
-ion-card-content {
-    margin: 0;
-    padding-top: 0;
-}
-
-#meal_card_footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.price {
-    color: #48BC48;
-}
-
-.ion_button {
-    height: 24px;
-    font-size: 0.8em;
-}
-
-/* Style for quantity selector */
-
-#quantity_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quantity_btn {
-    width: 20px;
-    border-radius: 50%;
-}
-
-#plus_btn {
-    margin-right: 16px;
-}
-
-#quantity {
-    margin: 0 8px;
-}
-
-/* Shopping Cart */
-
-#shopping_cart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#header_shopping_cart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-#ic_shopping_cart {
-    width: 64px;
-    margin-bottom: 16px;
-}
-
-/* Product Line */
-
-#product_container {
-    width: 70%;
-    margin-top: 8px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-}
-
-/* Cart Footer */
-
-#cart_card_footer {
-    width: 70%;
-    margin: 24px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 0;
+.historic_icon{
+    position: absolute;
+    left: 45%;
+    right: 50%;
 }

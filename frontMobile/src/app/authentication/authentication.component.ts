@@ -4,6 +4,7 @@ import { methods as menus } from '../../../../config/menus';
 import { verification } from '../../../../config/verification';
 import { constantes } from '../../../../config/constantes';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -94,6 +95,7 @@ export class AuthenticationComponent implements OnInit {
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
+          
         }
         else
         {
@@ -167,12 +169,16 @@ export class AuthenticationComponent implements OnInit {
             localStorage.setItem("timeDestruction", timeDestruction);
             localStorage.setItem("connected", "true");
             localStorage.setItem("idUser", data.result[0].id);
+            localStorage.setItem("role", data.role);
 
             this.showStorage();
 
             this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = ! this.isDisplayAuthentication;
+            this.isConnected = true;
+            
+
           }
         }
         else

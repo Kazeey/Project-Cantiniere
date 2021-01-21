@@ -1,0 +1,67 @@
+.historic_client{
+    margin-left: 100px;
+    box-shadow: 5px 5px 10px #aaa;
+    border-width: 1px;
+    border-style: outset;
+    border-color: black;
+    width: 700px;
+}
+
+.historic_lunchLady{
+    margin-left: 100px;
+    box-shadow: 5px 5px 10px #aaa;
+    border-width: 1px;
+    border-style: outset;
+    border-color: black;
+    width: 700px;
+}
+
+.historic_lunchLady  h1, img{
+    font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+    margin-left: 60px;
+    font-size: 2em;
+}
+
+.historic_client  h1, img{
+    font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+    margin-left: 60px;
+    font-size: 2em;
+}
+
+.orders{
+    display: flex;
+    display: inline-block;
+    flex-direction: row;
+}
+
+.meal{
+    display: flex;
+    display: inline-block;
+    flex-direction: row;
+    margin-left: 50px;
+    border-width: 1px;
+    border-style: outset;
+    border-color: black;
+}
+
+.meal p{
+    float: right;
+}
+
+.orders img{
+    width: 40px;
+    height: 40px;
+}
+
+.orders p{
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.commandes h2{
+    margin-left: 40px;
+}
+
+.price{
+    float: right;
+}

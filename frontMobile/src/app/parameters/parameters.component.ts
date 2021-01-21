@@ -1,10 +1,11 @@
+
+import { verification } from '../../../../config/verification';
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { setTimeout } from 'timers';
 
-import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
 import { Observable } from 'rxjs';
 
@@ -15,12 +16,14 @@ interface Constraint {
   rateVAT : number;
 }
 
+
 @Component({
   selector: 'app-parameters',
   templateUrl: './parameters.component.html',
   styleUrls: ['./parameters.component.scss']
 })
 export class ParametersComponent implements OnInit {
+
 
   constructor(private parametersService:ParametersService, private modalService: NgbModal) { }
 
@@ -85,6 +88,7 @@ export class ParametersComponent implements OnInit {
   {
     this.parametersService.deleteConstraint(constraintId)
     .subscribe(res => this.listConstraints = this.displayAllConstraints());
+
   }
 
 }

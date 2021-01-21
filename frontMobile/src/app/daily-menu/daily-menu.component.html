@@ -1,47 +1,27 @@
-<ion-content>
-  <div *ngIf="products.length > 0">
-    <ion-card id="shopping_cart">
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar *ngIf="isConnected">
+      <ion-icon class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
+      <ion-title size="medium">Menu du jour</ion-title>
+      <ion-icon slot="end" class="panier_icon" size="large" name="basket-outline"></ion-icon>
+    </ion-toolbar>
 
-      <ion-card-header id="header_shopping_cart">
-        <ion-img id="ic_shopping_cart" src="../../assets/shopping-cart.svg"></ion-img>
-        <ion-card-title>Shopping Cart</ion-card-title>
-      </ion-card-header>
+    <ion-toolbar *ngIf="isConnected == false">
+      <ion-title size="medium">Menu du jour</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-      <ion-card-content id="product_container" *ngFor="let product of products">
+  <ion-footer class="footer" ng-click="">
+    <ion-toolbar *ngIf="isConnected">
+      <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
+      <ion-icon class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
+      <ion-icon slot="end" class="disconnect_icon" size="large" name="power-outline"><a (click)="ngOnDestroy()"></a></ion-icon>
+    </ion-toolbar>
+  </ion-footer>
 
-        <div id="quantity_container">
-          <img class="quantity_btn" id="minus_btn" src="../../assets/minus_outlined.svg" (click)="onLess(product.meal)"/>
-          <p id="quantity">{{ product.quantity }}</p>
-          <img class="quantity_btn" id="plus_btn" src="../../assets/plus_outlined.svg" (click)="onPlus(product.meal)"/>
-
-          <p id="product_label">{{ product.meal.label }}</p>
-        </div>
-
-        <p class="price">{{ getProductPrice(product) }}</p>
-
-      </ion-card-content>
-
-      <ion-card-content id="cart_card_footer">
-        <p>Montant : <span class="price">{{ getCartPrice() }}</span></p>
-        <ion-button class="ion_button" (click)="onOrder()">Commander</ion-button>
-      </ion-card-content>
-
-    </ion-card>
-  </div>
-
-  <div id="meals_container">
-    <ion-card *ngFor="let item of meals, i as index">
-      <ion-card-header>
-        <ion-img src="{{ item.image.image64 }}"></ion-img>
-        <ion-card-title id="meal_title">{{ item.meal.label }}</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content id="meal_card_footer">
-        <p class="price">{{ item.meal.priceDF }} €</p>
-        <ion-button class="ion_button" *ngIf="isAddedToCart(item.meal)" (click)="onAdd(item.meal)">Add</ion-button>
-      </ion-card-content>
-
-    </ion-card>
-  </div>
-  
+  <ion-footer class="footer" ng-click="">
+    <ion-toolbar *ngIf="isConnected == false">
+      <ion-button expand="block" [routerLink]="['/authentication']">Se connecter</ion-button>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

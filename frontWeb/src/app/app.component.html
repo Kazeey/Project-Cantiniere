@@ -5,15 +5,17 @@
             nzBreakpoint="md"
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
-    <div class="sidebar-logo">
-        <img src="" alt="logo">
-        <h1>Projet Cantinière</h1>
-    </div>
+
+    
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
           1 - Vérification du rôle de l'utilisateur
-        --> 
+        -->  
+    <div *ngIf="isConnected" class="sidebar-logo">
+      <h1 *ngFor="let user of usersData | async" class="name">{{user.firstname}} {{user.name}}</h1> 
+      <h1 *ngFor="let user of usersData | async" class="name">{{user}}</h1>
+    </div>
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/dailyMenu']">Menu du jour</a>
@@ -34,6 +36,7 @@
             <a [routerLink]="['/manageUser']">Gestion des utilisateurs</a>
           </li>
         </ul>
+        
         <ul id="routingConnectionBox" *ngIf = "statut === 'visiteur'">
           <li class="routingConnection" (click) = toggleDisplayAuthentication()>
             <a>Se connecter</a>
@@ -42,7 +45,7 @@
         <ul *ngIf = "statut === 'client'">
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/historic']">Historique des commandes</a>
-          </li>
+          </li> 
         </ul>
       <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visiteur'">
         <ul>
@@ -55,6 +58,7 @@
         </ul>
       </li>
     </ul>
+    
   </nz-sider>
   <nz-layout id="test">
     <nz-header>
@@ -88,4 +92,4 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-
+<!--<app-parameters (notifs)='gererNotifs($event)'></app-parameters>-->

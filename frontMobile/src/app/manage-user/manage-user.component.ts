@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { verification } from '../../../../config/verification';
+
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,7 @@ export class ManageUserComponent implements OnInit {
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+
   isLookingFor:boolean =false;
   closeResult = '';
   quantity;

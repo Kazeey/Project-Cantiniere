@@ -39,6 +39,7 @@ export class ManageUserComponent implements OnInit {
     }
     
     this.listUsers = this.displayAllUsers();
+    console.log(this.listUsers);
   }
 
   ngOnDestroy(): void
