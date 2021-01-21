@@ -57,19 +57,18 @@ export class ShoppingCardComponent implements OnInit {
             console.log("Solde insuffisant !")
         });
       } else {
-        /*this.dailyOrderService.addOrder(this.order)
+        this.dailyOrderService.addOrder(this.generateOrder())
           .subscribe(res => {
-            console.log("Order Added")
-          });*/
-
-          console.log(this.generateOrder())
+            console.log(res)
+            prompt("Commande passée avec succès !")
+          });
       }
     }
   }
 
-  generateOrder(): Order {
+  generateOrder(): any {
     let userId = this.userId;
-    let constraintId = 1;
+    let constraintId = 5;
     let quantity: any = []
 
     for (let i = 0; i < this.products.length; i++) {

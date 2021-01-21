@@ -2,14 +2,21 @@
 
     <div *ngIf="!isLunchLady">
 
-        <div id="menu_container">
+        <div id="meal_container">
 
-            <app-menu 
+            <!--<app-menu 
                 *ngFor="let menu of menus; index as i"
                 [menu]="menu"
                 [isAuthenticate]="isAuthenticate"
                 (onQuantityChange)="onMeal($event)">
-            </app-menu>
+            </app-menu>-->
+
+            <app-meal-card 
+                *ngFor="let meal of meals; index as i"
+                [meal]="meal"
+                [isAuthenticate]="isAuthenticate"
+                (onQuantityChange)="onMeal($event)">
+            </app-meal-card>
     
         </div>
     

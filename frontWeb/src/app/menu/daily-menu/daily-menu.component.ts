@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DailyMenuService } from '../../services/daily-menu/daily-menu.service';
+import { MealService } from '../../services/meal/meal.service';
 
 @Component({
   selector: 'app-daily-menu',
   templateUrl: './daily-menu.component.html',
   styleUrls: ['./daily-menu.component.scss'],
   providers : [
-    DailyMenuService
+    MealService
   ]
 })
 export class DailyMenuComponent implements OnInit {
@@ -17,21 +17,33 @@ export class DailyMenuComponent implements OnInit {
   userWallet: number = 75.15;
   userId = 1;
 
-  menus: any = [];
+  meals: any = [];
+  //menus: any = [];
   products: any = [];
 
-  constructor(private dailyMenuService: DailyMenuService) { }
+  constructor(private mealService: MealService) { }
 
   ngOnInit(): void {
-    this.getDailyMenus(1);
+    //this.getDailyMenus(1);
+
+    this.getMealForToday();
   }
 
-  getDailyMenus(weekNumber: number) {
+  getMealForToday() {
+    this.mealService.getMealsForToday()
+      .subscribe(res => {
+        console.log(res)
+
+        this.meals = res;
+      })
+  }
+
+  /*getDailyMenus(weekNumber: number) {
     this.dailyMenuService.getDailyMenu(weekNumber)
       .subscribe(res => {
         this.menus = res;
       })
-  }
+  }*/
 
   onMeal(event: any) {
     let isContain: boolean = false;

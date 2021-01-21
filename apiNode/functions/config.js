@@ -35,7 +35,7 @@ const actionMessage = "L'action a été effectuée";
 const connexionSQL = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
-    password: "root",
+    password: "password",
     database: "lunchtime"
 });
 
