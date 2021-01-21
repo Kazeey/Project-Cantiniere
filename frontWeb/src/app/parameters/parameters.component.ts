@@ -1,20 +1,10 @@
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { constantes } from '../../../../config/constantes';
-import { stringify } from '@angular/compiler/src/util';
-import { AppComponent } from '../app.component';
-import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
-import { Subscriber } from 'rxjs';
 import { Component, OnInit, PipeTransform } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { textChangeRangeIsUnchanged } from 'typescript';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { isFormattedError } from '@angular/compiler';
+
 
 interface Constraint {
   id: number; 

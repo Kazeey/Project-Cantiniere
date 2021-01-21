@@ -23,6 +23,7 @@ const usersImport       = require('./functions/users/index.js');
 const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
 const orderImport       = require('./functions/order/index.js');
+const notificationImport = require('./functions/notifications/index.js');
 
 // ------ Login ------ 
 app.post('/api/login'               , loginImport.data.login);           // login to an existing account

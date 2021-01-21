@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { verification } from '../../../../config/verification';
-
 import { DailyOrderService } from '../services/daily-order/daily-order.service';
 import { MealService } from '../services/meal/meal.service';
 
@@ -18,26 +17,18 @@ export class DailyMenuComponent implements OnInit {
   products: any = [];
 
   amountToPay: number;
+  isConnected:boolean = false;
 
   isAuthenticate: boolean = true;
   userWallet: number = 82.13;
   userId: number = 1;
-
-  isConnected:boolean = false;
 
   constructor(private dailyOrderService: DailyOrderService, 
     private mealService: MealService,
     public alertController: AlertController) { }
 
   ngOnInit() {
-    this.isConnected = verification();
-
     this.getDailyMeals()
-  }
-
-  ngOnDestroy():void
-  {
-    this.isConnected = false;
   }
 
   // Get all Meal for the current Week
@@ -204,7 +195,13 @@ export class DailyMenuComponent implements OnInit {
 
       quantity.push(item);
     }
+
+    let order: any = {
+      userId: userId,
+      constraintId: constraintId,
+      quantity: quantity
+    };
+
+    return order;  
   }
-
-
 }
