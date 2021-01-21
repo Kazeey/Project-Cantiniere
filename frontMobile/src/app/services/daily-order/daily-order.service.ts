@@ -11,7 +11,11 @@ export class DailyOrderService {
   
   constructor(private http:HttpClient) { }
 
-  private url = constantes.urlAPINode + "login/forgotPassword"; // url souhaitée pour la requête de l'API
+  private url = constantes.urlAPINode + "order/"; // url souhaitée pour la requête de l'API
+
+  addOrder(order: any): Observable<Object> {
+    return this.http.post(this.url + "addOrder/", {order: order});
+  }
 
   getDailyOrder(): Observable<Object>
   {

@@ -5,6 +5,8 @@ const request = require('request');
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
 const emptyValue = "Non renseigné(e)";
+let messageError = configImport.messageError;
+let con = configImport.connexionSQL;
 
 /* 
 *   Si le rôle de l'utilisateur vaut true, alors c'est la cantinière
@@ -54,7 +56,7 @@ methods = {
 
         if(!isApiAvalaible)
         {
-            res.send(messageError);
+            res.send(configImport.messageError);
             return false; 
         }
 
@@ -117,6 +119,7 @@ methods = {
                 postalCode  : postalCode,
                 phone       : phone,
                 status      : currentUser.status,
+                registrationDate : currentUser.registrationDate,
                 image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                     id          : imageId,
                     imagePath   : currentImage.imagePath,
@@ -135,7 +138,7 @@ methods = {
 
         if(!isApiAvalaible)
         {
-            res.send(messageError);
+            res.send(configImport.configImport.messageError);
             return false; 
         }
 
@@ -207,7 +210,7 @@ methods = {
             name        : userToFind.name,         
             firstname   : userToFind.firstname,
             sex         : sexe,                 
-            email        : userToFind.email,
+            email       : userToFind.email,
             role        : role,
             wallet      : userToFind.wallet,
             address     : address,
@@ -215,6 +218,7 @@ methods = {
             postalCode  : postalCode,
             phone       : phone,
             status      : userToFind.status,
+            registrationDate : userToFind.registrationDate,
             image : {                                 // Contient toutes les informations pour l'image de l'utilisateur
                 id          : imageId,
                 imagePath   : currentImage.imagePath,

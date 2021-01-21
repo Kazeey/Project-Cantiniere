@@ -1,14 +1,27 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
-import { verification } from '../../../../config/verification';
-import { ParametersService } from '../services/parameters/parameters.service';
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { constantes } from '../../../../config/constantes';
 import { stringify } from '@angular/compiler/src/util';
 import { AppComponent } from '../app.component';
 import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 import { Subscriber } from 'rxjs';
+import { Component, OnInit, PipeTransform } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { verification } from '../../../../config/verification';
+import { ParametersService } from '../services/parameters/parameters.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { isFormattedError } from '@angular/compiler';
 
+interface Constraint {
+  id: number; 
+  orderTimeLimit: String;
+  maximumOrderPerDay: number;
+  rateVAT : number;
+}
 
 @Component({
   selector: 'app-parameters',
@@ -24,18 +37,26 @@ export class ParametersComponent implements OnInit {
   url:any ;
   imgPath:any = null;
 
-
   constructor(private manageUserService:ManageUserService,
-              private parametersService:ParametersService) { }
+              private parametersService:ParametersService,
+              private modalService: NgbModal) { }
 
  
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
 
   // Variable de modification des paramètres
   public listParameters; 
   public notifsCheck:boolean;
+
+  public listConstraints = null;
+
+  public returnedValues = null;
+
+  public canSee;
+
+  closeResult = '';
 
   ngOnInit(): void 
   {
@@ -43,11 +64,63 @@ export class ParametersComponent implements OnInit {
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
     this.getUsersData(this.userId);
+    let state = localStorage.getItem("role");
+
+    if (this.isConnected == true && state == "admin")
+    {
+
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+
+    }
+    else
+    {
+      this.isConnected = false;
+    }
+    
+    this.listConstraints = this.displayAllConstraints();
   }
 
   ngOnDestroy(): void
   {
     this.isConnected = false; 
+    this.returnedValues = null;
+    this.canSee = false;
+  }
+
+  displayAllConstraints()
+  {
+    return this.parametersService.getAllConstraints();
+  }
+    
+  open(content) 
+  {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed`;
+    }, 
+    (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  addConstraint(orderTimeLimit, maximumOrderPerDay, rateVAT)
+  {
+    this.parametersService.addConstraint(orderTimeLimit, maximumOrderPerDay, rateVAT)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
+  }
+
+  editConstraint(constraintId, orderTimeLimit, maximumOrderPerDay, rateVAT)
+  {
+    this.parametersService.editConstraint(constraintId, orderTimeLimit, maximumOrderPerDay, rateVAT)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
+    // Réassignation de la fonction pour actualisation dans le front
+  }
+ 
+  deleteConstraint(constraintId)
+  {
+    this.parametersService.deleteConstraint(constraintId)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
   }
 
   getUsersData(userId){

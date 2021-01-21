@@ -1,0 +1,29 @@
+<div id="main_container">
+
+    <div id="menu_header_container">
+
+        <h3>{{ menu.label }}</h3>
+
+        <div id="menu_data_container">
+            <p class="price">{{ menu.priceDF }} €</p>
+        </div> 
+
+    </div>
+
+    <div class="horizontal_line"></div>
+
+    <div id="meal_container">
+
+        <app-meal-card
+            *ngFor="let meal of menu.meals"
+            [meal]="meal"
+            [menuId]="menu.id"
+            [isAuthenticate]="isAuthenticate"
+            (onQuantityChange)="onMeal($event)">
+        </app-meal-card>
+
+        <p id="meal_placeholder" *ngIf="menu.meals === undefined">Aucun plat disponible pour ce menu</p>
+
+    </div>
+
+</div>

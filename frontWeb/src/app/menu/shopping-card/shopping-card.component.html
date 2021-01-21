@@ -1,0 +1,37 @@
+<div>
+
+    <div id="card-container">
+
+        <img id="card-ic" src="../../../assets//shopping-cart.svg"/>
+        <h3>Shopping Card</h3>
+
+        <hr>
+
+        <div id="menu_container" *ngFor="let product of products; index as i">
+
+            <div id="product_container" *ngIf="product.quantity > 0">
+
+                <div id="menu_data">
+
+                    <p>x{{ product.quantity }} - {{ product.meal.label }}</p>
+    
+                </div>
+            
+                <div id="menu_price">
+                    <p id="price">{{ calculateLine(i) }} €</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="card_footer">
+            <p id="total">Total :</p>
+            <p id="total_price">{{ calculateAmount() }}</p>
+        </div>
+
+        <button nz-button nzType="primary" (click)="showConfirm()">Commander</button>
+
+    </div>
+
+</div>

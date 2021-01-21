@@ -30,8 +30,15 @@ export class HistoricComponent implements OnInit {
     this.statut = localStorage.getItem("statut");
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
+
     this.ordersData = this.getOrdersData(this.userId);
     this.orders = this.getAllOrders();
+
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
   }
 
   ngOnDestroy(): void

@@ -3,8 +3,10 @@ const configImport = require('../config');
 const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
+let messageError = configImport.messageError;
 
 methods = {
+
     getAllConstraints : async function(req, res) 
     {
         let isApiAvalaible = await configImport.verification();
@@ -17,7 +19,6 @@ methods = {
 
         let arrayConstraint = [];
         let arrayToSend = [];
-
         // Récupère chaque contraintes de la base
         await fetch(baseUrl + "constraint/findall")
         .then(response => response.json())
@@ -25,7 +26,7 @@ methods = {
             // Insère toutes les données dans le tableau déclaré plus haut
             arrayConstraint.push(data); 
         })
-        
+
         for(let i = 0; i < arrayConstraint[0].length; i++)
         {
             currrentConstraint = arrayConstraint[0][i];
@@ -51,13 +52,13 @@ methods = {
             res.send(messageError);
             return false; 
         }
-  
+        
         let arrayConstraint = [];
         let arrayToSend = [];
         let isException = [];
 
         // Récupération du paramètre userId passe en POST
-        constraintIdToFind = req.query.constraintId; 
+        constraintIdToFind = req.body.constraintId; 
 
         // Récupère la contrainte ciblée
         await fetch(baseUrl +  "constraint/find/" + constraintIdToFind)
@@ -112,10 +113,11 @@ methods = {
         }
 
         let constraintToAdd = {
-            orderTimeLimit : req.body.orderTimeLimit,
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
             maximumOrderPerDay : req.body.maximumOrderPerDay,
             rateVAT : req.body.rateVAT
         };
+
 
         request.put({
             headers: {'content-type' : 'application/json'},
@@ -125,6 +127,8 @@ methods = {
         {
             console.log(body);
         });
+
+        res.send(true);
     },
 
     updateConstraint : async function(req, res) 
@@ -137,20 +141,24 @@ methods = {
             return false; 
         }
 
+        let constraintId = req.body.constraintId;
+
         let constraintToUpdate = {
-            orderTimeLimit : req.body.orderTimeLimit,
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
             maximumOrderPerDay : req.body.maximumOrderPerDay,
             rateVAT : req.body.rateVAT
         };
 
         request.patch({
             headers: {'content-type' : 'application/json'},
-            url:     baseUrl + 'constraint/update',
+            url:     baseUrl + 'constraint/update/' + constraintId,
             body:    JSON.stringify(constraintToUpdate)
         }, function(error, response, body) 
         {
             console.log(body);
         })
+
+        res.send(true);
     },
 
     deleteConstraint : async function(req, res) 
@@ -162,7 +170,20 @@ methods = {
             res.send(messageError);
             return false; 
         }
-  
+
+        let constraintId = req.body.constraintId;
+
+        // Supprime la contrainte ciblée
+        request.delete({
+            headers: {'content-type' : 'application/json'},
+            url:     baseUrl + "constraint/delete/" + constraintId,
+            body:    JSON.stringify(constraintId)
+        }, function(error, response, body) 
+        {
+            console.log(body);
+        })
+
+        res.send(true);
     }
 }
 

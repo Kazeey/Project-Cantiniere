@@ -23,6 +23,8 @@
     "request-promise": "^4.2.5",
     "require-stack": "^1.0.2",
     "util": "^0.12.3",
-    "uuidv4": "^6.1.0"
+    "uuidv4": "^6.1.0",
+    "dotenv": "^6.1.0",
+    "pusher": "^2.1.3"
   }
 }

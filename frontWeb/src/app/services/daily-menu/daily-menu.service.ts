@@ -18,17 +18,17 @@ export class DailyMenuService {
     return this.http.post(this.url + "addMenu/", {menu: menuToAdd});
   }
 
-  /*updateMenu(): Observable<Object> {
-    return this.http.patch(this.url + "updateMenu/");
-  }*/
+  updateMenu(menuId, menuToAdd): Observable<Object> {
+    return this.http.post(this.url + "updateMenu/", {menuId: menuId, menu: menuToAdd});
+  }
 
-  /*getMenuById(): Observable<Object> {
-    return this.http.post(this.url + "getMenuById/");
-  }*/
+  getMenuById(menuId): Observable<Object> {
+    return this.http.post(this.url + "getMenuById/", {menuId: menuId});
+  }
 
-  /*deleteMenu(): Observable<Object> {
-    return this.http.delete(this.url + "deleteMenu/");
-  }*/
+  deleteMenu(menuId): Observable<Object> {
+    return this.http.post(this.url + "deleteMenu/", {menuId: menuId})
+  }
 
   /*getAllMenus(): Observable<Object> {
     return this.http.get(this.url + "getAllMenus/");

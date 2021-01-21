@@ -33,4 +33,9 @@ export class AuthenticationService {
   {
     return this.http.get(this.url + "/blockaccount?email=" + mail);
   }
+
+  activeAccount(mail): Observable<Object>
+  {
+    return this.http.get(this.url + "/activeaccount?email=" + mail);
+  }
 }

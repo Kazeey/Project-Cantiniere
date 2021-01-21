@@ -1,0 +1,71 @@
+.card {
+    margin: 8px;
+    padding: 8px 24px 8px 16px;
+    background-color: #F5F5F6;
+    border-radius: 4px;
+    box-shadow: 1px 2px 2px gainsboro;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card:hover {
+    box-shadow: 3px 6px 6px gainsboro;
+}
+
+#card_asset {
+    width: 86px;
+    margin-right: 16px;
+    border-radius: 50%;
+}
+
+#card_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style for quantity selector */
+
+#quantity_container {
+    display: flex;
+}
+
+.quantity_btn {
+    width: 20px;
+    border-radius: 50%;
+}
+
+#minus_btn:hover {
+    content:url("../../../assets/minus.svg");
+}
+
+#plus_btn:hover {
+    content:url("../../../assets/plus.svg");
+}
+
+#quantity {
+    margin: 0 8px;
+}
+
+p {
+    margin: 0;
+    color: #455A64;
+}
+
+#card_title {
+    flex-shrink: 1;
+    font-size: 1.25em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#card_footer {
+    display: flex;
+    margin-top: 8px;
+    justify-content: flex-end;
+}
+
+#card_price {
+    color: #48BC48;
+    font-size: 1.25em;
+}

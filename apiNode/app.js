@@ -3,7 +3,7 @@
 *   Sert à faire toutes les requêtes nécéssaires et/ou non données par l'api JAVA.
 *   Et donc de nous faciliter la vie, en retournant toutes les informations nécéssaire d'un coup, et en limitant la logique dans le front au maximum.
 *
-*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.query.parametre(s).
+*   Pour récupérer les paramètres qui sont passés dans les requêtes post (ex : app.post), veuillez utiliser un req.body.parametre(s).
 */
 
 const express = require('express');
@@ -25,10 +25,11 @@ const menuImport        = require('./functions/menu/index.js');
 const orderImport       = require('./functions/order/index.js');
 
 // ------ Login ------ 
-app.post('/api/login'                , loginImport.data.login);           // login to an existing account
+app.post('/api/login'               , loginImport.data.login);           // login to an existing account
 app.get('/api/login/checkEmail'     , loginImport.data.checkEmail);      // Check the format of your email
 app.get('/api/login/forgotpassword' , loginImport.data.forgotPassword);  // To send a new password
-app.get('/api/login/blockaccount'   , loginImport.data.blockAccount);  // To send a new password
+app.get('/api/login/blockaccount'   , loginImport.data.blockAccount);    // To send a new password
+app.get('/api/login/activeaccount'  , loginImport.data.activeAccount);   // To send a new password
 
 // ------ Account ------
 app.get('/api/account/create'  , accountImport.data.create);    // If you want to create an account
@@ -42,8 +43,11 @@ app.post('/api/users/updateUserImg/'  , usersImport.data.updateUserImg);  // Upd
 
 
 // ------ Meals ------
-app.get('/api/meals/getAllMeals'    , mealsImport.data.getAllMeals);  // Get all meals from database
-app.post('/api/meals/getMealById/'  , mealsImport.data.getMealById);  // Get a meals with a given id
+app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);
+app.post('/api/meals/getMealsForToday/'  , mealsImport.data.getMealsForToday);
+app.get('/api/meals/getAllMeals'        , mealsImport.data.getAllMeals);  // Get all meals from database
+app.post('/api/meals/getMealById/'      , mealsImport.data.getMealById);  // Get a meals with a given id
+app.post('/api/meals/getImage/'      , mealsImport.data.getImage); 
 
 // ------ Menu -------
 app.post('/api/menu/addMenu'            , menuImport.data.addMenu);            // Add Menu
@@ -62,6 +66,8 @@ app.post('/api/order/getOrderByUser'         , orderImport.data.getOrderByUser);
 app.get('/api/order/getAllOrders'            , orderImport.data.getAllOrders);        // Get all orders
 
 
+// ------ Notifications ------
+app.post('/api/notification/submit' , notificationImport.data.submit)
 
 app.listen(3001, function() {
     console.log("connected");
