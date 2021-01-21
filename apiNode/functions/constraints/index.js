@@ -112,7 +112,7 @@ methods = {
         }
 
         let constraintToAdd = {
-            orderTimeLimit : req.body.orderTimeLimit,
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
             maximumOrderPerDay : req.body.maximumOrderPerDay,
             rateVAT : req.body.rateVAT
         };
