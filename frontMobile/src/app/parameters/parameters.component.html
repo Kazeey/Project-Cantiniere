@@ -1,3 +1,110 @@
-<p>
-  parameters works!
-</p>
+<div *ngIf="isConnected">
+  <table class="table table-striped">
+      <thead>
+          <tr>
+          <th scope="col">Identifiant</th>
+          <th scope="col" sortable="name" (sort)="onSort($event)">Heure limite</th>
+          <th scope="col" sortable="area" (sort)="onSort($event)">Nombre de commande maximum</th>
+          <th scope="col" sortable="population" (sort)="onSort($event)">Taux TVA</th>
+          <th scope="col" sortable="population" (sort)="onSort($event)">Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let constraint of listConstraints | async; let index = index">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>
+              {{constraint.orderTimeLimit}}
+          </td>
+          <td>
+              {{constraint.maximumOrderPerDay}}
+          </td>
+          <td>
+              {{constraint.rateVAT}}
+          </td>
+          <td>
+              <a type="button" class="btn btn-outline-secondary" (click)="open(content)">Modifier</a>
+              &nbsp;
+              <a type="button" class="btn btn-danger" (click)="deleteConstraint(constraint.id)">Supprimer</a>
+          </td>
+
+          <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 #id class="modal-title" id="modal-basic-title">Mise à jour de la contrainte - {{ index + 1 }}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">              
+                    <label for="orderTimeLimit">Heure limite</label>
+                    <div class="input-group">
+                      <input id="orderTimeLimit" class="form-control" name="orderTimeLimit" type="time" #orderTimeLimit value="{{constraint.orderTimeLimit}}">
+                    </div>
+                    <label for="maximumOrderPerDay">Nombre de commande maximum</label>
+                    <div class="input-group">
+                      <input id="maximumOrderPerDay" class="form-control" name="maximumOrderPerDay" type="number" #maximumOrderPerDay value="{{constraint.maximumOrderPerDay}}">
+                    </div>
+                    <label for="rateVAT">Taux TVA</label>
+                    <div class="input-group">
+                      <input id="rateVAT" class="form-control" name="rateVAT" type="number" #rateVAT value="{{constraint.rateVAT}}">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <div>
+                <button 
+                    type="button" 
+                    class="btn btn-outline-dark" 
+                    (click)="editConstraint(constraint.id, orderTimeLimit.value, maximumOrderPerDay.value, rateVAT.value)"
+                  >
+                  Sauvegarder
+                </button>
+                </div>
+              </div>
+            </ng-template>
+      </tr>
+      </tbody>
+  </table>
+
+  <button type="button" class="btn btn-success" (click)="open(content)">Ajouter</button>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 #id class="modal-title" id="modal-basic-title">Création d'une contrainte</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">              
+          <label for="newOrderTimeLimit">Heure limite</label>
+          <div class="input-group">
+            <input id="newOrderTimeLimit" class="form-control" name="newOrderTimeLimit" type="time" #newOrderTimeLimit placeholder="EX : 10:30">
+          </div>
+          <label for="newMaximumOrderPerDay">Nombre de commande maximum</label>
+          <div class="input-group">
+            <input id="newMaximumOrderPerDay" class="form-control" name="newMaximumOrderPerDay" type="number" #newMaximumOrderPerDay placeholder="EX : 500">
+          </div>
+          <label for="newRateVAT">Taux TVA</label>
+          <div class="input-group">
+            <input id="newRateVAT" class="form-control" name="newRateVAT" type="number" #newRateVAT placeholder="EX : 12.00">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div>
+      <button 
+          type="button" 
+          class="btn btn-outline-dark" 
+          (click)="addConstraint(newOrderTimeLimit.value, newMaximumOrderPerDay.value, newRateVAT.value)"
+        >
+        Sauvegarder
+      </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
