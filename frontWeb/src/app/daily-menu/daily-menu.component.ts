@@ -28,6 +28,12 @@ export class DailyMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.isConnected = verification(); 
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
     this.getDailyMenus(this.weekNumber);
   }
 

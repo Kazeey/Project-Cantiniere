@@ -2,11 +2,15 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { setTimeout } from 'timers';
 
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { isFormattedError } from '@angular/compiler';
 
 interface Constraint {
   id: number; 
@@ -29,22 +33,31 @@ export class ParametersComponent implements OnInit {
   public isConnected:boolean = false;
 
   // Variable de modification des paramètres
-  public listConstraints;
+  public listConstraints = null;
+
+  public returnedValues = null;
 
   closeResult = '';
 
   ngOnInit(): void 
   {
     this.isConnected = verification();
-    this.listConstraints = this.getAllConstraints();
+    
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
+    this.listConstraints = this.displayAllConstraints();
   }
 
   ngOnDestroy(): void
   {
     this.isConnected = false; 
+    this.returnedValues = null;
   }
 
-  getAllConstraints()
+  displayAllConstraints()
   {
     return this.parametersService.getAllConstraints();
   }
@@ -59,19 +72,23 @@ export class ParametersComponent implements OnInit {
     });
   }
 
-  addConstraint()
+  addConstraint(orderTimeLimit, maximumOrderPerDay, rateVAT)
   {
-    
+    this.parametersService.addConstraint(orderTimeLimit, maximumOrderPerDay, rateVAT)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
   }
 
-  editConstraint()
+  editConstraint(constraintId, orderTimeLimit, maximumOrderPerDay, rateVAT)
   {
-
+    this.parametersService.editConstraint(constraintId, orderTimeLimit, maximumOrderPerDay, rateVAT)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
+    // Réassignation de la fonction pour actualisation dans le front
   }
-
-  deleteConstraint()
+ 
+  deleteConstraint(constraintId)
   {
-
+    this.parametersService.deleteConstraint(constraintId)
+    .subscribe(res => this.listConstraints = this.displayAllConstraints());
   }
 
 }

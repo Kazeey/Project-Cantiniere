@@ -23,6 +23,12 @@ export class ManageProductComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification();
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
   }
 
   ngOnDestroy(): void

@@ -25,7 +25,7 @@ methods = {
             // Insère toutes les données dans le tableau déclaré plus haut
             arrayConstraint.push(data); 
         })
-        
+
         for(let i = 0; i < arrayConstraint[0].length; i++)
         {
             currrentConstraint = arrayConstraint[0][i];
@@ -142,7 +142,7 @@ methods = {
         let constraintId = req.body.constraintId;
 
         let constraintToUpdate = {
-            orderTimeLimit : req.body.orderTimeLimit,
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
             maximumOrderPerDay : req.body.maximumOrderPerDay,
             rateVAT : req.body.rateVAT
         };

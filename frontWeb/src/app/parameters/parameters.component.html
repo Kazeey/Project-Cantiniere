@@ -10,8 +10,8 @@
             </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let constraint of listConstraints | async">
-            <th scope="row">{{ constraint.id }}</th>
+        <tr *ngFor="let constraint of listConstraints | async; let index = index">
+            <th scope="row">{{ index + 1 }}</th>
             <td>
                 {{constraint.orderTimeLimit}}
             </td>
@@ -22,14 +22,14 @@
                 {{constraint.rateVAT}}
             </td>
             <td>
-                <a type="button" class="btn btn-outline-secondary" (click)="open(content)">Modifier</button>
+                <a type="button" class="btn btn-outline-secondary" (click)="open(content)">Modifier</a>
                 &nbsp;
-                <button type="button" class="btn btn-danger" (click)="deleteConstraint">Supprimer</button>
+                <a type="button" class="btn btn-danger" (click)="deleteConstraint(constraint.id)">Supprimer</a>
             </td>
 
             <ng-template #content let-modal>
                 <div class="modal-header">
-                  <h4 #id class="modal-title" id="modal-basic-title">Mise à jour de la contrainte - {{constraint.id}}</h4>
+                  <h4 #id class="modal-title" id="modal-basic-title">Mise à jour de la contrainte - {{ index + 1 }}</h4>
                   <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -37,17 +37,17 @@
                 <div class="modal-body">
                   <form>
                     <div class="form-group">              
-                      <label for="name">Nom</label>
+                      <label for="orderTimeLimit">Heure limite</label>
                       <div class="input-group">
-                        <input id="name" class="form-control" name="name" type="text" #name value="{{constraint.orderTimeLimit}}">
+                        <input id="orderTimeLimit" class="form-control" name="orderTimeLimit" type="time" #orderTimeLimit value="{{constraint.orderTimeLimit}}">
                       </div>
-                      <label for="firstname">Prénom</label>
+                      <label for="maximumOrderPerDay">Nombre de commande maximum</label>
                       <div class="input-group">
-                        <input id="firstname" class="form-control" name="firstname" type="text" #firstname value="{{constraint.maximumOrderPerDay}}">
+                        <input id="maximumOrderPerDay" class="form-control" name="maximumOrderPerDay" type="number" #maximumOrderPerDay value="{{constraint.maximumOrderPerDay}}">
                       </div>
-                      <label for="mail">Mail</label>
+                      <label for="rateVAT">Taux TVA</label>
                       <div class="input-group">
-                        <input id="mail" class="form-control" name="mail" type="mail" #mail value="{{constraint.rateVAT}}">
+                        <input id="rateVAT" class="form-control" name="rateVAT" type="number" #rateVAT value="{{constraint.rateVAT}}">
                       </div>
                     </div>
                   </form>
@@ -57,21 +57,7 @@
                   <button 
                       type="button" 
                       class="btn btn-outline-dark" 
-                      (click)="saveUser(
-                                user.id, 
-                                name.value, 
-                                firstname.value, 
-                                user.sex, 
-                                mail.value,
-                                phone.value, 
-                                user.role, 
-                                address.value, 
-                                town.value, 
-                                postalCode.value, 
-                                wallet.value,
-                                user.status,
-                                userName.value
-                              )" 
+                      (click)="editConstraint(constraint.id, orderTimeLimit.value, maximumOrderPerDay.value, rateVAT.value)"
                     >
                     Sauvegarder
                   </button>
@@ -82,5 +68,43 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-success" (click)="createConstraint">Ajouter</button>
+    <button type="button" class="btn btn-success" (click)="open(content)">Ajouter</button>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 #id class="modal-title" id="modal-basic-title">Création d'une contrainte</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">              
+            <label for="newOrderTimeLimit">Heure limite</label>
+            <div class="input-group">
+              <input id="newOrderTimeLimit" class="form-control" name="newOrderTimeLimit" type="time" #newOrderTimeLimit placeholder="EX : 10:30">
+            </div>
+            <label for="newMaximumOrderPerDay">Nombre de commande maximum</label>
+            <div class="input-group">
+              <input id="newMaximumOrderPerDay" class="form-control" name="newMaximumOrderPerDay" type="number" #newMaximumOrderPerDay placeholder="EX : 500">
+            </div>
+            <label for="newRateVAT">Taux TVA</label>
+            <div class="input-group">
+              <input id="newRateVAT" class="form-control" name="newRateVAT" type="number" #newRateVAT placeholder="EX : 12.00">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" (click)="modal.close('Save click')">
+        <div>
+        <button 
+            type="button" 
+            class="btn btn-outline-dark" 
+            (click)="addConstraint(newOrderTimeLimit.value, newMaximumOrderPerDay.value, newRateVAT.value)"
+          >
+          Sauvegarder
+        </button>
+        </div>
+      </div>
+    </ng-template>
 </div>

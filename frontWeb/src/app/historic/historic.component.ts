@@ -23,6 +23,12 @@ export class HistoricComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification();
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
   }
 
   ngOnDestroy(): void

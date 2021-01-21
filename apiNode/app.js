@@ -40,7 +40,7 @@ app.post('/api/account/delete' , accountImport.data.delete);    // If you want t
 // ------ Users ------
 app.get('/api/users/getAllUsers'            , usersImport.data.getAllUsers);            // Get all users from database
 app.post('/api/users/getUserById/'          , usersImport.data.getUserById);            // Get a user with a given id
-app.post('/api/users/getUserBySearchField' , usersImport.data.getUserBySearchField);   // Get a user with a given id
+app.post('/api/users/getUserBySearchField'  , usersImport.data.getUserBySearchField);   // Get a user with a given id
 
 // ------ Meals ------
 app.get('/api/meals/getAllMeals'    , mealsImport.data.getAllMeals);  // Get all meals from database
@@ -60,7 +60,7 @@ app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    /
 // ------ Contraintes ------
 app.get('/api/constraints/getAllConstraints'  , constraintImport.data.getAllConstraints);   // Get all the constraints
 app.post('/api/constraints/getConstraintById' , constraintImport.data.getConstraintById);   // Get a constraint with a given id
-app.put('/api/constraints/addConstraint'      , constraintImport.data.addConstraint);       // Add a constraint to the database
+app.post('/api/constraints/addConstraint'      , constraintImport.data.addConstraint);       // Add a constraint to the database
 app.post('/api/constraints/updateConstraint'  , constraintImport.data.updateConstraint);    // Update a constraint in the database
 app.post('/api/constraints/deleteConstraint'  , constraintImport.data.deleteConstraint);    // Delete a constraint with a given id
 

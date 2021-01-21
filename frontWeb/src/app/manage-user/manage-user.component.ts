@@ -30,8 +30,14 @@ export class ManageUserComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.numbers = Array(3).fill(0); // Pour forcer une boucle pour le débug du css
+    // this.numbers = Array(3).fill(0); // Pour forcer une boucle pour le débug du css
     this.isConnected = verification();
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
     this.listUsers = this.displayAllUsers();
   }
 
@@ -71,7 +77,9 @@ export class ManageUserComponent implements OnInit {
 
   saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status, userName)
   {
-    this.listUsers = this.manageUserService.saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status);
+    this.manageUserService.saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status)
+    .subscribe(res => this.listUsers = this.displayAllUsers());
+
     this.quantity = "";
   }
 
