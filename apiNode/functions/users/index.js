@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const configImport = require('../config');
+const request = require('request');
 
 const baseUrl = 'http://127.0.0.1:8080/lunchtime/';
 
@@ -164,7 +165,6 @@ methods = {
                 // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
                 isException = [];
                 // Insère toutes les données dans le tableau déclaré plus haut
-                console.log(data);
                 arrayDataUsers.push(data); 
             }
         })
@@ -223,10 +223,34 @@ methods = {
         }
         
         user.push(person);
-        console.log(user);
         res.send(user);
-    }
+    },
 
-}
+    updateUserImg : async function(req, res) 
+    {
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+            
+        let userId = req.body.userId;
+
+        let imgToUpdate = {
+            imagePath: req.body.imgPath,
+            image64 : req.body.url
+        };
+  
+        request.patch({
+            headers: {'content-type' : 'application/json'},
+            url:     baseUrl + 'user/updateimg/' + userId,
+            body:    JSON.stringify(imgToUpdate)
+        },  function(error, response, body) {
+                console.log(body);
+            }
+        )}
+    }
 
 exports.data = methods;

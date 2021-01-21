@@ -17,6 +17,15 @@ methods = {
     },
 
     getOrderByUser : async function(req, res){
+
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
         // Récupération du paramètre userId passe en POST
         userIdToFind = req.body.userId; 
 
@@ -47,7 +56,34 @@ methods = {
             return false; 
         }
 
+        console.log(this.orderList);
         res.send(this.orderList);
+
+    },
+
+    getAllOrders : async function(req, res){
+
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        let orderList;
+        
+        // Récupère chaque commandes de la base
+        await fetch(baseUrl +  "order/findall")
+        .then(response => response.json())
+        .then(data => {
+                orderList = data;
+        })
+
+        
+        console.log(orderList);
+        
+        res.send(orderList);
 
     }
 }

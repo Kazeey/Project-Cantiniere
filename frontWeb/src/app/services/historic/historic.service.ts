@@ -24,4 +24,10 @@ export class HistoricService {
   {
     return this.http.post(this.urlUser + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API
   }
+
+  getAllOrders()
+  {
+        return this.http.get(this.urlOrder + "getAllOrders"); // Récupère les données renvoyées par l'API
+
+  }
 }

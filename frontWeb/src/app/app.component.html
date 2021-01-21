@@ -5,15 +5,17 @@
             nzBreakpoint="md"
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
-    <div *ngIf="isConnected | async" class="sidebar-logo">
-      <h1 class="name">{{usersData.firstname}} {{usersData.name}}</h1> 
-    </div>
+
     
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <!-- 
           C'est ici qu'est fait la vérification pour chaque affichage de menu 
           1 - Vérification du rôle de l'utilisateur
-        --> 
+        -->  
+    <div *ngIf="isConnected" class="sidebar-logo">
+      <h1 *ngFor="let user of usersData | async" class="name">{{user.firstname}} {{user.name}}</h1> 
+      <h1 *ngFor="let user of usersData | async" class="name">{{user}}</h1>
+    </div>
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/dailyMenu']">Menu du jour</a>
@@ -57,11 +59,6 @@
       </li>
     </ul>
     
-    <button *ngIf = "statut === 'admin'" (click)="tinyAlert()">Simple Notification</button>
-
-<button *ngIf = "statut === 'admin'" (click)="successNotification()">Sucess Notification</button>
-
-<button *ngIf = "statut === 'admin'" (click)="alertConfirmation()">Show me Confirmation</button>
   </nz-sider>
   <nz-layout>
     <nz-header>

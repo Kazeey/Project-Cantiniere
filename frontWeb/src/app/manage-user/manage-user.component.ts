@@ -25,7 +25,7 @@ export class ManageUserComponent implements OnInit {
   {
     this.isConnected = verification();
     this.listUsers = this.displayAllUsers();
-    console.log(this.listUsers)
+    console.log(this.listUsers);
   }
 
   ngOnDestroy(): void

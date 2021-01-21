@@ -1,7 +1,7 @@
 <div *ngIf="isConnected">
     <div class="myProfile">
-      <h1>Mon profil</h1>
-      <img class="imgProfile" [src]="url"> <br/>
+      <h1 *ngFor="let user of usersData | async">{{user.name}} {{user.firstname}}</h1>
+      <img *ngFor="let user of usersData | async" class="imgProfile" src="{{user.image.image64}}"> <br/>
       <div class="majPhoto">
         <button class="btnModifPhoto">Mettre a jour la photo</button>
         <input  type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"/>
@@ -9,13 +9,12 @@
     </div>
 
   
-    <div class="param">
+    <div *ngIf="statut === '0'" class="param">
       <h1>Notifications</h1>
       <p>Activer les Notifications</p>
       <label class="switch notifs">
-        <input (change)="notifications($event)" type="checkbox" checked>
+        <input (change)="notifications($event)" type="checkbox">
         <span class="slider round"></span>
-        <!--<span *ngIf="marked" class="slider round">Vrai</span><span *ngIf="!marked" class="slider round">Faux</span>-->
       </label>
     </div><br/>
   

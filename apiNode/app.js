@@ -38,6 +38,8 @@ app.post('/api/account/delete' , accountImport.data.delete);    // If you want t
 // ------ Users ------
 app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
 app.post('/api/users/getUserById/'  , usersImport.data.getUserById);  // Get a user with a given id
+app.post('/api/users/updateUserImg/'  , usersImport.data.updateUserImg);  // Update an image
+
 
 // ------ Meals ------
 app.get('/api/meals/getAllMeals'    , mealsImport.data.getAllMeals);  // Get all meals from database
@@ -57,6 +59,9 @@ app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    /
 //------ Order -------
 app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day
 app.post('/api/order/getOrderByUser'         , orderImport.data.getOrderByUser);        // Get all user's orders
+app.get('/api/order/getAllOrders'            , orderImport.data.getAllOrders);        // Get all orders
+
+
 
 app.listen(3001, function() {
     console.log("connected");

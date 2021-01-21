@@ -94,6 +94,10 @@ export class AuthenticationComponent implements OnInit {
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
+          if(this.statut == "client"){
+            
+          }
+          
         }
         else
         {
@@ -167,6 +171,8 @@ export class AuthenticationComponent implements OnInit {
             localStorage.setItem("timeDestruction", timeDestruction);
             localStorage.setItem("connected", "true");
             localStorage.setItem("idUser", data.result[0].id);
+            localStorage.setItem("role", data.role);
+            console.log(localStorage);
 
             this.showStorage();
 

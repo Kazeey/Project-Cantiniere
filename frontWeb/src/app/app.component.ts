@@ -5,9 +5,8 @@ import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AccueilService } from '../app/services/accueil.service';
 import { AuthenticationService } from '../app/services/authentication/authentication.service';
-import { Users } from '../app/interfaces/users';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { ParametersComponent } from './parameters/parameters.component';
+import { ManageUserService } from './services/manage-user/manage-user.service';
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,8 @@ import { ParametersComponent } from './parameters/parameters.component';
 export class AppComponent implements OnInit{
 
   constructor(private accueilService: AccueilService,
-    private AuthenticationService:AuthenticationService ){
+    private AuthenticationService:AuthenticationService,
+    private manageUserService:ManageUserService ){
   }
 
   isCollapsed = false;
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit{
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
 
-  usersData: any;
+  public usersData;
+  public userId;
 
   // Assignation des differents menus après vérifications de l'utilisateur
   communs = menu.menusCommuns;
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit{
     this.showStorage()
     
     this.isConnected = verification();
+
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit{
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
     this.resetStorage() // Vide toute les valeurs du localStorage
+    this.usersData = null;
   }
 
   resetStorage()
@@ -119,9 +122,8 @@ export class AppComponent implements OnInit{
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
-          this.getUsersData(localStorage.getItem("userId"));
-          console.log(localStorage.getItem("userId"));
-          
+          this.userId = localStorage.getItem("userId");
+          this.usersData = this.getUserData(this.userId);
         }
         else
         {
@@ -197,7 +199,8 @@ export class AppComponent implements OnInit{
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
+            localStorage.setItem("statut", data.role); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
 
             this.showStorage();
 
@@ -224,52 +227,9 @@ export class AppComponent implements OnInit{
     this.setMessage("Si l'adresse mail existe, un mail a été envoyé (Pensez a vérifier vos spams).", null);
   }
 
-  getUsersData(userId){
-    this.accueilService.getUserById(userId)
-    .subscribe(res =>{
-      this.usersData = res;
-    })
-  } 
-
-  gererNotifs(agreed :boolean){
-    if(agreed == true){
-      this.tinyAlert();
-    }else{
-      this.successNotification();
-    }
+  getUserData(userId){
+    return this.manageUserService.getUserById(userId);
   }
-  tinyAlert(){
-    Swal.fire("Bonjour !");
-  }
-
-  successNotification(){
-    Swal.fire("test", "Notification", "Réussi avec succès");
-  }
-
-  alertConfirmation(){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'This process is irreversible.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, go ahead.',
-      cancelButtonText: 'No, let me think'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Removed!',
-          'Product removed successfully.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Product still in our database.)',
-          'error'
-        )
-      }
-    })
-  } 
 }
 
 

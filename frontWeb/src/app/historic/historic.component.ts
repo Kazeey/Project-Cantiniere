@@ -19,17 +19,19 @@ export class HistoricComponent implements OnInit {
   public usersData;
   public ordersData;
   public simpleUser;
+  statut: any;
+  public orders;
+  index: number = 0;
 
-  constructor(private historicService:HistoricService,
-                     private manageUserService:ManageUserService) { }
+  constructor(private historicService:HistoricService) { }
 
   ngOnInit(): void 
   {
+    this.statut = localStorage.getItem("statut");
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
-    this.usersData = this.getUserData(this.userId);
-    this.getOrdersData(this.userId);
-    console.log(this.userId);
+    this.ordersData = this.getOrdersData(this.userId);
+    this.orders = this.getAllOrders();
   }
 
   ngOnDestroy(): void
@@ -37,15 +39,14 @@ export class HistoricComponent implements OnInit {
     this.isConnected = false; 
   }
 
-  getUserData(userId)
-  {
-    this.simpleUser = this.manageUserService.getUserById(userId);    
-  }
-
   getOrdersData(userId)
   {
-   this.ordersData = this.historicService.getOrderByUser(userId);
-   console.log(this.ordersData)
+   return this.historicService.getOrderByUser(userId)
+  }
+
+  getAllOrders()
+  {
+    return this.historicService.getAllOrders();
   }
 
 }
