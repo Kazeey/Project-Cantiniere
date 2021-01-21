@@ -15,8 +15,7 @@ import { ManageUserService } from './services/manage-user/manage-user.service';
 
 export class AppComponent implements OnInit{
 
-  constructor(private accueilService: AccueilService,
-    private AuthenticationService:AuthenticationService,
+  constructor(private AuthenticationService:AuthenticationService,
     private manageUserService:ManageUserService ){
   }
 
