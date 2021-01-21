@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menu }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
-import { AccueilService } from '../app/services/accueil.service';
 import { AuthenticationService } from '../app/services/authentication/authentication.service';
 import { ManageUserService } from './services/manage-user/manage-user.service';
 
