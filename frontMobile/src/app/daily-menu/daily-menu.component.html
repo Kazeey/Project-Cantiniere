@@ -1,17 +1,27 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
+    <ion-toolbar *ngIf="isConnected">
       <ion-icon class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
       <ion-title size="medium">Menu du jour</ion-title>
       <ion-icon slot="end" class="panier_icon" size="large" name="basket-outline"></ion-icon>
     </ion-toolbar>
+
+    <ion-toolbar *ngIf="isConnected == false">
+      <ion-title size="medium">Menu du jour</ion-title>
+    </ion-toolbar>
   </ion-header>
 
   <ion-footer class="footer" ng-click="">
-    <ion-toolbar>
+    <ion-toolbar *ngIf="isConnected">
       <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
       <ion-icon class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
       <ion-icon slot="end" class="disconnect_icon" size="large" name="power-outline"><a (click)="ngOnDestroy()"></a></ion-icon>
+    </ion-toolbar>
+  </ion-footer>
+
+  <ion-footer class="footer" ng-click="">
+    <ion-toolbar *ngIf="isConnected == false">
+      <ion-button expand="block" [routerLink]="['/authentication']">Se connecter</ion-button>
     </ion-toolbar>
   </ion-footer>
 </ion-content>

@@ -40,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'authentication',
+    redirectTo: 'dailyMenu',
     pathMatch: 'full'
   }
 

@@ -4,7 +4,7 @@
       <img *ngFor="let user of usersData | async" class="imgProfile" src="{{user.image.image64}}"> <br/>
       <div class="majPhoto">
         <button class="btnModifPhoto">Mettre a jour la photo</button>
-        <input  type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"/>
+        <input  type="file" (change)="onSelectFile($event)" accept="image/png"/>
       </div><br/>
     </div>
 
@@ -27,10 +27,4 @@
         </label>
       </div>
     </div>
-<!--
-<button (click)="tinyAlert()">Simple Notification</button>
-
-<button (click)="successNotification()">Sucess Notification</button>
-
-<button (click)="alertConfirmation()">Show me Confirmation</button>-->
  </div>
