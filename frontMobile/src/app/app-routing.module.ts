@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./parameters/parameters.module').then( m => m.ParametersPageModule)
   },
   {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
+  {
     path: 'manageMenu',
     loadChildren: () => import('./manage-menu/manage-menu.module').then( m => m.ManageMenuPageModule)
   },

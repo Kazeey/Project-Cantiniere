@@ -14,15 +14,7 @@ const emptyValue = "Non renseigné(e)";
 
 let con = configImport.connexionSQL;
 let userError = configImport.userError;
-let emailError = configImport.emailError;
-
-let transporter = nodemailer.createTransport({
-    service: 'Yahoo',                       // Service utilisé pour l'envoi de l'email
-    auth: {
-      user: 'projetcantiniere@yahoo.com',   // Email que j'ai créé pour avoir une boite sur Yahoo
-      pass: 'uvnvydpvdbzjprum'              // Mot de passe généré par Yahoo pour l'application
-    }
-});
+let transporter = configImport.transporter;
 
 methods = {
     login : async function(req, res)

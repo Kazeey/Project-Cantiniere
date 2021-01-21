@@ -26,7 +26,7 @@ methods = {
             // Insère toutes les données dans le tableau déclaré plus haut
             arrayConstraint.push(data); 
         })
-        
+
         for(let i = 0; i < arrayConstraint[0].length; i++)
         {
             currrentConstraint = arrayConstraint[0][i];
@@ -112,7 +112,12 @@ methods = {
             return false; 
         }
 
-        let constraintToAdd = req.body.constraint;
+        let constraintToAdd = {
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
+            maximumOrderPerDay : req.body.maximumOrderPerDay,
+            rateVAT : req.body.rateVAT
+        };
+
 
         request.put({
             headers: {'content-type' : 'application/json'},
@@ -122,6 +127,8 @@ methods = {
         {
             console.log(body);
         });
+
+        res.send(true);
     },
 
     updateConstraint : async function(req, res) 
@@ -134,20 +141,24 @@ methods = {
             return false; 
         }
 
+        let constraintId = req.body.constraintId;
+
         let constraintToUpdate = {
-            orderTimeLimit : req.body.orderTimeLimit,
+            orderTimeLimit : req.body.orderTimeLimit + ":00",
             maximumOrderPerDay : req.body.maximumOrderPerDay,
             rateVAT : req.body.rateVAT
         };
 
         request.patch({
             headers: {'content-type' : 'application/json'},
-            url:     baseUrl + 'constraint/update',
+            url:     baseUrl + 'constraint/update/' + constraintId,
             body:    JSON.stringify(constraintToUpdate)
         }, function(error, response, body) 
         {
             console.log(body);
         })
+
+        res.send(true);
     },
 
     deleteConstraint : async function(req, res) 
@@ -160,12 +171,19 @@ methods = {
             return false; 
         }
 
-        let constraintIdToDelete = req.body.constraintId;
+        let constraintId = req.body.constraintId;
 
         // Supprime la contrainte ciblée
-        await fetch(baseUrl +  "constraint/delete/" + constraintIdToDelete)
-        .then(response => response.json())
-        .then(data => {});
+        request.delete({
+            headers: {'content-type' : 'application/json'},
+            url:     baseUrl + "constraint/delete/" + constraintId,
+            body:    JSON.stringify(constraintId)
+        }, function(error, response, body) 
+        {
+            console.log(body);
+        })
+
+        res.send(true);
     }
 }
 

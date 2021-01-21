@@ -4,6 +4,7 @@ import { methods as menu }  from '../../../config/menus';
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from './services/authentication/authentication.service';
+import { loadTranslations } from '@angular/localize';
 
 @Component({
   selector: 'app-root',
@@ -12,34 +13,45 @@ import { AuthenticationService } from './services/authentication/authentication.
 })
 
 export class AppComponent {
-  isCollapsed = false;
+  public isCollapsed = false;
  
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
-  statut:String = "visiteur"; 
+  public statut:string; 
+  public displayMenu:String; 
 
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
 
   // Assignation des differents menus après vérifications de l'utilisateur
-  communs = menu.menusCommuns;
+  public communs = menu.menusCommuns;
   
-  isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
-  displayComponent = true; //  Variable d'affichage des components pour la déconnexion
-  box:HTMLElement = null; // Menu "Se connecter" sur la gauche
+  public isDisplayAuthentication = false; // Variable d'affichage du modal d'authentification
+  public displayComponent = true; //  Variable d'affichage des components pour la déconnexion
+  public box:HTMLElement = null; // Menu "Se connecter" sur la gauche
 
-  nbEssaisConnexion = constantes.nbEssaisConnexion; 
-  phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
+  public nbEssaisConnexion = constantes.nbEssaisConnexion; 
+  public phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
 
-  toSend = ""; // Faire passer une donnée statique entre plusieurs routes
+  public toSend = ""; // Faire passer une donnée statique entre plusieurs routes
+
+  public role:string;
 
   constructor(private AuthenticationService:AuthenticationService) { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
-    
     this.isConnected = verification();
+
+    if(localStorage.getItem('role'))
+    {
+      this.statut = localStorage.getItem('role');
+    }
+    else
+    {
+      this.ngOnDestroy();
+    }
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
@@ -47,13 +59,14 @@ export class AppComponent {
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
-    this.resetStorage() // Vide toute les valeurs du localStorage
+    this.resetStorage(); // Vide toute les valeurs du localStorage
   }
 
   resetStorage()
   {
     localStorage.clear(); // Vide le localStorage
     console.log("localStorage cleared.");
+    this.showStorage();
   }
 
   showStorage()
@@ -163,12 +176,11 @@ export class AppComponent {
             switch(data.role)
             {
               case 0:
-                role = "client";
+                this.statut = "client";
                 break;
               case 1:
-                role = "admin";
+                this.statut = "admin";
                 break;
-              default : "visiteur";
             }
 
             // Vérifie la valeur demandée lors de la config pour le temps de connexion d'un compte.
@@ -186,11 +198,11 @@ export class AppComponent {
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id);
+            localStorage.setItem("role", this.statut);
 
             this.showStorage();
 
             // Adapte l'UI en fonction du rôle de l'utilisateur
-            this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = !this.isDisplayAuthentication;
             this.isConnected = true;

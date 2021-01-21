@@ -26,6 +26,12 @@ export class DailyOrderComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification(); 
+
+    if(this.isConnected == false)
+    {
+      localStorage.clear();
+    }
+    
     this.listDailyOrders = this.displayDailyOrders()
   }
 
