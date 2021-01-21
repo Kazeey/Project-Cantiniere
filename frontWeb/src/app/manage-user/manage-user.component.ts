@@ -96,7 +96,7 @@ export class ManageUserComponent implements OnInit {
     }
     else
     {
-      // TODO : Insérer notif pour dire que ça va pas
+      // TODO : In*sérer notif pour dire que ça va pas
     }
   }
 
