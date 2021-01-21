@@ -118,7 +118,6 @@ methods = {
             rateVAT : req.body.rateVAT
         };
 
-
         request.put({
             headers: {'content-type' : 'application/json'},
             url:     baseUrl + 'constraint/add',

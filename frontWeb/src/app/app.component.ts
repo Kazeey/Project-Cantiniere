@@ -20,6 +20,8 @@ export class AppComponent implements OnInit{
   }
 
   isCollapsed = false;
+
+  public title = "Projet Cantinière";
  
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
   public statut:string; 
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit{
 
   public role:string;
 
-    ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
+  ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
     this.isConnected = verification();
