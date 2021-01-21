@@ -4,6 +4,7 @@ import { methods as menu }  from '../../../config/menus';
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from './services/authentication/authentication.service';
+import { loadTranslations } from '@angular/localize';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
   public isCollapsed = false;
  
   // Valeurs possibles pour statut = "client"/"admin"/"visiteur", change l'affichage en fonction
-  public statut:String = "visiteur"; 
+  public statut:string; 
+  public displayMenu:String; 
 
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
@@ -48,8 +50,7 @@ export class AppComponent {
     }
     else
     {
-      this.statut = "visiteur"
-      this.resetStorage();
+      this.ngOnDestroy();
     }
   }
 
@@ -65,6 +66,7 @@ export class AppComponent {
   {
     localStorage.clear(); // Vide le localStorage
     console.log("localStorage cleared.");
+    this.showStorage();
   }
 
   showStorage()
@@ -174,10 +176,10 @@ export class AppComponent {
             switch(data.role)
             {
               case 0:
-                this.role = "client";
+                this.statut = "client";
                 break;
               case 1:
-                this.role = "admin";
+                this.statut = "admin";
                 break;
             }
 
@@ -196,12 +198,11 @@ export class AppComponent {
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id);
-            localStorage.setItem("role", this.role);
+            localStorage.setItem("role", this.statut);
 
             this.showStorage();
 
             // Adapte l'UI en fonction du rôle de l'utilisateur
-            this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = !this.isDisplayAuthentication;
             this.isConnected = true;

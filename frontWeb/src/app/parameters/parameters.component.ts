@@ -2,7 +2,6 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { setTimeout } from 'timers';
 
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
@@ -37,15 +36,26 @@ export class ParametersComponent implements OnInit {
 
   public returnedValues = null;
 
+  public canSee;
+
   closeResult = '';
 
   ngOnInit(): void 
   {
     this.isConnected = verification();
-    
-    if(this.isConnected == false)
+    let state = localStorage.getItem("role");
+
+    if (this.isConnected == true && state == "admin")
     {
-      localStorage.clear();
+
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+
+    }
+    else
+    {
+      this.isConnected = false;
     }
     
     this.listConstraints = this.displayAllConstraints();
@@ -55,6 +65,7 @@ export class ParametersComponent implements OnInit {
   {
     this.isConnected = false; 
     this.returnedValues = null;
+    this.canSee = false;
   }
 
   displayAllConstraints()
