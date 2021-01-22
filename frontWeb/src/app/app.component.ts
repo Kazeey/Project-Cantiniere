@@ -57,14 +57,15 @@ export class AppComponent implements OnInit{
     this.isConnected = verification();
 
 
-    if(localStorage.getItem('role'))
+    if(localStorage.getItem('statut'))
     {
-      this.statut = localStorage.getItem('role');
+      this.statut = localStorage.getItem('statut');
     }
     else
     {
       this.ngOnDestroy();
     }
+    console.log(this.statut);
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion
@@ -225,7 +226,7 @@ export class AppComponent implements OnInit{
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
-            localStorage.setItem("statut", data.role); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("statut", this.statut); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
 
             this.showStorage();
 
