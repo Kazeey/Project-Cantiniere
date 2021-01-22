@@ -27,7 +27,7 @@ export class HistoricService {
 
   getAllOrders()
   {
-        return this.http.get(this.urlOrder + "getAllOrders"); // Récupère les données renvoyées par l'API
+    return this.http.get(this.urlOrder + "getAllOrders"); // Récupère les données renvoyées par l'API
 
   }
 }
