@@ -48,8 +48,7 @@ export class AppComponent implements OnInit{
   public role:string;
   public closeResult = '';
   
-  constructor(private AuthenticationService:AuthenticationService,
-    private manageUserService:ManageUserService, private modalService: NgbModal )
+  constructor(private AuthenticationService:AuthenticationService, private manageUserService:ManageUserService, private modalService: NgbModal)
   {
     
   }

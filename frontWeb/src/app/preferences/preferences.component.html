@@ -1,7 +1,50 @@
 <div *ngIf="canSee">
+    <div class="preferences">
+        <div id="errorZone">
+            {{phraseConnexion}}
+        </div>
+        <button 
+            class="btn btn-success"
+            (click)="open(contentPassword)"
+        >
+        Modifier le mot de passe
+        </button>
 
+        <button class="btn btn-primary">Modifier l'image de profil</button>   
+         
+    </div>
 </div>
 
-<div *ngIf="!canSee">
-    
-</div>
+<ng-template #contentPassword let-modal>
+    <div class="modal-header">
+      <h4 #id class="modal-title" id="modal-basic-title">Mot de passe oublié</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">              
+          <label for="password">Mot de passe</label>
+          <div class="input-group">
+            <input id="password" class="form-control" name="name" type="password" #password placeholder="Mot de passe">
+          </div>
+          <br>
+          <div class="input-group">
+            <input id="passwordRepeat" class="form-control" name="name" type="password" #passwordRepeat placeholder="Veuillez répéter le mot de passe">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <button 
+            type="button" 
+            class="btn btn-outline-danger" 
+            (click)="changePassword(password.value, passwordRepeat.value); modal.dismiss('Cross click')"
+          >
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </ng-template>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { verification } from '../../../../config/verification';
 import { PreferencesService } from '../services/preferences/preferences.service';
-import { constantes } from '../../../../config/constantes';
+import { ManageUserService } from '../services/manage-user/manage-user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-preferences',
@@ -11,29 +13,46 @@ import { constantes } from '../../../../config/constantes';
 })
 export class PreferencesComponent implements OnInit {
 
-  constructor(private preferencesService:PreferencesService) { }
+  constructor(private preferencesService:PreferencesService, private manageUserService:ManageUserService, private modalService: NgbModal ) { }
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
+
+  userId: any;
+  statut:any;
 
   // Variable de modification des préférences 
   public listPreferences; 
 
   public canSee:boolean;
+  public state;
+
+  public phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
+  
+  // Variable de modification des paramètres
+  public listParameters; 
+  public notifsCheck:boolean;
+
+  public usersData;
+  public imageModifiee;
+  public url:any ;
+  public imgPath:any = null;
+
+  public closeResult = '';
 
   ngOnInit(): void 
   {
     this.isConnected = verification();
-    let state = localStorage.getItem("role");
+    this.state = localStorage.getItem("role");
     
-    if (this.isConnected == true && state == "admin")
+    if (this.isConnected == true && this.state == "admin")
     {
       this.canSee = true;
     }
-    else if (this.isConnected == true && state == "client")
+    else if (this.isConnected == true && this.state == "client")
     {
-      this.canSee = false
+      this.canSee = true;
     }
     else
     {
@@ -45,4 +64,38 @@ export class PreferencesComponent implements OnInit {
   {
     this.isConnected = false; 
   }
+
+  getUsersData(userId){
+    this.usersData = this.manageUserService.getUserById(userId)
+  }
+
+  open(content) 
+  {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed`;
+    }, 
+    (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
+  changePassword(champUn, champDeux)
+  {
+    if(champUn && champDeux)
+    {
+      if(champUn == champDeux)
+      {
+  
+      }
+      else
+      {
+        
+      }
+    }
+    else
+    {
+
+    }
+  }
+
 }
