@@ -45,14 +45,13 @@ export class ParametersComponent implements OnInit {
     this.isConnected = verification();
     let state = localStorage.getItem("role");
     
-    // TODO comprendre ce que c'est 
     if (this.isConnected == true && state == "admin")
     {
-
+      this.canSee = true;
     }
     else if (this.isConnected == true && state == "client")
     {
-
+      this.canSee = false
     }
     else
     {

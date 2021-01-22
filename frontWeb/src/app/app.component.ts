@@ -4,7 +4,7 @@ import { methods as menu }  from '../../../config/menus';
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { loadTranslations } from '@angular/localize';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -36,8 +36,9 @@ export class AppComponent {
   public toSend = ""; // Faire passer une donnée statique entre plusieurs routes
 
   public role:string;
+  public closeResult = '';
 
-  constructor(private AuthenticationService:AuthenticationService) { }
+  constructor(private AuthenticationService:AuthenticationService, private modalService: NgbModal) { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
@@ -89,6 +90,17 @@ export class AppComponent {
       this.box.style.backgroundColor = "#1890ff";
     }
   }
+
+  open(content) 
+  {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed`;
+    }, 
+    (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
 
   setMessage(message, nbEssais)
   {
@@ -227,3 +239,6 @@ export class AppComponent {
 }
 
 
+// Dans les fichiers HTML :
+// *ngIf = canSee est pour les admins
+// *ngIf = !canSee est pour les clients

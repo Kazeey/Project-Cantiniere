@@ -35,11 +35,14 @@
           </li>
         </ul>
         <ul id="routingConnectionBox" *ngIf = "statut === 'visiteur'">
-          <li class="routingConnection" (click) = toggleDisplayAuthentication()>
+          <li class="routingConnection" (click) = "toggleDisplayAuthentication(); open(content)">
             <a>Se connecter</a>
           </li>
         </ul>
         <ul *ngIf = "statut === 'client'">
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/dailyMenu']">Menu du jour</a>
+          </li>
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/historic']">Historique des commandes</a>
           </li>
@@ -67,25 +70,82 @@
         </span>
       </div>
     </nz-header>
-    <nz-content>
-      <div class="inner-content">
-        <div [hidden]="!isDisplayAuthentication">
-          <section>
-            <article id="formulaireConnexion">
-                <form class="box" method="post">
-                    <h1>Identification</h1>
-                    <input #mail type="mail" id="email" name="email" placeholder="Adresse Email">
-                    <input #password type="password" id="password" name="password" placeholder="Mot de passe">
-                    <button name="submit" value="Envoyer" (click)="verifInput(mail.value, password.value)">Se connecter</button>
-                    <button name="forgotPassword" value="forgotPassword" (click)="forgotPassword(mail.value)">Mot de passe oublié</button>
-                </form>
-                <div id="errorZone">{{phraseConnexion}}</div>
-            </article>
-          </section>
-        </div>
-        <router-outlet *ngIf="statut != 'visiteur'"></router-outlet> 
-      </div>
-    </nz-content>
+    <div id="errorZone">
+      {{phraseConnexion}}
+    </div>
+    <router-outlet *ngIf="statut != 'visiteur'"></router-outlet> 
+    <app-daily-menu *ngIf="statut == 'visiteur'"></app-daily-menu>
   </nz-layout>
 </nz-layout>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 #id class="modal-title" id="modal-basic-title">Interface de connexion</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">              
+        <label for="email">Adresse mail</label>
+        <div class="input-group">
+          <input id="email" class="form-control" name="name" type="mail" #mail placeholder="Adresse Email">
+        </div>
+        <label for="password">Mot de passe</label>
+        <div class="input-group">
+          <input id="password" class="form-control" name="password" type="password" #password placeholder="Mot de passe">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button 
+          type="button" 
+          class="btn btn-outline-success" 
+          (click)="verifInput(mail.value, password.value); modal.dismiss('Cross click')"
+        >
+        Connexion
+      </button>
+      &nbsp;
+      <button 
+          type="button" 
+          class="btn btn-outline-danger" 
+          (click)="open(contentPassword)"
+        >
+        Mot de passe oublié
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #contentPassword let-modal>
+  <div class="modal-header">
+    <h4 #id class="modal-title" id="modal-basic-title">Mot de passe oublié</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">              
+        <label for="email">Adresse mail</label>
+        <div class="input-group">
+          <input id="email" class="form-control" name="name" type="mail" #mail placeholder="Adresse Email">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button 
+          type="button" 
+          class="btn btn-outline-danger" 
+          (click)="forgotPassword(mail.value); modal.dismiss('Cross click')"
+        >
+        Envoyer
+      </button>
+    </div>
+  </div>
+</ng-template>

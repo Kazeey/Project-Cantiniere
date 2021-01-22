@@ -16,6 +16,7 @@ export class HistoricComponent implements OnInit {
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+  public canSee:boolean;
 
   // Variable qui reçoit l'historique 
   public listHistoric; 
@@ -23,12 +24,20 @@ export class HistoricComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification();
-
-    if(this.isConnected == false)
-    {
-      localStorage.clear();
-    }
+    let state = localStorage.getItem("role");
     
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
+    } 
   }
 
   ngOnDestroy(): void

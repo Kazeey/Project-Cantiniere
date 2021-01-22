@@ -20,15 +20,25 @@ export class PreferencesComponent implements OnInit {
   // Variable de modification des préférences 
   public listPreferences; 
 
+  public canSee:boolean;
+
   ngOnInit(): void 
   {
     this.isConnected = verification();
-
-    if(this.isConnected == false)
-    {
-      localStorage.clear();
-    }
+    let state = localStorage.getItem("role");
     
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
+    }
   }
 
   ngOnDestroy(): void

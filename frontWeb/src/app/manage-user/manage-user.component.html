@@ -1,4 +1,4 @@
-<div *ngIf="isConnected">
+<div *ngIf="canSee">
     <input #userName type="text" name="userName" placeholder="Recherche" [(ngModel)]="quantity" (ngModelChange)="displaySearchedUser($event)" id="inputSearch">
     
     <div class="container">

@@ -16,6 +16,7 @@ export class ManageMenuComponent implements OnInit {
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   isConnected:boolean = false;
+  public canSee:boolean;
 
   // Variable de modification des menus
   public listManageMenus; 
@@ -23,10 +24,19 @@ export class ManageMenuComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification();
-
-    if(this.isConnected == false)
+    let state = localStorage.getItem("role");
+    
+    if (this.isConnected == true && state == "admin")
     {
-      localStorage.clear();
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
     }
     
   }

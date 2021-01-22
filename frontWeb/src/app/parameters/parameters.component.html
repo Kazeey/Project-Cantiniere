@@ -1,4 +1,4 @@
-<div *ngIf="isConnected">
+<div *ngIf="canSee">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -107,4 +107,8 @@
         </div>
       </div>
     </ng-template>
+</div>
+
+<div *ngIf="!canSee">
+  <!-- Insérer ce qu'il doit décaler ici -->
 </div>

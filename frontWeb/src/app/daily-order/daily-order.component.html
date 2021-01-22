@@ -1,5 +1,9 @@
-<div *ngIf="isConnected">
+<div *ngIf="canSee">
     <div>
         <p *ngFor="let dailyOrder of listDailyOrders | async">{{dailyOrder.name}}</p>
     </div>
+</div>
+
+<div *ngIf="!canSee">
+    
 </div>
