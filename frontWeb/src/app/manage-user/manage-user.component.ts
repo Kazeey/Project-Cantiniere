@@ -4,7 +4,6 @@ import { verification } from '../../../../config/verification';
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { constantes } from '../../../../config/constantes';
 
 @Component({
   selector: 'app-manage-user',
@@ -15,10 +14,13 @@ export class ManageUserComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
-  isLookingFor:boolean =false;
-  closeResult = '';
-  quantity;
+  public isConnected:boolean = false;
+  public canSee:boolean;
+
+  public isLookingFor:boolean =false;
+
+  public closeResult = '';
+  public quantity;
 
   // Variable de modification des utilisateurs
   public listUsers; 
@@ -32,12 +34,20 @@ export class ManageUserComponent implements OnInit {
   {
     // this.numbers = Array(3).fill(0); // Pour forcer une boucle pour le débug du css
     this.isConnected = verification();
-
-    if(this.isConnected == false)
-    {
-      localStorage.clear();
-    }
+    let state = localStorage.getItem("role");
     
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
+    }
     this.listUsers = this.displayAllUsers();
     console.log(this.listUsers);
   }

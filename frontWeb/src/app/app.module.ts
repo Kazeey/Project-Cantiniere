@@ -26,6 +26,7 @@ import { DailyOrderComponent } from './daily-order/daily-order.component';
 import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
+import {DatePipe} from '@angular/common';
 
 
 registerLocaleData(fr);
@@ -66,7 +67,7 @@ registerLocaleData(fr);
     DailyOrderComponent,
     HistoricComponent
   ],
-  providers: [{ provide: NZ_I18N, useValue: fr_FR }],
+  providers: [{ provide: NZ_I18N, useValue: fr_FR }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

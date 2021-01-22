@@ -8,7 +8,7 @@ import { MealService } from '../../services/meal/meal.service';
 })
 export class MealCardComponent implements OnInit {
   @Input() meal: any;
-  @Input() isAuthenticate: boolean;
+  @Input() canSee: boolean;
 
   image: any = {
     image64 : "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png"

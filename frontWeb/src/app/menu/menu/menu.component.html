@@ -18,7 +18,7 @@
             *ngFor="let meal of menu.meals"
             [meal]="meal"
             [menuId]="menu.id"
-            [isAuthenticate]="isAuthenticate"
+            [canSee]="canSee"
             (onQuantityChange)="onMeal($event)">
         </app-meal-card>
 

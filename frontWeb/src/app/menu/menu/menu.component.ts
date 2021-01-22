@@ -7,7 +7,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   @Input() menu: any;
-  @Input() isAuthenticate: boolean;
+  @Input() canSee: boolean;
 
   @Output() onQuantityChange = new EventEmitter<any>();
 

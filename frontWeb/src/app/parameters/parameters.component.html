@@ -1,4 +1,4 @@
-<div *ngIf="isConnected">
+<div *ngIf="canSee">
     <div class="myProfile">
       <h1 *ngFor="let user of usersData | async">{{user.name}} {{user.firstname}}</h1>
       <img *ngFor="let user of usersData | async" class="imgProfile" src="{{user.image.image64}}"> <br/>
@@ -27,8 +27,6 @@
         </label>
       </div>
     </div>
- 
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -137,4 +135,8 @@
         </div>
       </div>
     </ng-template>
+</div>
+
+<div *ngIf="!canSee">
+  <!-- Insérer ce qu'il doit décaler ici -->
 </div>
