@@ -56,9 +56,7 @@ methods = {
             return false; 
         }
 
-        console.log(this.orderList);
         res.send(this.orderList);
-
     },
 
     getAllOrders : async function(req, res){
@@ -79,12 +77,8 @@ methods = {
         .then(data => {
                 orderList = data;
         })
-
-        
-        console.log(orderList);
         
         res.send(orderList);
-
     }
 }
 

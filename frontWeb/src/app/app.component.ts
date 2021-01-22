@@ -17,10 +17,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class AppComponent implements OnInit{
 
-  constructor(private AuthenticationService:AuthenticationService,
-    private manageUserService:ManageUserService, private modalService: NgbModal ){
-  }
-
   isCollapsed = false;
 
   public title = "Projet Cantinière";
@@ -32,6 +28,7 @@ export class AppComponent implements OnInit{
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
+  public canSee:boolean;
 
   public usersData;
   public userId;
@@ -51,10 +48,17 @@ export class AppComponent implements OnInit{
   public role:string;
   public closeResult = '';
   
+  constructor(private AuthenticationService:AuthenticationService,
+    private manageUserService:ManageUserService, private modalService: NgbModal )
+  {
+    
+  }
+  
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
     this.isConnected = verification();
+    let state = localStorage.getItem("statut");
 
 
     if(localStorage.getItem('statut'))
@@ -63,9 +67,8 @@ export class AppComponent implements OnInit{
     }
     else
     {
-      this.ngOnDestroy();
+      this.isConnected = false;
     }
-    console.log(this.statut);
   }
 
   ngOnDestroy():void // A utiliser en tant que deconnexion

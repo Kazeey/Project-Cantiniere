@@ -37,7 +37,7 @@
           </li>
         </ul>
         
-        <ul id="routingConnectionBox" *ngIf = "statut === 'visiteur'">
+        <ul id="routingConnectionBox" *ngIf="statut === 'visiteur'">
           <li class="routingConnection" (click) = "toggleDisplayAuthentication(); open(content)">
             <a>Se connecter</a>
           </li>
@@ -50,7 +50,7 @@
             <a [routerLink]="['/historic']">Historique des commandes</a>
           </li> 
         </ul>
-      <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf = "statut != 'visiteur'">
+      <li nz-submenu nzOpen nzTitle="Autres" nzIcon="form" *ngIf="statut != 'visiteur'">
         <ul>
           <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
             <a routerLink={{menu.path}}>{{menu.name}}</a>
