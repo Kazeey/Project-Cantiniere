@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { verification } from '../../../../../config/verification';
 import { MealService } from '../../services/meal/meal.service';
 
 @Component({
@@ -12,8 +13,9 @@ import { MealService } from '../../services/meal/meal.service';
 export class DailyMenuComponent implements OnInit {
   productsToDeliver: any = [];
 
-  isLunchLady: boolean = false;
-  isAuthenticate: boolean = true
+  public isConnected:boolean
+  public canSee: boolean;
+
   userWallet: number = 75.15;
   userId = 1;
 
@@ -24,8 +26,23 @@ export class DailyMenuComponent implements OnInit {
   constructor(private mealService: MealService) { }
 
   ngOnInit(): void {
-    //this.getDailyMenus(1);
+    this.isConnected = verification();
+    let state = localStorage.getItem("role");
+    
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = true
+    }
+    else
+    {
+      this.isConnected = false;
+    }
 
+    //this.getDailyMenus(1);
     this.getMealForToday();
   }
 

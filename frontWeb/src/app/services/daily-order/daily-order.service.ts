@@ -8,8 +8,10 @@ import { constantes } from '../../../../../config/constantes';
   providedIn: 'root'
 })
 export class DailyOrderService {
-  
-  constructor(private http:HttpClient) { }
+
+  constructor(private http:HttpClient) 
+  {
+  }
 
   private url = constantes.urlAPINode + "order/"; // url souhaitée pour la requête de l'API
 

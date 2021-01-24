@@ -18,9 +18,9 @@ export class ParametersService {
 
 
   updateImg(userId, url, imgPath){
-        this.http.post(this.urlUser + "updateUserImg", {userId:userId, url:url, imgPath:imgPath}).subscribe(res =>{}); // Récupère les données renvoyées par l'API
-        return this.manageUserService.getUserById(userId);
-      }
+      this.http.post(this.urlUser + "updateUserImg", {userId:userId, url:url, imgPath:imgPath}).subscribe(res =>{}); // Récupère les données renvoyées par l'API
+      return this.manageUserService.getUserById(userId);
+    }
 
   private url = constantes.urlAPINode + "constraints"; // url souhaitée pour la requête de l'API
 

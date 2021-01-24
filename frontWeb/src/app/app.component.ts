@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { methods as menu }  from '../../../config/menus'; 
 import { verification } from '../../../config/verification';
 import { constantes } from '../../../config/constantes';
+
 import { AuthenticationService } from '../app/services/authentication/authentication.service';
 import { ManageUserService } from './services/manage-user/manage-user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,10 +16,6 @@ import { ManageUserService } from './services/manage-user/manage-user.service';
 })
 
 export class AppComponent implements OnInit{
-
-  constructor(private AuthenticationService:AuthenticationService,
-    private manageUserService:ManageUserService ){
-  }
 
   isCollapsed = false;
 
@@ -30,6 +28,7 @@ export class AppComponent implements OnInit{
   // Si true, redirige vers l'accès utilisateur
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
+  public canSee:boolean;
 
   public usersData;
   public userId;
@@ -47,12 +46,17 @@ export class AppComponent implements OnInit{
   public toSend = ""; // Faire passer une donnée statique entre plusieurs routes
 
   public role:string;
-
+  public closeResult = '';
+  
+  constructor(private AuthenticationService:AuthenticationService, private manageUserService:ManageUserService, private modalService: NgbModal)
+  {
+    
+  }
+  
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
     this.showStorage()
     this.isConnected = verification();
-
 
     if(localStorage.getItem('role'))
     {
@@ -100,6 +104,17 @@ export class AppComponent implements OnInit{
       this.box.style.backgroundColor = "#1890ff";
     }
   }
+
+  open(content) 
+  {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed`;
+    }, 
+    (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
+
 
   setMessage(message, nbEssais)
   {
@@ -211,7 +226,7 @@ export class AppComponent implements OnInit{
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
-            localStorage.setItem("statut", data.role); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("role", this.statut); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
 
             this.showStorage();
 
@@ -243,3 +258,6 @@ export class AppComponent implements OnInit{
 }
 
 
+// Dans les fichiers HTML :
+// *ngIf = canSee est pour les admins
+// *ngIf = !canSee est pour les clients

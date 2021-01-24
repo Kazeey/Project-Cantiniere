@@ -8,7 +8,7 @@
 
             <p id="card_title">{{ meal.label }}</p>
     
-            <div id="quantity_container" *ngIf="isAuthenticate">
+            <div id="quantity_container" *ngIf="canSee">
                 <img class="quantity_btn" id="minus_btn" src="../../../assets/minus_outlined.svg" (click)="onMinusBtn()"/>
                 <p id="quantity">{{ quantity }}</p>
                 <img class="quantity_btn" id="plus_btn" src="../../../assets/plus_outlined.svg" (click)="onPlusBtn()"/>

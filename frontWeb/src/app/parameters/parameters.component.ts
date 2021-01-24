@@ -19,15 +19,7 @@ interface Constraint {
 })
 export class ParametersComponent implements OnInit {
 
-  userId: any;
-  statut:any;
-  public usersData;
-  public imageModifiee;
-  url:any ;
-  imgPath:any = null;
-
-  constructor(private manageUserService:ManageUserService,
-              private parametersService:ParametersService,
+  constructor(private parametersService:ParametersService,
               private modalService: NgbModal) { }
 
  
@@ -35,9 +27,6 @@ export class ParametersComponent implements OnInit {
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
 
-  // Variable de modification des paramètres
-  public listParameters; 
-  public notifsCheck:boolean;
 
   public listConstraints = null;
 
@@ -49,20 +38,17 @@ export class ParametersComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.statut = localStorage.getItem("statut");
-    this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
-    this.getUsersData(this.userId);
+
     let state = localStorage.getItem("role");
     
-    // TODO comprendre ce que c'est 
     if (this.isConnected == true && state == "admin")
     {
-
+      this.canSee = true;
     }
     else if (this.isConnected == true && state == "client")
     {
-
+      this.canSee = false;
     }
     else
     {
@@ -113,43 +99,4 @@ export class ParametersComponent implements OnInit {
     .subscribe(res => this.listConstraints = this.displayAllConstraints());
   }
 
-  getUsersData(userId){
-    this.usersData = this.manageUserService.getUserById(userId)
-  }
-
-  onSelectFile(event) {
-
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
-      }
-    }
-    this.manageUserService.getUserById(this.userId)
-    .subscribe(res => {
-      let userId = res[0].id;
-      this.updateImg(userId, this.url, this.imgPath)
-      .subscribe(res =>{
-       return this.getUsersData(userId);
-      });
-    });
-  }
-
-  updateImg(userId, url, imgPath){
-    return this.parametersService.updateImg(userId, url, imgPath);
-  }
-
-  notifications(event){
-    if(event.srcElement.checked == true){
-      this.notifsCheck = true;
-            console.log(this.notifsCheck);
-
-    }else{
-      this.notifsCheck = false;
-      console.log(this.notifsCheck);
-    }
-  }
 }

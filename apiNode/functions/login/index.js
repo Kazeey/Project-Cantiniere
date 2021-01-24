@@ -31,8 +31,6 @@ methods = {
         // Récupération des paramètres email et password passés en POST
         emailToFind = req.body.email; 
         passwordToFind = req.body.password; 
-        console.log(emailToFind);
-        console.log(passwordToFind);
         
         if(!emailToFind || !passwordToFind)
         {

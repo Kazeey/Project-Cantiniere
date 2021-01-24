@@ -14,14 +14,17 @@ export class HistoricComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
-  userId: any;
+  public isConnected:boolean = false;
+  public canSee:boolean;
+
+  public userId: any;
   public usersData;
   public ordersData;
   public simpleUser;
-  statut: any;
   public orders;
-  index: number = 0;
+
+  public statut: any;
+  public index: number = 0;
 
   constructor(private historicService:HistoricService) { }
 
@@ -30,15 +33,21 @@ export class HistoricComponent implements OnInit {
     this.statut = localStorage.getItem("statut");
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
-
-    this.ordersData = this.getOrdersData(this.userId);
-    this.orders = this.getAllOrders();
-
-
-    if(this.isConnected == false)
+    
+    let state = localStorage.getItem("role");
+    
+    if (this.isConnected == true && state == "admin")
     {
-      localStorage.clear();
+      this.canSee = true;
     }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
+    } 
   }
 
   ngOnDestroy(): void
