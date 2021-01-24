@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-icon class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
@@ -6,7 +6,9 @@
       <ion-icon slot="end" class="panier_icon" size="large" name="basket-outline"></ion-icon>
     </ion-toolbar>
   </ion-header>
-
+  
+  <ion-content [fullscreen]="true">
+</ion-content>
   <ion-footer class="footer" ng-click="">
     <ion-toolbar>
       <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
@@ -14,4 +16,4 @@
       <ion-icon slot="end" class="disconnect_icon" size="large" name="power-outline"><a (click)="ngOnDestroy()"></a></ion-icon>
     </ion-toolbar>
   </ion-footer>
-</ion-content>
+

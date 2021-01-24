@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { verification } from '../../../../config/verification';
 import { DailyOrderService } from '../services/daily-order/daily-order.service';
 import { MealService } from '../services/meal/meal.service';
+import { constantes } from '../../../../config/constantes';
+import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
 
@@ -22,13 +24,26 @@ export class DailyMenuComponent implements OnInit {
   isAuthenticate: boolean = true;
   userWallet: number = 82.13;
   userId: number = 1;
+  statut:any;
+  
+  displayComponent = true; // Variable d'affichage des components pour la déconnexion
+
+  nbEssaisConnexion = constantes.nbEssaisConnexion;
 
   constructor(private dailyOrderService: DailyOrderService, 
     private mealService: MealService,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    private router:Router) { }
 
   ngOnInit() {
-    this.getDailyMeals()
+    this.getDailyMeals();
+    this.statut = localStorage.getItem("role");
+    this.isConnected = verification(); 
+    console.log(this.isConnected, this.statut);
+  }
+
+  ngOnDestroy(){
+    this.isConnected = false;
   }
 
   // Get all Meal for the current Week

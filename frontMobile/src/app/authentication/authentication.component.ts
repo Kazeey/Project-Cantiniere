@@ -4,8 +4,7 @@ import { methods as menus } from '../../../../config/menus';
 import { verification } from '../../../../config/verification';
 import { constantes } from '../../../../config/constantes';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { RouterLink } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -32,15 +31,16 @@ export class AuthenticationComponent implements OnInit {
 
   toSend = ""; // Si besoin de faire passer une donnée statique entre plusieurs routes
 
-  constructor(private AuthenticationService:AuthenticationService) { }
+  constructor(private AuthenticationService:AuthenticationService,
+              private router:Router) { }
 
   ngOnInit() 
   {
-    this.showStorage();
-    this.isConnected = verification();
+   /* this.showStorage();
+    this.isConnected = verification();*/
   }
 
-  ngOnDestroy():void
+  endSession():void
   {
     this.statut = "visiteur";
     this.displayComponent = false;
@@ -95,7 +95,6 @@ export class AuthenticationComponent implements OnInit {
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
-          
         }
         else
         {
@@ -176,9 +175,8 @@ export class AuthenticationComponent implements OnInit {
             this.statut = role;
             this.setMessage("", null);
             this.isDisplayAuthentication = ! this.isDisplayAuthentication;
-            this.isConnected = true;
-            
-
+            this.router.navigate(['dailyMenu']);
+      
           }
         }
         else
@@ -186,7 +184,10 @@ export class AuthenticationComponent implements OnInit {
           this.setMessage("Adresse maill incorrecte ou bloquée.", null);
         }
       });
+
+
     });
+    
   }
 
   forgotPassword(mail)
