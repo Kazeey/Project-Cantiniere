@@ -23,6 +23,7 @@ export class DailyOrderComponent implements OnInit
   public listDailyOrders; 
 
   public myDate: string;
+  public userId: string;
 
   constructor(private dailyOrderService:DailyOrderService, private datePipe: DatePipe) { }
 
@@ -45,7 +46,8 @@ export class DailyOrderComponent implements OnInit
     }
 
     this.myDate = this.datePipe.transform(new Date(),"yyyy-MM-dd");
-    
+    this.userId = localStorage.getItem("userId");
+
     this.listDailyOrders = this.displayDailyOrders(this.myDate);
   }
 
@@ -63,7 +65,7 @@ export class DailyOrderComponent implements OnInit
   {
     let verifNotif = localStorage.getItem("allowNotifications");
 
-    this.dailyOrderService.confirmOrder(orderId, this.myDate, verifNotif)
+    this.dailyOrderService.confirmOrder(orderId, this.myDate, verifNotif, this.userId)
     .subscribe(res => this.listDailyOrders = this.displayDailyOrders(this.myDate));
   }
 }

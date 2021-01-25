@@ -26,10 +26,9 @@ export class DailyOrderService {
     return this.http.get(this.url + "getDailyOrder?status=0&beginDate="+ myDate +"&endDate="+ myDate +""); // Récupère les données renvoyées par l'API
   }
 
-  confirmOrder(orderId, myDate, verifNotif)
+  confirmOrder(orderId, myDate, verifNotif, userId)
   {
-    //TODO : faire la fonction dans le back et ne pas oublier de compute le price pour soustraire au panier des gens
-    this.http.post(this.url + "confirmOrder", {orderId : orderId, verifNotif : verifNotif}).subscribe();
+    this.http.post(this.url + "confirmOrder", {orderId : orderId, verifNotif : verifNotif, userId : userId}).subscribe();
 
     return this.getDailyOrder(myDate);
   }

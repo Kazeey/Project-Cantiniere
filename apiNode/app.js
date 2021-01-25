@@ -67,6 +67,7 @@ app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserTo
 app.get('/api/order/getDailyOrder'           , orderImport.data.getDailyOrder);        // Get user's orders of a specific day
 app.post('/api/order/getOrderByUser'         , orderImport.data.getOrderByUser);        // Get all user's orders
 app.get('/api/order/getAllOrders'            , orderImport.data.getAllOrders);        // Get all orders
+app.post('/api/order/confirmOrder'           , orderImport.data.confirmOrder);        // Get all orders
 
 // ------ Constraints ------
 app.get('/api/constraints/getAllConstraints'  , constraintImport.data.getAllConstraints);   // Get all the constraints
