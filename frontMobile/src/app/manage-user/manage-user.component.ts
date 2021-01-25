@@ -36,11 +36,11 @@ export class ManageUserComponent implements OnInit {
     this.listUsers = this.displayAllUsers();
   }
   
-  ngOnDestroy(): void
+ /* ngOnDestroy(): void
   {
     this.isConnected = false; 
     this.isLookingFor = false;
-  }
+  }*/
 
 
   displayAllUsers()

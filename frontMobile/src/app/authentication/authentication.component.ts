@@ -4,8 +4,7 @@ import { methods as menus } from '../../../../config/menus';
 import { verification } from '../../../../config/verification';
 import { constantes } from '../../../../config/constantes';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { RouterLink } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -32,7 +31,8 @@ export class AuthenticationComponent implements OnInit {
 
   toSend = ""; // Si besoin de faire passer une donnée statique entre plusieurs routes
 
-  constructor(private AuthenticationService:AuthenticationService) { }
+  constructor(private AuthenticationService:AuthenticationService,
+              private router:Router) { }
 
   ngOnInit() 
   {
@@ -40,18 +40,9 @@ export class AuthenticationComponent implements OnInit {
     this.isConnected = verification();
   }
 
-  ngOnDestroy():void
+  connectToVisitor()
   {
-    this.statut = "visiteur";
-    this.displayComponent = false;
-    this.nbEssaisConnexion = constantes.nbEssaisConnexion;
-    this.resetStorage();
-  }
-
-  resetStorage()
-  {
-    localStorage.clear();
-    console.log("localStorage cleared");
+    this.isConnected = false;
   }
 
   showStorage()
@@ -95,7 +86,6 @@ export class AuthenticationComponent implements OnInit {
         {
           this.setMessage("", null);
           this.checkConnection(mail, password);
-          
         }
         else
         {
@@ -173,12 +163,25 @@ export class AuthenticationComponent implements OnInit {
 
             this.showStorage();
 
-            this.statut = role;
+            this.statut = localStorage.getItem("role");
+            console.log(this.statut);
+
             this.setMessage("", null);
             this.isDisplayAuthentication = ! this.isDisplayAuthentication;
             this.isConnected = true;
-            
 
+
+            if(this.statut == '0'){
+              this.router.navigate(['dailyMenu']);
+
+            }else{
+              if(this.statut == '1'){
+                this.router.navigate(['manageMenu']);
+              }
+
+            }
+            
+      
           }
         }
         else
@@ -186,7 +189,10 @@ export class AuthenticationComponent implements OnInit {
           this.setMessage("Adresse maill incorrecte ou bloquée.", null);
         }
       });
+
+
     });
+    
   }
 
   forgotPassword(mail)

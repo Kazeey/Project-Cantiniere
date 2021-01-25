@@ -1,14 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header class="header">
     <ion-toolbar>
       <ion-title size="medium">Authentification</ion-title>
     </ion-toolbar>
   </ion-header>
+
+<ion-content [fullscreen]="true">
 
   <div id="container">
     <form class="box" method="post">
@@ -23,5 +19,10 @@
       </form>
   </div>
 
+
   <div id="errorZone">{{phraseConnexion}}</div>
+  
+  <div class="visit">
+    <a (click)="connectToVisitor()" [routerLink]="['/dailyMenu']">Continuer en tant qu'invité</a>
+  </div>
 </ion-content>

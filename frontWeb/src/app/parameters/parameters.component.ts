@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
 
-
 interface Constraint {
   id: number; 
   orderTimeLimit: String;

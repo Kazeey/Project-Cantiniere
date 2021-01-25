@@ -118,7 +118,10 @@ export class PreferencesComponent implements OnInit {
       this.cookieService.set("notificationsProjetCantiniere", "true")
     }
   }
-
+ /* ngOnDestroy():void
+  {
+    this.isConnected = false;
+  }*/
   changePassword(champUn, champDeux)
   {
     if(champUn && champDeux)
