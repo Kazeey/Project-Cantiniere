@@ -245,16 +245,15 @@ methods = {
         let imgToUpdate = {
             imagePath: req.body.imgPath,
             image64 : req.body.url
-        };
-  
-        request.patch({
-            headers: {'content-type' : 'application/json'},
-            url:     baseUrl + 'user/updateimg/' + userId,
-            body:    JSON.stringify(imgToUpdate)
-        },  function(error, response, body) {
-                console.log(body);
-            }
-    )},
+        };    
+
+        let idImage = 79;
+
+        let query = "UPDATE ltuser SET `image_id` = '"+ idImage +"' WHERE id = '" + userId+ "';";
+        con.query(query, function(err, result){})
+
+        res.send(true);
+    },
     
     getUserBySearchField : async function(req, res)
     {        

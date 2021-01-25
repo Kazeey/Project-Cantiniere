@@ -12,7 +12,6 @@ export class HistoricService {
   constructor(private http:HttpClient) { }
 
   private urlOrder = constantes.urlAPINode + "order/"; // url souhaitée pour la requête de l'API
-  private urlUser = constantes.urlAPINode + "users/"; // url souhaitée pour la requête de l'API
 
 
   getOrderByUser(userId)
@@ -20,14 +19,9 @@ export class HistoricService {
     return this.http.post(this.urlOrder + "getOrderByUser", {userId:userId}); // Récupère les données renvoyées par l'API
   }
 
-  getUserById(userId)
-  {
-    return this.http.post(this.urlUser + "getUserById", {userId:userId}); // Récupère les données renvoyées par l'API
-  }
-
   getAllOrders()
   {
-        return this.http.get(this.urlOrder + "getAllOrders"); // Récupère les données renvoyées par l'API
+    return this.http.get(this.urlOrder + "getAllOrders"); // Récupère les données renvoyées par l'API
 
   }
 }

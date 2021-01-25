@@ -22,6 +22,7 @@ export class HistoricComponent implements OnInit {
   public ordersData;
   public simpleUser;
   public orders;
+  public state;
 
   public statut: any;
   public index: number = 0;
@@ -30,17 +31,18 @@ export class HistoricComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.statut = localStorage.getItem("statut");
     this.userId = localStorage.getItem("userId");
     this.isConnected = verification();
+    this.orders = this.getAllOrders();
+    this.ordersData = this.getOrdersData(this.userId);
     
-    let state = localStorage.getItem("role");
+    this.state = localStorage.getItem("role");
     
-    if (this.isConnected == true && state == "admin")
+    if (this.isConnected == true && this.state == "admin")
     {
       this.canSee = true;
     }
-    else if (this.isConnected == true && state == "client")
+    else if (this.isConnected == true && this.state == "client")
     {
       this.canSee = false
     }
@@ -57,7 +59,7 @@ export class HistoricComponent implements OnInit {
 
   getOrdersData(userId)
   {
-   return this.historicService.getOrderByUser(userId)
+   return this.historicService.getOrderByUser(userId);
   }
 
   getAllOrders()

@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { verification } from '../../../../config/verification';
 import { ParametersService } from '../services/parameters/parameters.service';
 
-
 interface Constraint {
   id: number; 
   orderTimeLimit: String;
@@ -27,7 +26,6 @@ export class ParametersComponent implements OnInit {
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
-
 
   public listConstraints = null;
 

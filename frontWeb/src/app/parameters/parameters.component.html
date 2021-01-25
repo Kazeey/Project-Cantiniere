@@ -1,5 +1,10 @@
-<div class="container">
-<div *ngIf="canSee">
+<div *ngIf="isConnected">
+    <div class="myProfile">
+      <h1 *ngFor="let user of usersData | async">{{user.name}} {{user.firstname}}</h1> 
+    </div>
+</div>
+
+<div *ngIf="canSee" class="container">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -108,7 +113,6 @@
         </div>
       </div>
     </ng-template>
-</div>
 </div>
 
 <div *ngIf="!canSee">

@@ -5,6 +5,8 @@ import { PreferencesService } from '../services/preferences/preferences.service'
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
+import { ParametersService } from '../services/parameters/parameters.service';
 
 
 @Component({
@@ -17,8 +19,10 @@ export class PreferencesComponent implements OnInit {
   constructor(
     private preferencesService:PreferencesService,
     private manageUserService:ManageUserService,
+    private parametersService:ParametersService,
     private modalService: NgbModal,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private http: HttpClient
     ) { }
 
   // Si true, affiche le contenu du component 
@@ -46,7 +50,12 @@ export class PreferencesComponent implements OnInit {
   public url:any ;
   public imgPath:any = null;
 
+  public obj: any = {};
   public closeResult = '';
+
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+  base64textString
 
   ngOnInit(): void 
   {
@@ -122,6 +131,7 @@ export class PreferencesComponent implements OnInit {
 
   changePassword(champUn, champDeux)
   {
+    let errorZone:HTMLElement = document.getElementById("errorZone");
     if(champUn && champDeux)
     {
       if(champUn == champDeux)
@@ -130,16 +140,37 @@ export class PreferencesComponent implements OnInit {
       }
       else
       {
-        let errorZone:HTMLElement = document.getElementById("errorZone");
-        errorZone.innerHTML = "test"
-        errorZone.style.display = "Les mots de passe ne correspondent pas.";
+        errorZone.innerHTML = "Les deux champs ne correspondent pas."
+        errorZone.style.display = "block";
       }
     }
     else
     {
-
+      errorZone.innerHTML = "Les deux champs ne sont pas remplis."
+      errorZone.style.display = "block";
     }
   }
 
+  onSelectFile(event) 
+  {
+    if (event.target.files && event.target.files[0]) 
+    {
+      var reader = new FileReader();
+
+      this.manageUserService.getUserById(this.userId)
+      .subscribe(res => {
+        let userId = res[0].id;
+        this.updateImg(userId, event.target.files[0], res[0].image.imagePath)
+        .subscribe(res => {
+          return this.getUsersData(userId);
+        });
+      });
+    }
+  }
+  
+  updateImg(userId, url, imgPath)
+  {
+    return this.parametersService.updateImg(userId, url, imgPath);
+  }
 
 }

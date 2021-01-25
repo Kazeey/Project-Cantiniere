@@ -1,38 +1,41 @@
 <div class="container">
 <div *ngIf="canSee">
     <div class="preferences">
-        <div id="errorZone">
-          Les mots de passe ne correspondent pas.
-        </div>
-        
-        <br>
-        <br>
+      <div id="errorZone">
+        Les mots de passe ne correspondent pas.
+      </div>
+      
+      <br>
+      <br>
 
-        <button 
-            class="btn btn-success"
-            (click)="open(contentPassword)"
-        >
-        Modifier le mot de passe
-        </button>
-
-        <br>
-        <br>
-
-        <button 
+      <button 
           class="btn btn-success"
-          (click)="notifications()"
-        >
-        {{phraseNotifications}}
-        </button>
+          (click)="open(contentPassword)"
+      >
+      Modifier le mot de passe
+      </button>
 
-        <br>
-        <br>
+      <br>
+      <br>
 
-        <button class="btn btn-primary">Modifier l'image de profil</button>   
-         
+      <button 
+        class="btn btn-success"
+        (click)="notifications()"
+      >
+      {{phraseNotifications}}
+      </button>
+
+      <br>
+      <br>
+
+      <button 
+        class="btn btn-primary"
+        (click)="open(contentImage)"
+      >
+      Modifier l'image de profil
+      </button>   
     </div>
 </div>
-  
 </div>
 
 <ng-template #contentPassword let-modal>
@@ -62,6 +65,37 @@
             type="button" 
             class="btn btn-outline-danger" 
             (click)="changePassword(password.value, passwordRepeat.value); modal.dismiss('Cross click')"
+          >
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+<ng-template #contentImage let-modal>
+    <div class="modal-header">
+      <h4 #id class="modal-title" id="modal-basic-title">Mot de passe oublié</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">              
+          <label for="image">Mot de passe</label>
+          <div class="input-group">
+            <input type="file" name="image" (change)="onSelectFile($event)" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <button 
+            type="button" 
+            class="btn btn-outline-danger"
+            accept="image/*" 
+            (click)="modal.dismiss('cross clicked')"
           >
           Envoyer
         </button>

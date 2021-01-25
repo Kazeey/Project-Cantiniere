@@ -51,10 +51,11 @@ export class DailyOrderComponent implements OnInit
     this.listDailyOrders = this.displayDailyOrders(this.myDate);
   }
 
-  ngOnDestroy(): void
+ /* ngOnDestroy():void
   {
-    this.isConnected = false; 
-  }
+    this.isConnected = false;
+  }*/
+
 
   displayDailyOrders(myDate)
   {

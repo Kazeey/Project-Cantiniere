@@ -18,9 +18,9 @@ export class ManageProductComponent implements OnInit {
     this.isConnected = verification();
   }
 
-  ngOnDestroy():void
+ /* ngOnDestroy():void
   {
     this.isConnected = false;
-  }
+  }*/
 
 }
