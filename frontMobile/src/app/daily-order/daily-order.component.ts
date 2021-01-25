@@ -31,19 +31,6 @@ export class DailyOrderComponent implements OnInit
   {
     this.isConnected = verification(); 
     let state = localStorage.getItem("role");
-    
-    if (this.isConnected == true && state == "admin")
-    {
-      this.canSee = true;
-    }
-    else if (this.isConnected == true && state == "client")
-    {
-      this.canSee = false
-    }
-    else
-    {
-      this.isConnected = false;
-    }
 
     this.myDate = this.datePipe.transform(new Date(),"yyyy-MM-dd");
     this.userId = localStorage.getItem("userId");

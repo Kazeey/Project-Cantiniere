@@ -1,3 +1,17 @@
+  <ion-header class="header">
+    <ion-toolbar *ngIf="statut === '0'">
+      <ion-icon  class="panier_icon" size="large" name="basket-outline"></ion-icon>
+      <ion-title style="margin-top:-35px;" size="medium">Préférences</ion-title>
+     <ion-icon slot="end" class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
+    </ion-toolbar>
+
+    <ion-toolbar *ngIf="statut === '1'">
+      <ion-icon slot="end" class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
+      <ion-title size="medium">Préférences</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
 <div class="container">
   <div *ngIf="canSee">
       <div class="preferences">
@@ -68,4 +82,20 @@
         </div>
       </div>
     </ng-template>
+    </ion-content>
+
+
+    <ion-footer *ngIf="isConnected" class="footer">
+      <ion-toolbar *ngIf="statut === '0'">
+        <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
+        <ion-icon class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
+      </ion-toolbar>
   
+      <ion-toolbar *ngIf="statut === '1'">
+        <ion-icon class="mUser_icon" [routerLink]="['/manageUser']" size="large" name="person-add-outline"></ion-icon>
+        <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
+        <ion-icon class="mMenu_icon" [routerLink]="['/manageMenu']" size="large" name="pizza-outline"></ion-icon>
+        <ion-icon class="dailyOrder" [routerLink]="['/dailyOrder']" size="large" name="calendar-outline"></ion-icon>
+        <ion-icon slot="end" class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
+      </ion-toolbar>
+    </ion-footer>

@@ -104,7 +104,7 @@ methods = {
         .then(data => {
             orderList = data;
         })
-        
+
         res.send(orderList);
     },
 
