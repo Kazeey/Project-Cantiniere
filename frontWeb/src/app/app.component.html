@@ -1,4 +1,5 @@
 <nz-layout class="app-layout">
+
   <nz-sider class="menu-sidebar"
             nzCollapsible
             nzWidth="256px"
@@ -67,8 +68,8 @@
         </ul>
       </li>
     </ul>
-    
   </nz-sider>
+
   <nz-layout id="test">
     <nz-header>
       <div class="app-header">
@@ -80,12 +81,17 @@
         </span>
       </div>
     </nz-header>
-    <div id="errorZone">
-      {{phraseConnexion}}
-    </div>
-    <router-outlet *ngIf="statut != 'visiteur'"></router-outlet> 
-    <app-daily-menu *ngIf="statut == 'visiteur'"></app-daily-menu>
+    <nz-content>
+      <div class="inner-content">
+        <div id="errorZone">
+          {{phraseConnexion}}
+        </div>
+        <router-outlet *ngIf="statut != 'visiteur'"></router-outlet> 
+        <app-daily-menu *ngIf="statut == 'visiteur'"></app-daily-menu>
+      </div>
+    </nz-content>
   </nz-layout>
+
 </nz-layout>
 
 <ng-template #content let-modal>

@@ -7,16 +7,15 @@ import { MealService } from '../../services/meal/meal.service';
   styleUrls: ['./meal-card.component.scss']
 })
 export class MealCardComponent implements OnInit {
-  @Input() meal: any;
-  @Input() canSee: boolean;
+  @Input() product: any;
+  @Input() isAuthenticate: boolean;
+  @Input() isLunchLady: boolean;
 
   image: any = {
     image64 : "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png"
   }
 
-  @Output() onQuantityChange = new EventEmitter<{meal: number, menuId: number, quantity: number}>();
-
-  quantity: number = 0;
+  @Output() onAddMenu = new EventEmitter<any>();
 
   placeholder: String = "Aucune description disponible pour ce plat."
 
@@ -27,24 +26,20 @@ export class MealCardComponent implements OnInit {
   }
 
   getMealImage() {
-    this.mealService.getImage(this.meal.id)
+    this.mealService.getImage(this.product.meal.id)
       .subscribe(res => {
         this.image = res;
       })
   }
 
-  onMinusBtn() {
-    if (this.quantity > 0) {
-      this.quantity--;
-
-      this.onQuantityChange.emit({meal: this.meal, menuId: 0, quantity: this.quantity});
-    }
+  canAdd(): boolean {
+    return this.isLunchLady === false && this.isAuthenticate && this.product.quantity === 0 ? true : false;
   }
 
-  onPlusBtn() {
-    this.quantity++;
+  onAdd() {
+    this.product.quantity = 1;
 
-    this.onQuantityChange.emit({meal: this.meal, menuId: 0, quantity: this.quantity});
+    this.onAddMenu.emit(this.product);
   }
 
 }

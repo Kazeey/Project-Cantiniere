@@ -1,0 +1,178 @@
+#cards_container {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+p {
+    color: #455A64;
+    margin: 0;
+}
+
+button {
+    margin: 0;
+}
+
+.primary_btn {
+    color: white;
+}
+
+.secondary_btn {
+    color: #455A64;
+}
+
+.edit_btn {
+    margin-left: 8px;
+}
+
+.add_btn {
+    margin-left: 8px;
+}
+
+.delete_btn {
+    color: red;
+    border-color: red;
+} 
+
+.fab {
+    width: 52px;
+    height: 52px;
+    margin: 0 16px 16px 0;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 100%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16)
+}
+
+/* Search Bar */
+
+#search_bar {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 50%;
+    padding: 4px 4px;
+    border: solid 1px rgba(0, 0, 0, 0.3);;
+    border-radius: 16px;
+}
+
+#search_bar_icn {
+    width: 20px;
+    margin-left: 8px;
+}
+
+#input_search {
+    margin-left: 8px;
+    border: none;
+}
+
+#input_search:active, #input_search:focus {
+    outline: 0;
+}
+
+/* Card */
+
+#menu_card {
+    margin: 8px;
+    padding: 16px;
+    background-color: #F5F5F6;
+    border-radius: 4px;
+    box-shadow: 1px 2px 2px gainsboro;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Card Header */
+
+#menu_card_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu_title {
+    max-width: 49%;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#button_container {
+    max-width: 51%;
+    display: flex;
+}
+
+/* Card Body */
+
+#menu_card_body {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+#menu_available_week_title {
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+#menu_available_week {
+    margin-left: 4px;
+}
+
+span {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+#menu_meal_title {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-top: 24px;
+}
+
+#meal_container {
+    margin-left: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#meal_price {
+    font-size: 1.1em;
+}
+
+/* Card Footer */
+
+#menu_card_footer {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.price {
+    color: #48BC48;
+    font-size: 1.25em;
+}
+
+/* Form */
+
+#available_week {
+    margin: 0;
+}
+
+input {
+    width: 100%;
+}
+
+.form_item {
+    margin-top: 8px;
+}
+
+#btn_add_week {
+    margin-top: 8px;
+}

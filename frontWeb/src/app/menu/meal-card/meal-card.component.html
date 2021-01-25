@@ -6,22 +6,19 @@
 
         <div id="card_header">
 
-            <p id="card_title">{{ meal.label }}</p>
-    
-            <div id="quantity_container" *ngIf="canSee">
-                <img class="quantity_btn" id="minus_btn" src="../../../assets/minus_outlined.svg" (click)="onMinusBtn()"/>
-                <p id="quantity">{{ quantity }}</p>
-                <img class="quantity_btn" id="plus_btn" src="../../../assets/plus_outlined.svg" (click)="onPlusBtn()"/>
-            </div>
+            <p id="card_title">{{ product.meal.label }}</p>
     
         </div>
 
         <div id="card_content">
-            <p id="card_description">{{ meal.description === undefined ? placeholder : 'meal.description' }}</p>
+            <p id="card_description">{{ product.meal.description === undefined ? placeholder : 'meal.description' }}</p>
         </div>
     
         <div id="card_footer">
-            <p id="card_price">{{ meal.priceDF }} €</p>
+
+            <p id="card_price">{{ product.meal.priceDF }} €</p>
+            <button nz-button nzType="primary" (click)="onAdd()" *ngIf="canAdd()">Add</button>
+
         </div>
 
     </div>

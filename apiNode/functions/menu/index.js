@@ -174,6 +174,31 @@ methods = {
             res.send(messageError);
             return false; 
         }
+
+        await fetch(baseUrl + 'menu/findall')
+        .then(response => response.json())
+        .then(data => {
+            if(data.exceptionMessage)
+            {
+                // Vérifie s'il y a une exception (donc si l'utilisateur n'est pas trouvé)
+                isException.push(this.data.exceptionMessage);
+            }
+            else
+            {
+                // Si un utilisateur est trouvé réinitialise le tableau d'exception pour pouvoir réitérer la fonction.
+                isException = [];
+
+                this.menuList = data;
+            }
+        })
+
+        if(isException.length != 0)
+        {
+            res.send(configImport.menuError);
+            return false; 
+        }
+
+        res.send(this.menuList);
     },
 
     updateMenuImage : async function(req, res) 

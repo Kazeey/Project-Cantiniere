@@ -13,7 +13,13 @@
 
                 <div id="menu_data">
 
-                    <p>x{{ product.quantity }} - {{ product.meal.label }}</p>
+                    <div id="quantity_container">
+                        <img class="quantity_btn" id="minus_btn" src="../../../assets/minus_outlined.svg" (click)="onMinusBtn(product, i)"/>
+                        <p id="quantity">{{ product.quantity }}</p>
+                        <img class="quantity_btn" id="plus_btn" src="../../../assets/plus_outlined.svg" (click)="onPlusBtn(product)"/>
+                    </div>
+
+                    <p>{{ product.meal.label }}</p>
     
                 </div>
             
