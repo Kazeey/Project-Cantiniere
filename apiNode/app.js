@@ -39,10 +39,10 @@ app.post('/api/account/update' , accountImport.data.update);    // If you want t
 app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
 
 // ------ Users ------
-app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
-app.post('/api/users/getUserById/'  , usersImport.data.getUserById);  // Get a user with a given id
-app.post('/api/users/updateUserImg/'  , usersImport.data.updateUserImg);  // Update an image
-
+app.get('/api/users/getAllUsers'     , usersImport.data.getAllUsers);  // Get all users from database
+app.post('/api/users/getUserById/'   , usersImport.data.getUserById);  // Get a user with a given id
+app.post('/api/users/updateUserImg/' , usersImport.data.updateUserImg);  // Update an image
+app.post('/api/users/getUserBySearchField'  , usersImport.data.getUserBySearchField);   // Get a user with a given id
 
 // ------ Meals ------
 app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);

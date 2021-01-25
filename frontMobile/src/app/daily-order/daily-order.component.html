@@ -6,7 +6,29 @@
       <ion-icon slot="end" class="panier_icon" size="large" name="basket-outline"></ion-icon>
     </ion-toolbar>
   </ion-header>
-
+  <div *ngIf="canSee">
+    <div class="container">
+        <div class="card" *ngFor="let dailyOrder of listDailyOrders | async">    
+            <div id="card_body">
+                <div id="card_header">
+                    <p id="card_title">Commande numéro {{ dailyOrder.id }}</p>
+                </div>
+        
+                <div id="card_content">
+                    <p id="card_description">{{dailyOrder.user.name}} {{dailyOrder.user.firstname}}</p>
+                </div>
+                <div id="card_content">
+                    <button
+                        class="btn btn-primary"
+                        (click)="confirmOrder(dailyOrder.id)"
+                    >
+                        valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
   <ion-footer class="footer" ng-click="">
     <ion-toolbar>
       <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
