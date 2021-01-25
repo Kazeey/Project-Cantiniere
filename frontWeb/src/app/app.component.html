@@ -6,7 +6,7 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
   <div class="sidebar-logo">
-    <img src="../assets/icons/toque.png" alt="logo">
+    <img *ngIf="isConnected"  src="../assets/icons/toque.png" alt="logo">
     <h1>Projet Cantinière</h1>
   </div>
     
