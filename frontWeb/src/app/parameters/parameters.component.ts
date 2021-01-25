@@ -28,7 +28,6 @@ export class ParametersComponent implements OnInit {
   // Pour éviter tout problème d'affichage avec la connexion
   public isConnected:boolean = false;
 
-
   public listConstraints = null;
 
   public returnedValues = null;

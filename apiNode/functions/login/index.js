@@ -51,7 +51,7 @@ methods = {
                     if (resultUser[0].label == "ROLE_LUNCHLADY") 
                         role = 1;
 
-                    let queryImg = "SELECT image_64 FROM ltimage WHERE id = "+ imageId +";"; // Recherche l'image qui correspond à l'utilisateur
+                    let queryImg = "SELECT image_64, image_path FROM ltimage WHERE id = "+ imageId +";"; // Recherche l'image qui correspond à l'utilisateur
                     con.query(queryImg, function(err, resultImg)
                     {
                         res.send({result, resultImg, role});
