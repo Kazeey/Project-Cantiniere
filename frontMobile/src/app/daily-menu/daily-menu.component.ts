@@ -11,24 +11,42 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./daily-menu.component.scss'],
 })
 export class DailyMenuComponent implements OnInit {
-  menus: any = [];
-  meals: any = [];
-  images: any = [];
-  products: any = [];
+  public menus: any = [];
+  public meals: any = [];
+  public images: any = [];
+  public products: any = [];
 
-  amountToPay: number;
-  isConnected:boolean = false;
+  public amountToPay: number;
+  public isConnected:boolean = false;
+  public canSee:boolean;
 
-  isAuthenticate: boolean = true;
-  userWallet: number = 82.13;
-  userId: number = 1;
+  public isAuthenticate: boolean = true;
+  public userWallet: number = 82.13;
+  public userId: number = 1;
 
-  constructor(private dailyOrderService: DailyOrderService, 
+  constructor(
+    private dailyOrderService: DailyOrderService, 
     private mealService: MealService,
-    public alertController: AlertController) { }
+    public alertController: AlertController
+  ) { }
 
   ngOnInit() {
-    this.getDailyMeals()
+    this.getDailyMeals();
+
+    let state = localStorage.getItem("role");
+    
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = true;
+    }
+    else
+    {
+      this.isConnected = false;
+    }
   }
 
   // Get all Meal for the current Week

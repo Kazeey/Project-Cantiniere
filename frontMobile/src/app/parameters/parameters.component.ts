@@ -4,18 +4,9 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { setTimeout } from 'timers';
 
 import { ParametersService } from '../services/parameters/parameters.service';
 import { Observable } from 'rxjs';
-
-interface Constraint {
-  id: number; 
-  orderTimeLimit: String;
-  maximumOrderPerDay: number;
-  rateVAT : number;
-}
-
 
 @Component({
   selector: 'app-parameters',

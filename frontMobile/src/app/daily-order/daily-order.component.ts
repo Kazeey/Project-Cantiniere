@@ -10,12 +10,26 @@ export class DailyOrderComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  public isConnected:boolean = false;
+  public canSee: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    this.isConnected = verification();
+    let state = localStorage.getItem("role");
+    
+    if (this.isConnected == true && state == "admin")
+    {
+      this.canSee = true;
+    }
+    else if (this.isConnected == true && state == "client")
+    {
+      this.canSee = false
+    }
+    else
+    {
+      this.isConnected = false;
+    }
   }
 
   ngOnDestroy():void

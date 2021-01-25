@@ -7,7 +7,7 @@ import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from '../app/services/authentication/authentication.service';
 import { ManageUserService } from './services/manage-user/manage-user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -48,10 +48,12 @@ export class AppComponent implements OnInit{
   public role:string;
   public closeResult = '';
   
-  constructor(private AuthenticationService:AuthenticationService, private manageUserService:ManageUserService, private modalService: NgbModal)
-  {
-    
-  }
+  constructor(
+    private AuthenticationService:AuthenticationService, 
+    private manageUserService:ManageUserService, 
+    private modalService: NgbModal,
+    private cookieService: CookieService
+  )  { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
@@ -73,8 +75,9 @@ export class AppComponent implements OnInit{
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
-    this.resetStorage() // Vide toute les valeurs du localStorage
+    this.canSee = false;
     this.usersData = null;
+    this.resetStorage() // Vide toute les valeurs du localStorage
   }
 
   resetStorage()
@@ -151,6 +154,7 @@ export class AppComponent implements OnInit{
           this.checkConnection(mail, password);
           this.userId = localStorage.getItem("userId");
           this.usersData = this.getUserData(this.userId);
+          this.checkNotifications();
         }
         else
         {
@@ -254,6 +258,28 @@ export class AppComponent implements OnInit{
 
   getUserData(userId){
     return this.manageUserService.getUserById(userId);
+  }
+  
+  checkNotifications()
+  {
+    let stockage:boolean = this.cookieService.check('notificationsProjetCantiniere');
+
+    if(stockage == true)
+    {
+      let toVerif:string = this.cookieService.get('notificationsProjetCantiniere');
+      if(toVerif == "false")
+      {
+        localStorage.setItem("allowNotifications", "false");
+      }
+      else
+      {
+        localStorage.setItem("allowNotifications", "true");
+      }
+    }
+    else
+    {
+      localStorage.setItem("allowNotifications", "false");
+    }
   }
 }
 

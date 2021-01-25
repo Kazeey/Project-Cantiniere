@@ -1,6 +1,24 @@
 <div *ngIf="canSee">
-    <div>
-        <p *ngFor="let dailyOrder of listDailyOrders | async">{{dailyOrder.name}}</p>
+    <div class="container">
+        <div class="card" *ngFor="let dailyOrder of listDailyOrders | async">    
+            <div id="card_body">
+                <div id="card_header">
+                    <p id="card_title">{{ dailyOrder.id }}</p>
+                </div>
+        
+                <div id="card_content">
+                    <p id="card_description">{{dailyOrder.user.name}} {{dailyOrder.user.firstname}}</p>
+                </div>
+                <div id="card_content">
+                    <button
+                        class="btn btn-primary"
+                        (click)="confirmOrder(dailyOrder.id)"
+                    >
+                        valider
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

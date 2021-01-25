@@ -43,9 +43,10 @@ export class DailyOrderComponent implements OnInit
     {
       this.isConnected = false;
     }
+
+    this.myDate = this.datePipe.transform(new Date(),"yyyy-MM-dd");
     
-    this.listDailyOrders = this.displayDailyOrders()
-    this.myDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    this.listDailyOrders = this.displayDailyOrders(this.myDate);
   }
 
   ngOnDestroy(): void
@@ -53,8 +54,16 @@ export class DailyOrderComponent implements OnInit
     this.isConnected = false; 
   }
 
-  displayDailyOrders()
+  displayDailyOrders(myDate)
   {
-    //return this.dailyOrderService.getDailyOrder();
+    return this.dailyOrderService.getDailyOrder(myDate);
+  }
+
+  confirmOrder(orderId)
+  {
+    let verifNotif = localStorage.getItem("allowNotifications");
+
+    this.dailyOrderService.confirmOrder(orderId, this.myDate, verifNotif)
+    .subscribe(res => this.listDailyOrders = this.displayDailyOrders(this.myDate));
   }
 }

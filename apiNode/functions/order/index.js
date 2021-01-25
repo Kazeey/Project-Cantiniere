@@ -16,7 +16,8 @@ methods = {
         }
     },
 
-    getOrderByUser : async function(req, res){
+    getOrderByUser : async function(req, res)
+    {
 
         let isApiAvalaible = await configImport.verification();
 
@@ -59,8 +60,8 @@ methods = {
         res.send(this.orderList);
     },
 
-    getAllOrders : async function(req, res){
-
+    getAllOrders : async function(req, res)
+    {
         let isApiAvalaible = await configImport.verification();
 
         if(!isApiAvalaible)
@@ -76,6 +77,32 @@ methods = {
         .then(response => response.json())
         .then(data => {
                 orderList = data;
+        })
+        
+        res.send(orderList);
+    },
+
+    getDailyOrder : async function(req, res)
+    {
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        let orderList;
+        let status = req.query.status;
+        let beginDate = req.query.beginDate;
+        let endDate = req.query.endDate
+
+        // Récupère chaque commandes de la base
+        
+        await fetch(baseUrl +  "order/findallbetweendateinstatus?status="+ status +"&beginDate="+ beginDate +"&endDate="+ endDate +"")
+        .then(response => response.json())
+        .then(data => {
+            orderList = data;
         })
         
         res.send(orderList);
