@@ -16,6 +16,7 @@ export class HistoricService {
 
   getOrderByUser(userId)
   {
+    console.log(userId);
     return this.http.post(this.urlOrder + "getOrderByUser", {userId:userId}); // Récupère les données renvoyées par l'API
   }
 

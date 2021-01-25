@@ -1,17 +1,18 @@
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header class="header">
     <ion-toolbar>
-      <ion-icon class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
+      <ion-icon slot="end" class="parameters_icon" [routerLink]="['/parameters']" size="large" name="settings-outline"></ion-icon>
       <ion-title size="medium">Commandes du jour</ion-title>
-      <ion-icon slot="end" class="panier_icon" size="large" name="basket-outline"></ion-icon>
     </ion-toolbar>
   </ion-header>
+  <ion-content [fullscreen]="true">
 
-  <ion-footer class="footer" ng-click="">
+</ion-content>
+  <ion-footer class="footer">
     <ion-toolbar>
+      <ion-icon class="mUser_icon" [routerLink]="['/manageUser']" size="large" name="person-add-outline"></ion-icon>
       <ion-icon class="home_icon" [routerLink]="['/dailyMenu']" size="large" name="home-outline"></ion-icon>
-      <ion-icon class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
-      <ion-icon slot="end" class="disconnect_icon" size="large" name="power-outline"><a (click)="ngOnDestroy()"></a></ion-icon>
+      <ion-icon class="mMenu_icon" [routerLink]="['/manageMenu']" size="large" name="pizza-outline"></ion-icon>
+      <ion-icon class="dailyOrder" [routerLink]="['/dailyOrder']" size="large" name="calendar-outline"></ion-icon>
+      <ion-icon slot="end" class="historic_icon" [routerLink]="['/historic']"size="large" name="restaurant-outline"></ion-icon>
     </ion-toolbar>
   </ion-footer>
-</ion-content>

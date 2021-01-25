@@ -18,8 +18,8 @@ export class DailyOrderComponent implements OnInit {
     this.isConnected = verification();
   }
 
-  ngOnDestroy():void
+ /* ngOnDestroy():void
   {
     this.isConnected = false;
-  }
+  }*/
 }

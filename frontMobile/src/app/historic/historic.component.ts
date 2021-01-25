@@ -17,26 +17,28 @@ export class HistoricComponent implements OnInit {
   public ordersData;
   public orders;
   statut: any;
-
+  
   constructor(private historicService:HistoricService) { }
 
     ngOnInit() {
     this.statut = localStorage.getItem("role");
-    this.userId = localStorage.getItem("userId");
-    this.isConnected = true;
+    this.userId = localStorage.getItem("idUser");
+    this.isConnected = verification();
     this.ordersData = this.getOrdersData(this.userId);
     this.orders = this.getAllOrders();
     
-  }
+    }
 
-  ngOnDestroy():void
+ /* ngOnDestroy():void
   {
     this.isConnected = false;
-  }
+  }*/
 
   getOrdersData(userId)
   {
-   return this.historicService.getOrderByUser(userId)
+   return this.historicService.getOrderByUser(userId).subscribe(res=>{
+     console.log(res);
+   });
   }
 
   getAllOrders()

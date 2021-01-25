@@ -36,22 +36,13 @@ export class AuthenticationComponent implements OnInit {
 
   ngOnInit() 
   {
-   /* this.showStorage();
-    this.isConnected = verification();*/
+    this.showStorage();
+    this.isConnected = verification();
   }
 
-  endSession():void
+  connectToVisitor()
   {
-    this.statut = "visiteur";
-    this.displayComponent = false;
-    this.nbEssaisConnexion = constantes.nbEssaisConnexion;
-    this.resetStorage();
-  }
-
-  resetStorage()
-  {
-    localStorage.clear();
-    console.log("localStorage cleared");
+    this.isConnected = false;
   }
 
   showStorage()
@@ -172,10 +163,24 @@ export class AuthenticationComponent implements OnInit {
 
             this.showStorage();
 
-            this.statut = role;
+            this.statut = localStorage.getItem("role");
+            console.log(this.statut);
+
             this.setMessage("", null);
             this.isDisplayAuthentication = ! this.isDisplayAuthentication;
-            this.router.navigate(['dailyMenu']);
+            this.isConnected = true;
+
+
+            if(this.statut == '0'){
+              this.router.navigate(['dailyMenu']);
+
+            }else{
+              if(this.statut == '1'){
+                this.router.navigate(['manageMenu']);
+              }
+
+            }
+            
       
           }
         }

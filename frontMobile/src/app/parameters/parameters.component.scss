@@ -4,12 +4,6 @@
     background-color: gray;
 }
 
-.historic_icon{
-    position: absolute;
-    left: 45%;
-    right: 50%;
-}
-
 .majPhoto{
     display: inline-block;
     position: relative;
@@ -33,3 +27,55 @@
     font-size: 22px;
     font-weight: bold;
   }
+
+  .container
+{
+    margin-left: 15% !important;
+}
+
+.card
+{
+    margin-bottom: 5% !important;
+    margin-right : 5% !important;
+}
+
+#inputSearch
+{
+    margin-top : 5% !important;
+    margin-left: 10% !important;
+    margin-bottom: 5% !important;
+}
+
+.home_icon{
+    position: absolute;
+    left: 45%;
+    right: 50%;
+}
+
+.mUser_icon{
+    width:20px;
+}
+
+ion-title{
+    text-align: center;
+}
+
+.mMenu_icon{
+    position: absolute;
+    left: 20%;
+    right: 50%; 
+}
+
+.dailyOrder{
+    position: absolute;
+    left: 67%;
+    right: 50%;  
+}
+
+.disconnectUser_icon{
+  margin-top:10px;
+}
+
+.panier_icon{
+    margin-top: 12px;
+}

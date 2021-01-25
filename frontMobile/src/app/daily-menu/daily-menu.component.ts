@@ -38,14 +38,12 @@ export class DailyMenuComponent implements OnInit {
   ngOnInit() {
     this.getDailyMeals();
     this.statut = localStorage.getItem("role");
-    this.isConnected = verification(); 
-    console.log(this.isConnected, this.statut);
+    this.isConnected = verification();
+    console.log(this.isConnected);
   }
 
-  ngOnDestroy(){
-    this.isConnected = false;
-  }
 
+  
   // Get all Meal for the current Week
   getDailyMeals() {
     this.mealService.getMealsForToday()

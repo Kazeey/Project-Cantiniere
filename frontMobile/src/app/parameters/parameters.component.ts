@@ -54,6 +54,7 @@ export class ParametersComponent implements OnInit {
   ngOnInit(): void 
   {
     this.isConnected = verification();
+    this.statut = localStorage.getItem("role");
     
     if(this.isConnected == false)
     {
@@ -65,7 +66,7 @@ export class ParametersComponent implements OnInit {
     this.listConstraints = this.displayAllConstraints();
   }
 
-  ngOnDestroy(): void
+  endSession(): void
   {
     this.isConnected = false; 
     this.returnedValues = null;

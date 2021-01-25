@@ -1,4 +1,4 @@
-<div *ngIf="!isConnected">
+<div *ngIf="isConnected">
     <div class="myProfile">
       <h1 *ngFor="let user of usersData | async">{{user.name}} {{user.firstname}}</h1>
       <img *ngFor="let user of usersData | async" class="imgProfile" src="{{user.image.image64}}"> <br/>
@@ -27,6 +27,7 @@
         </label>
       </div>
     </div>
+  </div>
  
 
 

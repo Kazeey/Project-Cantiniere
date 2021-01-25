@@ -55,7 +55,6 @@ methods = {
             res.send(configImport.menuError);
             return false; 
         }
-
         res.send(this.orderList);
     },
 

@@ -1,6 +1,6 @@
 <!-- Front Users -->
-<div *ngIf="canSee">
-    <div *ngIf="statut === 'admin'" class="historic_client">        
+<div *ngIf="!canSee" class="historic_client"> 
+
           <div *ngFor="let order of ordersData | async" class="orders commandes">
               <h2>Commande du : {{order.creationDate}} : </h2><br>
   
@@ -13,16 +13,15 @@
               <div *ngIf="order.quantity" class="price">
                 <p>&emsp;{{order.quantity[0].meal.priceDF}}€</p>           
   
-              </div>
+              </div><br>
+              
 
-          </div><br><br>
-
-    </div>
+          </div>
+</div>
 
 
 <!-- Front Cantiniere -->
-
-    <div *ngIf="statut === 'client'" class="historic_lunchLady">
+<div *ngIf="canSee" class="historic_lunchLady">
       
       <div *ngFor="let order of (orders | async)" class="commandes">
         <h1 >{{order.user.firstname}} {{order.user.name}} </h1>
@@ -45,8 +44,6 @@
         
         </div>
     </div>
-
-</div>
 
 
 
