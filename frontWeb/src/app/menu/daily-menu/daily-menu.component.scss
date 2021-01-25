@@ -4,6 +4,7 @@ div {
 }
 
 #meal_container {
+    width: 70%;
     display: grid;
     grid-template-columns: repeat(2, 1fr)
 }
@@ -14,5 +15,6 @@ app-meal-card {
 }
 
 app-shopping-card {
+    width: 30%;
     margin-left: 16px;
 }

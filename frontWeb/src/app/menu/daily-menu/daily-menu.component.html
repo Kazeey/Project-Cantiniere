@@ -1,28 +1,22 @@
 <div>
+
     <div id="meal_container">
-        <!--<app-menu 
-            *ngFor="let menu of menus; index as i"
-            [menu]="menu"
-            [canSee]="canSee"
-            (onQuantityChange)="onMeal($event)">
-        </app-menu>-->
 
         <app-meal-card 
-            *ngFor="let meal of meals; index as i"
-            [meal]="meal"
-            [canSee]="canSee"
-            (onQuantityChange)="onMeal($event)">
+            *ngFor="let product of products; index as i"
+            [product]="product"
+            [isAuthenticate]="isAuthenticate"
+            [isLunchLady]="isLunchLady"
+            (onAddMenu)="onAdd($event)">
         </app-meal-card>
 
     </div>
 
     <app-shopping-card 
-        [products]="products"
+        *ngIf="isCartVisible"
+        [products]="orderProducts"
         [userId]="userId"
-        [userWallet]="userWallet"
-        *ngIf="canSee">
+        [userWallet]="userWallet">
     </app-shopping-card>
-</div>
 
-<div *ngIf="canSee">
 </div>
