@@ -34,7 +34,7 @@ export class PreferencesComponent implements OnInit {
   public canSee:boolean;
   public state;
 
-  public phraseConnexion:String = ""; // Phrase affichée dans la zone d'erreur
+  public phraseConnexion; // Phrase affichée dans la zone d'erreur
   public phraseNotifications:string = ""; 
   
   // Variable de modification des paramètres
@@ -67,7 +67,7 @@ export class PreferencesComponent implements OnInit {
     }
 
     let toCheck = localStorage.getItem('allowNotifications');
-    
+
     if(toCheck == "true")
     {
       this.notifsCheck = true
@@ -78,6 +78,8 @@ export class PreferencesComponent implements OnInit {
       this.notifsCheck = false;
       this.phraseNotifications = "Activer les notifications";
     }
+
+    this.userId = localStorage.getItem("userId");
   }
 
   ngOnDestroy(): void
@@ -124,11 +126,13 @@ export class PreferencesComponent implements OnInit {
     {
       if(champUn == champDeux)
       {
-  
+        this.preferencesService.changePassword(champUn, this.userId);
       }
       else
       {
-        
+        let errorZone:HTMLElement = document.getElementById("errorZone");
+        errorZone.innerHTML = "test"
+        errorZone.style.display = "Les mots de passe ne correspondent pas.";
       }
     }
     else
@@ -136,5 +140,6 @@ export class PreferencesComponent implements OnInit {
 
     }
   }
+
 
 }

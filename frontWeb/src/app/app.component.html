@@ -16,8 +16,7 @@
           1 - Vérification du rôle de l'utilisateur
         -->  
     <div *ngIf="isConnected" class="sidebar-logo">
-      <h1 *ngFor="let user of usersData | async" class="name">{{user.firstname}} {{user.name}}</h1> 
-      <h1 *ngFor="let user of usersData | async" class="name">{{user}}</h1>
+      <h1 class="name">{{usersData}}</h1> 
     </div>
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>

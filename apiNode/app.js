@@ -36,7 +36,7 @@ app.get('/api/login/activeaccount'  , loginImport.data.activeAccount);   // To s
 // ------ Account ------
 app.get('/api/account/create'  , accountImport.data.create);    // If you want to create an account
 app.post('/api/account/update' , accountImport.data.update);    // If you want to update informations
-app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
+app.post('/api/account/changePassword' , accountImport.data.changePassword);    // If you want to delete an account
 
 // ------ Users ------
 app.get('/api/users/getAllUsers'     , usersImport.data.getAllUsers);  // Get all users from database

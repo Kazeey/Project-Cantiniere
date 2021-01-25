@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
   public isConnected:boolean = false;
   public canSee:boolean;
 
-  public usersData;
+  public usersData = null;
   public userId;
 
   // Assignation des differents menus après vérifications de l'utilisateur
@@ -153,7 +153,6 @@ export class AppComponent implements OnInit{
           this.setMessage("", null);
           this.checkConnection(mail, password);
           this.userId = localStorage.getItem("userId");
-          this.usersData = this.getUserData(this.userId);
           this.checkNotifications();
         }
         else
@@ -229,8 +228,9 @@ export class AppComponent implements OnInit{
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
-            localStorage.setItem("role", this.statut); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("userId", data.result[0].id); // Récupérer l'id utilisateur et le passer dans le localStorage 
+            localStorage.setItem("role", this.statut); 
+            this.usersData = data.result[0].name + " " + data.result[0].firstname; 
 
             this.showStorage();
 
