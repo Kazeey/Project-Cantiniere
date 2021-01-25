@@ -5,18 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { constantes } from '../../../../config/constantes';
 import { ManageUserService } from '../services/manage-user/manage-user.service';
 
-
-
 import { ParametersService } from '../services/parameters/parameters.service';
 import { Observable } from 'rxjs';
-
-interface Constraint {
-  id: number; 
-  orderTimeLimit: String;
-  maximumOrderPerDay: number;
-  rateVAT : number;
-}
-
 
 @Component({
   selector: 'app-parameters',

@@ -7,7 +7,7 @@ import { constantes } from '../../../config/constantes';
 import { AuthenticationService } from '../app/services/authentication/authentication.service';
 import { ManageUserService } from './services/manage-user/manage-user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
   public isConnected:boolean = false;
   public canSee:boolean;
 
-  public usersData;
+  public usersData = null;
   public userId;
 
   // Assignation des differents menus après vérifications de l'utilisateur
@@ -48,10 +48,12 @@ export class AppComponent implements OnInit{
   public role:string;
   public closeResult = '';
   
-  constructor(private AuthenticationService:AuthenticationService, private manageUserService:ManageUserService, private modalService: NgbModal)
-  {
-    
-  }
+  constructor(
+    private AuthenticationService:AuthenticationService, 
+    private manageUserService:ManageUserService, 
+    private modalService: NgbModal,
+    private cookieService: CookieService
+  )  { }
   
   ngOnInit():void // A chaque instanciation de la page, a voir pour la définir dans un fichier de config pour faciliter le bousin
   {
@@ -73,8 +75,9 @@ export class AppComponent implements OnInit{
     this.statut = "visiteur"; // Repasse le client/admin en simple visiteur 
     this.displayComponent = false;
     this.nbEssaisConnexion = constantes.nbEssaisConnexion; // Reset du nombre d'essai a la constante d'import
-    this.resetStorage() // Vide toute les valeurs du localStorage
+    this.canSee = false;
     this.usersData = null;
+    this.resetStorage() // Vide toute les valeurs du localStorage
   }
 
   resetStorage()
@@ -150,7 +153,7 @@ export class AppComponent implements OnInit{
           this.setMessage("", null);
           this.checkConnection(mail, password);
           this.userId = localStorage.getItem("userId");
-          this.usersData = this.getUserData(this.userId);
+          this.checkNotifications();
         }
         else
         {
@@ -225,8 +228,9 @@ export class AppComponent implements OnInit{
             let timeDestruction = String(Date.now() + time); // set le timestamp de destruction a "timestamp actuel + 15 min"
             localStorage.setItem("timeDestruction", timeDestruction); // Insère le timestamp de destruction dans le localStorage
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
-            localStorage.setItem("userId", data.result[0].id); // TODO : récupérer l'id utilisateur et le passer dans le localStorage 
-            localStorage.setItem("role", this.statut); // TODO : récupérer l'id utilisateur et le passer dans le localStorage  
+            localStorage.setItem("userId", data.result[0].id); // Récupérer l'id utilisateur et le passer dans le localStorage 
+            localStorage.setItem("role", this.statut); 
+            this.usersData = data.result[0].name + " " + data.result[0].firstname; 
 
             this.showStorage();
 
@@ -254,6 +258,28 @@ export class AppComponent implements OnInit{
 
   getUserData(userId){
     return this.manageUserService.getUserById(userId);
+  }
+  
+  checkNotifications()
+  {
+    let stockage:boolean = this.cookieService.check('notificationsProjetCantiniere');
+
+    if(stockage == true)
+    {
+      let toVerif:string = this.cookieService.get('notificationsProjetCantiniere');
+      if(toVerif == "false")
+      {
+        localStorage.setItem("allowNotifications", "false");
+      }
+      else
+      {
+        localStorage.setItem("allowNotifications", "true");
+      }
+    }
+    else
+    {
+      localStorage.setItem("allowNotifications", "false");
+    }
   }
 }
 

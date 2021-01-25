@@ -1,8 +1,13 @@
+<div class="container">
 <div *ngIf="canSee">
     <div class="preferences">
         <div id="errorZone">
-            {{phraseConnexion}}
+          Les mots de passe ne correspondent pas.
         </div>
+        
+        <br>
+        <br>
+
         <button 
             class="btn btn-success"
             (click)="open(contentPassword)"
@@ -10,9 +15,24 @@
         Modifier le mot de passe
         </button>
 
+        <br>
+        <br>
+
+        <button 
+          class="btn btn-success"
+          (click)="notifications()"
+        >
+        {{phraseNotifications}}
+        </button>
+
+        <br>
+        <br>
+
         <button class="btn btn-primary">Modifier l'image de profil</button>   
          
     </div>
+</div>
+  
 </div>
 
 <ng-template #contentPassword let-modal>

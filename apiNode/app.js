@@ -24,6 +24,7 @@ const mealsImport       = require('./functions/meals/index.js');
 const menuImport        = require('./functions/menu/index.js');
 const orderImport       = require('./functions/order/index.js');
 const notificationImport = require('./functions/notifications/index.js');
+const constraintImport  = require('./functions/constraints/index.js');
 
 // ------ Login ------ 
 app.post('/api/login'               , loginImport.data.login);           // login to an existing account
@@ -35,13 +36,13 @@ app.get('/api/login/activeaccount'  , loginImport.data.activeAccount);   // To s
 // ------ Account ------
 app.get('/api/account/create'  , accountImport.data.create);    // If you want to create an account
 app.post('/api/account/update' , accountImport.data.update);    // If you want to update informations
-app.post('/api/account/delete' , accountImport.data.delete);    // If you want to delete an account
+app.post('/api/account/changePassword' , accountImport.data.changePassword);    // If you want to delete an account
 
 // ------ Users ------
-app.get('/api/users/getAllUsers'    , usersImport.data.getAllUsers);  // Get all users from database
-app.post('/api/users/getUserById/'  , usersImport.data.getUserById);  // Get a user with a given id
-app.post('/api/users/updateUserImg/'  , usersImport.data.updateUserImg);  // Update an image
-
+app.get('/api/users/getAllUsers'     , usersImport.data.getAllUsers);  // Get all users from database
+app.post('/api/users/getUserById/'   , usersImport.data.getUserById);  // Get a user with a given id
+app.post('/api/users/updateUserImg/' , usersImport.data.updateUserImg);  // Update an image
+app.post('/api/users/getUserBySearchField'  , usersImport.data.getUserBySearchField);   // Get a user with a given id
 
 // ------ Meals ------
 app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);
@@ -61,11 +62,19 @@ app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       /
 app.post('/api/menu/getMenuForWeek'     , menuImport.data.getMenuForWeek);     // Get Menu for current week
 app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    // Get Menu for current day
 
-//------ Order -------
+// ------ Order -------
 app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day
+app.get('/api/order/getDailyOrder'           , orderImport.data.getDailyOrder);        // Get user's orders of a specific day
 app.post('/api/order/getOrderByUser'         , orderImport.data.getOrderByUser);        // Get all user's orders
 app.get('/api/order/getAllOrders'            , orderImport.data.getAllOrders);        // Get all orders
+app.post('/api/order/confirmOrder'           , orderImport.data.confirmOrder);        // Get all orders
 
+// ------ Constraints ------
+app.get('/api/constraints/getAllConstraints'  , constraintImport.data.getAllConstraints);   // Get all the constraints
+app.post('/api/constraints/getConstraintById' , constraintImport.data.getConstraintById);   // Get a constraint with a given id
+app.post('/api/constraints/addConstraint'     , constraintImport.data.addConstraint);       // Add a constraint to the database
+app.post('/api/constraints/updateConstraint'  , constraintImport.data.updateConstraint);    // Update a constraint in the database
+app.post('/api/constraints/deleteConstraint'  , constraintImport.data.deleteConstraint);    // Delete a constraint with a given id
 
 // ------ Notifications ------
 app.post('/api/notification/submit' , notificationImport.data.submit)

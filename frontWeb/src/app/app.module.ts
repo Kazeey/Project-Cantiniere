@@ -27,6 +27,7 @@ import { HistoricComponent } from './historic/historic.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
 import {DatePipe} from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 
 registerLocaleData(fr);
@@ -67,7 +68,7 @@ registerLocaleData(fr);
     DailyOrderComponent,
     HistoricComponent
   ],
-  providers: [{ provide: NZ_I18N, useValue: fr_FR }, DatePipe],
+  providers: [{ provide: NZ_I18N, useValue: fr_FR }, DatePipe, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

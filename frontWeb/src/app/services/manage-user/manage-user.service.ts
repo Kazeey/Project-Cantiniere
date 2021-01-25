@@ -32,6 +32,7 @@ export class ManageUserService {
 
   saveUser(id, name, firstname, sex, mail, phone, role, address, town, postalCode, wallet, status)
   {
+    console.log(this.urlAccount + "update")
     this.http.post(this.urlAccount + "update", {
       id : id, 
       name : name, 

@@ -74,9 +74,10 @@ methods = {
             }
         })
 
-    }, 
+        res.send(true);
+    },
 
-    delete : async function(req, res)
+    changePassword : async function(req, res)
     {
         let isApiAvalaible = await configImport.verification();
 
@@ -86,6 +87,13 @@ methods = {
             return false; 
         }
 
+        newPassword = req.body.newPassword; 
+        userId = req.body.userId; 
+
+        let query = "UPDATE ltuser SET `password` = '" + newPassword +"' WHERE id = "+ userId +";";
+        con.query(query, function(err, result){ })
+
+        res.send(true);
     }
 }
 

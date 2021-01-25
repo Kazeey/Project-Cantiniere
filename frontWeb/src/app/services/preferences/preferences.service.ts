@@ -12,4 +12,9 @@ export class PreferencesService {
   constructor(private http:HttpClient) { }
 
   private url = constantes.urlAPINode; // url souhaitée pour la requête de l'API
+
+  changePassword(newPassword, userId)
+  {
+    this.http.post(this.url + "account/changePassword", {newPassword : newPassword, userId : userId}).subscribe(res => {});
+  }
 }

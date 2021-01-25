@@ -4,9 +4,33 @@
       <ion-title size="medium">Commandes du jour</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content [fullscreen]="true">
 
-</ion-content>
+  <ion-content [fullscreen]="true">
+  <div *ngIf="canSee">
+    <div class="container">
+        <div class="card" *ngFor="let dailyOrder of listDailyOrders | async">    
+            <div id="card_body">
+                <div id="card_header">
+                    <p id="card_title">Commande numéro {{ dailyOrder.id }}</p>
+                </div>
+        
+                <div id="card_content">
+                    <p id="card_description">{{dailyOrder.user.name}} {{dailyOrder.user.firstname}}</p>
+                </div>
+                <div id="card_content">
+                    <button
+                        class="btn btn-primary"
+                        (click)="confirmOrder(dailyOrder.id)"
+                    >
+                        valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </ion-content>
+
   <ion-footer class="footer">
     <ion-toolbar>
       <ion-icon class="mUser_icon" [routerLink]="['/manageUser']" size="large" name="person-add-outline"></ion-icon>

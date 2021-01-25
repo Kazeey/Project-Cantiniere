@@ -1,8 +1,7 @@
 <div *ngIf="canSee">
+  <div class="container">
     <input #userName type="text" name="userName" placeholder="Recherche" [(ngModel)]="quantity" (ngModelChange)="displaySearchedUser($event)" id="inputSearch">
-    
-    <div class="container">
-        <div class="row">
+         <div class="row">
             <div class="card" style="width: 18rem;" *ngFor="let user of listUsers | async">
                 <div class="card-body">
                     <h5 class="card-title">{{user.name}} {{user.firstname}}</h5>

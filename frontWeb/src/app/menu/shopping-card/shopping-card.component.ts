@@ -59,7 +59,6 @@ export class ShoppingCardComponent implements OnInit {
       } else {
         this.dailyOrderService.addOrder(this.generateOrder())
           .subscribe(res => {
-            console.log(res)
             prompt("Commande passée avec succès !")
           });
       }

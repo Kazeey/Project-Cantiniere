@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { verification } from '../../../../../config/verification';
 import { MealService } from '../../services/meal/meal.service';
 
@@ -10,7 +10,8 @@ import { MealService } from '../../services/meal/meal.service';
     MealService
   ]
 })
-export class DailyMenuComponent implements OnInit {
+export class DailyMenuComponent implements OnInit 
+{
   productsToDeliver: any = [];
 
   public isConnected:boolean
@@ -25,7 +26,8 @@ export class DailyMenuComponent implements OnInit {
 
   constructor(private mealService: MealService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.isConnected = verification();
     let state = localStorage.getItem("role");
     
@@ -46,13 +48,12 @@ export class DailyMenuComponent implements OnInit {
     this.getMealForToday();
   }
 
-  getMealForToday() {
+  getMealForToday() 
+  {    
     this.mealService.getMealsForToday()
-      .subscribe(res => {
-        console.log(res)
-
-        this.meals = res;
-      })
+    .subscribe(res => {
+      this.meals = res;
+    })
   }
 
   /*getDailyMenus(weekNumber: number) {

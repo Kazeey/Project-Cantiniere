@@ -49,7 +49,6 @@ export class ManageUserComponent implements OnInit {
       this.isConnected = false;
     }
     this.listUsers = this.displayAllUsers();
-    console.log(this.listUsers);
   }
 
   ngOnDestroy(): void
@@ -98,7 +97,6 @@ export class ManageUserComponent implements OnInit {
   {
     if(userMail == formMail)
     {
-      console.log(userMail);
       this.authenticationService.blockAccount(userMail)
       .subscribe(res => {});
 
@@ -115,7 +113,6 @@ export class ManageUserComponent implements OnInit {
   {
     if(userMail == formMail)
     {
-      console.log(userMail);
       this.authenticationService.activeAccount(userMail)
       .subscribe(res => {});
 

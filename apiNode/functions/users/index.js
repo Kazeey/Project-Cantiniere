@@ -254,7 +254,27 @@ methods = {
         },  function(error, response, body) {
                 console.log(body);
             }
-        )}
+    )},
+    
+    getUserBySearchField : async function(req, res)
+    {        
+        let isApiAvalaible = await configImport.verification();
+
+        if(!isApiAvalaible)
+        {
+            res.send(messageError);
+            return false; 
+        }
+
+        toSearch = req.body.userName;
+        
+        let query = "SELECT * FROM ltuser WHERE name LIKE '%" + toSearch + "%' OR firstname LIKE '%" + toSearch + "%';"; 
+
+        con.query(query, function(err, result) {
+            if(result[0] != null)
+                res.send(result);
+        });
     }
+}
 
 exports.data = methods;

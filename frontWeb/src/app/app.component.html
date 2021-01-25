@@ -6,6 +6,7 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
   <div class="sidebar-logo">
+    <img src="../assets/icons/toque.png" alt="logo">
     <h1>Projet Cantinière</h1>
   </div>
     
@@ -16,6 +17,7 @@
         -->  
     <div *ngIf="isConnected" class="sidebar-logo">
       <h1 *ngFor="let user of usersData | async" class="name">{{user.firstname}} {{user.name}}</h1> 
+      <h1 class="name">{{usersData}}</h1> 
     </div>
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
