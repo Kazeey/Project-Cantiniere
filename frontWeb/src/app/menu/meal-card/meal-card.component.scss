@@ -24,48 +24,20 @@
     justify-content: space-between;
 }
 
-/* Style for quantity selector */
-
-#quantity_container {
-    display: flex;
-}
-
-.quantity_btn {
-    width: 20px;
-    border-radius: 50%;
-}
-
-#minus_btn:hover {
-    content:url("../../../assets/minus.svg");
-}
-
-#plus_btn:hover {
-    content:url("../../../assets/plus.svg");
-}
-
-#quantity {
-    margin: 0 8px;
-}
-
-p {
-    margin: 0;
-    color: #455A64;
-}
-
-#card_title {
-    flex-shrink: 1;
-    font-size: 1.25em;
-    font-weight: bold;
-    white-space: nowrap;
-}
+/* Card Footer */
 
 #card_footer {
     display: flex;
     margin-top: 8px;
     justify-content: flex-end;
+    align-items: center;
 }
 
 #card_price {
     color: #48BC48;
     font-size: 1.25em;
+}
+
+button {
+    margin-left: 16px;
 }

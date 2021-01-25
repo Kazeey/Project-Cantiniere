@@ -13,11 +13,7 @@ export class DailyMenuService {
   constructor(private http:HttpClient) {}
 
   private url = constantes.urlAPINode + "menu/"; // url souhaitée pour la requête de l'API
-
-  addMenu(menuToAdd: Menu): Observable<Object> {
-    return this.http.post(this.url + "addMenu/", {menu: menuToAdd});
-  }
-
+  
   updateMenu(menuId, menuToAdd): Observable<Object> {
     return this.http.post(this.url + "updateMenu/", {menuId: menuId, menu: menuToAdd});
   }
@@ -25,14 +21,6 @@ export class DailyMenuService {
   getMenuById(menuId): Observable<Object> {
     return this.http.post(this.url + "getMenuById/", {menuId: menuId});
   }
-
-  deleteMenu(menuId): Observable<Object> {
-    return this.http.post(this.url + "deleteMenu/", {menuId: menuId})
-  }
-
-  /*getAllMenus(): Observable<Object> {
-    return this.http.get(this.url + "getAllMenus/");
-  }*/
 
   /*updateMenuImage(): Observable<Object> {
     return this.http.patch(this.url + "updateMenuImage/");

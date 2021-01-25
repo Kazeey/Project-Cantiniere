@@ -18,11 +18,25 @@ export class ShoppingCardComponent implements OnInit {
 
   toPay: number;
 
+  order: Order;
+
   confirmModal?: NzModalRef;
 
   constructor(private modal: NzModalService, private dailyOrderService: DailyOrderService) {}
 
   ngOnInit(): void {}
+
+  onMinusBtn(product: any, index: number) {
+    if (product.quantity > 0) product.quantity--;
+
+    console.log(product)
+  }
+
+  onPlusBtn(product: any) {
+    product.quantity++;
+
+    console.log(product)
+  }
 
   calculateLine(index: number) {
     let amount = this.products[index].meal.priceDF * this.products[index].quantity;
@@ -43,50 +57,54 @@ export class ShoppingCardComponent implements OnInit {
   }
 
   showConfirm(): void {
-    if (this.products.length === 0) {
+    if (this.userWallet < this.toPay) {
       this.confirmModal = this.modal.confirm({
-        nzTitle: 'Votre panier est vide !',
+        nzTitle: 'Votre solde est insuffisant !',
         nzOnOk: () =>
-          console.log("Panier vide !")
+          console.log("Solde insuffisant !")
       });
     } else {
-      if (this.userWallet < this.toPay) {
-        this.confirmModal = this.modal.confirm({
-          nzTitle: 'Votre solde est insuffisant !',
-          nzOnOk: () =>
-            console.log("Solde insuffisant !")
-        });
-      } else {
-        this.dailyOrderService.addOrder(this.generateOrder())
+      this.generateOrder();
+
+      if (this.order.quantity.length > 0) {
+        console.log(this.order)
+        this.dailyOrderService.addOrder(this.order)
           .subscribe(res => {
-            prompt("Commande passée avec succès !")
+            console.log(res)
+            alert("Commande passé avec succès")
           });
+      } else {
+        this.confirmModal = this.modal.confirm({
+          nzTitle: 'Votre panier est vide !',
+          nzOnOk: () =>
+            console.log("Panier vide !")
+        });
       }
     }
   }
 
-  generateOrder(): any {
+  generateOrder() {
     let userId = this.userId;
     let constraintId = 5;
     let quantity: any = []
 
     for (let i = 0; i < this.products.length; i++) {
 
-      let item = {
-        quantity: this.products[i].quantity,
-        mealId: this.products[i].meal.id,
-        menuId: this.products[i].menuId
+      if (this.products[i].quantity > 0) {
+        let item = {
+          quantity: this.products[i].quantity,
+          mealId: this.products[i].meal.id,
+          menuId: this.products[i].menuId
+        }
+  
+        quantity.push(item);
       }
-
-      quantity.push(item);
     }
 
-    let order: Order = {
+    this.order = {
       userId: userId,
       constraintId: constraintId,
       quantity: quantity
     };
-
-    return order;
   }
 }
