@@ -55,15 +55,15 @@ app.post('/api/meals/getImage/'             , mealsImport.data.getImage);
 app.post('/api/meals/deleteMeal/'           , mealsImport.data.deleteMeal); 
 
 // ------ Menu -------
-app.post('/api/menu/addMenu'            , menuImport.data.addMenu);            // Add Menu
-app.post('/api/menu/updateMenu'        , menuImport.data.updateMenu);         // Update Menu
-app.post('/api/menu/getMenuById'        , menuImport.data.getMenuById);        // Get Menu by Id
-app.post('/api/menu/deleteMenu'       , menuImport.data.deleteMenu);         // delete Menu
-app.get('/api/menu/getAllMenus'         , menuImport.data.getAllMenus);        // Get all Menus
-app.patch('/api/menu/updateMenuImage'   , menuImport.data.updateMenuImage);    // Update Menu Image
-app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       // Get Menu Image
-app.post('/api/menu/getMenuForWeek'     , menuImport.data.getMenuForWeek);     // Get Menu for current week
-app.get('/api/menu/getMenuForToday'     , menuImport.data.getMenuForToday);    // Get Menu for current day
+app.post('/api/menu/addMenu'             , menuImport.data.addMenu);            // Add Menu
+app.post('/api/menu/updateMenu'          , menuImport.data.updateMenu);         // Update Menu
+app.post('/api/menu/getMenuById'         , menuImport.data.getMenuById);        // Get Menu by Id
+app.post('/api/menu/deleteMenu'          , menuImport.data.deleteMenu);         // delete Menu
+app.get('/api/menu/getAllMenus'          , menuImport.data.getAllMenus);        // Get all Menus
+app.patch('/api/menu/updateMenuImage'    , menuImport.data.updateMenuImage);    // Update Menu Image
+app.get('/api/menu/getMenuImage'         , menuImport.data.getMenuImage);       // Get Menu Image
+app.post('/api/menu/getMenuForWeek'      , menuImport.data.getMenuForWeek);     // Get Menu for current week
+app.get('/api/menu/getMenuForToday'      , menuImport.data.getMenuForToday);    // Get Menu for current day
 
 // ------ Order -------
 app.get('/api/order/getOrderByUserToday'     , orderImport.data.getOrderByUserToday);        // Get user's orders of a specific day

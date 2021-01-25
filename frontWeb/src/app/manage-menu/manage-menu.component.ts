@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { verification } from '../../../../config/verification';
 import { ManageMenuService } from '../services/manage-menu/manage-menu.service';
-import { constantes } from '../../../../config/constantes';
-import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-manage-menu',
