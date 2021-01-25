@@ -1,0 +1,2 @@
+Convertir en base64 l'image et l'insérer en base
+Modifier l'id si besoin dans users/index.js + lien image (../assets/img/Sachat.png)

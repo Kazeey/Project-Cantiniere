@@ -31,6 +31,7 @@ export class AppComponent implements OnInit{
   public canSee:boolean;
 
   public usersData = null;
+  public usersImage = null;
   public userId;
 
   // Assignation des differents menus après vérifications de l'utilisateur
@@ -230,8 +231,10 @@ export class AppComponent implements OnInit{
             localStorage.setItem("connected", "true"); //Insère le fait que l'utilisateur soit connecté dans le localStorage
             localStorage.setItem("userId", data.result[0].id); // Récupérer l'id utilisateur et le passer dans le localStorage 
             localStorage.setItem("role", this.statut); 
-            this.usersData = data.result[0].name + " " + data.result[0].firstname; 
 
+            this.usersData = data.result[0].name + " " + data.result[0].firstname; 
+            this.usersImage = data.resultImg[0].image_path; 
+            
             this.showStorage();
 
             // Adapte l'UI en fonction du rôle de l'utilisateur

@@ -3,10 +3,6 @@ let methods = {
         {
             name : "Préférences",
             path : "/preferences"
-        },
-        {
-            name : "Paramètres",
-            path : "/parameters"
         }
     ]
 };

@@ -17,6 +17,7 @@
         -->  
     <div *ngIf="isConnected" class="sidebar-logo">
       <h1 class="name">{{usersData}}</h1> 
+      <!-- <img src={{usersImage}} width="100px" height="100px"/> -->
     </div>
         <ul *ngIf = "statut === 'admin'"> 
           <li nz-menu-item nzMatchRouter>
@@ -56,7 +57,10 @@
         <ul>
           <li nz-menu-item nzMatchRouter *ngFor="let menu of communs">
             <a routerLink={{menu.path}}>{{menu.name}}</a>
-          </li>          
+          </li>
+          <li nz-menu-item nzMatchRouter *ngIf = "statut === 'admin'">
+            <a [routerLink]="['/parameters']">Paramètres</a>
+          </li>
           <li class="routingConnection" (click) = ngOnDestroy()>
             <a>Se déconnecter</a>
           </li>
