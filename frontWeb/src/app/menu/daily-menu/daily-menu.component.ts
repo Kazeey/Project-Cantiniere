@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MealService } from '../../services/meal/meal.service';
+import { ManageUserService } from '../../services/manage-user/manage-user.service';
 
 @Component({
   selector: 'app-daily-menu',
@@ -10,48 +11,64 @@ import { MealService } from '../../services/meal/meal.service';
   ]
 })
 export class DailyMenuComponent implements OnInit {
-  productsToDeliver: any = [];
+  userId: number;
+  userWallet: number;
+  isLunchLady: boolean;
 
-  isLunchLady: boolean = false;
-  isAuthenticate: boolean = true
-  userWallet: number = 75.15;
-  userId = 1;
+  isAuthenticate: boolean;
+
+  isCartVisible: boolean = false;
 
   meals: any = [];
-  //menus: any = [];
   products: any = [];
+  orderProducts: any = [];
 
-  constructor(private mealService: MealService) { }
+  constructor(private mealService: MealService, private manageUserService: ManageUserService) { }
 
   ngOnInit(): void {
-    //this.getDailyMenus(1);
+    this.initComponent();
+  }
 
-    this.getMealForToday();
+  initComponent() {
+    this.userId = parseInt(localStorage.getItem("userId"));
+    this.isAuthenticate = localStorage.getItem("connected") === "true" ? true : false;
+
+    this.getUserById(this.userId);
+  }
+
+  getUserById(userId: number) {
+    this.manageUserService.getUserById(userId)
+      .subscribe(res => {
+        let user: any = res[0];
+        console.log(user)
+
+        this.isLunchLady = user.role === "Client" ? false : true;
+        this.userWallet = user.wallet;
+
+        this.updateView();
+
+        this.getMealForToday();
+      });
   }
 
   getMealForToday() {
     this.mealService.getMealsForToday()
       .subscribe(res => {
-        console.log(res)
-
         this.meals = res;
+
+        for (let meal of this.meals) {
+          this.products.push({meal: meal, menuId: 0, quantity: 0})
+        }
       })
   }
 
-  /*getDailyMenus(weekNumber: number) {
-    this.dailyMenuService.getDailyMenu(weekNumber)
-      .subscribe(res => {
-        this.menus = res;
-      })
-  }*/
-
-  onMeal(event: any) {
+  onAdd(event: any) {
     let isContain: boolean = false;
     let index: number;
     
-    if (this.products.length > 0) {
-      for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].meal === event.meal) {
+    if (this.orderProducts.length > 0) {
+      for (let i = 0; i < this.orderProducts.length; i++) {
+        if (this.orderProducts[i].meal === event.meal) {
           isContain = true;
           index = i;
         }
@@ -59,10 +76,23 @@ export class DailyMenuComponent implements OnInit {
     }
 
     if (isContain) {
-      if(event.quantity === 0 ) this.products.splice(index, 1);
-      else this.products[index] = event;
+      if(event.quantity === 0 ) this.orderProducts.splice(index, 1);
+      else this.orderProducts[index] = event;
     }
-    else this.products.push(event);
+    else this.orderProducts.push(event);
+
+    console.log(this.orderProducts)
   }
 
+  updateView() {
+    this.displayCart();
+  }
+
+  displayCart() {
+    if (this.isAuthenticate) {
+      if (this.isLunchLady === false) {
+        this.isCartVisible = true
+      }
+    }
+  }
 }

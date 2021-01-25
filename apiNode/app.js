@@ -43,17 +43,20 @@ app.post('/api/users/getUserById/'          , usersImport.data.getUserById);    
 app.post('/api/users/getUserBySearchField' , usersImport.data.getUserBySearchField);   // Get a user with a given id
 
 // ------ Meals ------
-app.post('/api/meals/getMealsByWeekNb/'  , mealsImport.data.getMealsByWeekNb);
-app.post('/api/meals/getMealsForToday/'  , mealsImport.data.getMealsForToday);
-app.get('/api/meals/getAllMeals'        , mealsImport.data.getAllMeals);  // Get all meals from database
-app.post('/api/meals/getMealById/'      , mealsImport.data.getMealById);  // Get a meals with a given id
-app.post('/api/meals/getImage/'      , mealsImport.data.getImage); 
+app.post('/api/meals/addMeal'               , mealsImport.data.addMeal);            // Add Meal
+app.post('/api/meals/updateMeal'            , mealsImport.data.updateMeal);            // Update Meal
+app.post('/api/meals/getMealsByWeekNb/'     , mealsImport.data.getMealsByWeekNb);
+app.post('/api/meals/getMealsForToday/'     , mealsImport.data.getMealsForToday);
+app.get('/api/meals/getAllMeals'            , mealsImport.data.getAllMeals);  // Get all meals from database
+app.post('/api/meals/getMealById/'          , mealsImport.data.getMealById);  // Get a meals with a given id
+app.post('/api/meals/getImage/'             , mealsImport.data.getImage); 
+app.post('/api/meals/deleteMeal/'           , mealsImport.data.deleteMeal); 
 
 // ------ Menu -------
 app.post('/api/menu/addMenu'            , menuImport.data.addMenu);            // Add Menu
-app.patch('/api/menu/updateMenu'        , menuImport.data.updateMenu);         // Update Menu
+app.post('/api/menu/updateMenu'        , menuImport.data.updateMenu);         // Update Menu
 app.post('/api/menu/getMenuById'        , menuImport.data.getMenuById);        // Get Menu by Id
-app.delete('/api/menu/deleteMenu'       , menuImport.data.deleteMenu);         // delete Menu
+app.post('/api/menu/deleteMenu'       , menuImport.data.deleteMenu);         // delete Menu
 app.get('/api/menu/getAllMenus'         , menuImport.data.getAllMenus);        // Get all Menus
 app.patch('/api/menu/updateMenuImage'   , menuImport.data.updateMenuImage);    // Update Menu Image
 app.get('/api/menu/getMenuImage'        , menuImport.data.getMenuImage);       // Get Menu Image

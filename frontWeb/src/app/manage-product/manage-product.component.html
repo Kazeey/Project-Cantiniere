@@ -1,3 +1,77 @@
 <div *ngIf="isConnected">
+
+    <button class="fab" nz-button nzType="primary" (click)="onAddMeal()"><img src="../../assets/add.svg"/></button>
+
+    <div id="search_bar">
+        <img id="search_bar_icn" src="../../assets/loupe.svg" >
+        <input id="input_search" type="text" placeholder="Entrer le nom du plat" [(ngModel)]="inputValue" (ngModelChange)="searchInMeals($event)">
+    </div>
+
+    <div id="cards_container">
+        <div id="menu_card" *ngFor="let meal of meals">
+            <div id="menu_card_header">
+                <p id="menu_title">{{ meal.label }}</p>
+                <p class="price">{{ meal.priceDF }}</p>
+            </div>
+    
+            <div id="menu_card_body">
+
+                <p id="menu_available_week_title">Semaines disponibles</p>
+                <p id="menu_available_week"><span *ngFor="let availableWeek of meal.availableForWeeks">{{ availableWeek }} </span></p>
+
+                <p id="menu_meal_title">Ingrédients disponibles</p>
+                <div id="meal_container" *ngFor="let ingredient of meal.ingredients">
+                    <p id="meal_title">- {{ ingredient.label }}</p>
+                </div>
+            </div>
+    
+            <div id="menu_card_footer">
+                <button class="secondary_btn delete_btn" nz-button nzType="secondary" (click)="onDeleteMeal(meal)">Supprimer</button>
+                <button class="primary_btn edit_btn" nz-button nzType="primary" (click)="onEditMeal(meal)">Editer</button>
+            </div>
+        </div>
+    </div>
+
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]="modalFooter"
+      (nzOnCancel)="handleCancel()">
+
+      <ng-template #modalTitle>{{ modalTitleStr }}</ng-template>
+
+      <ng-template #modalContent>
+
+        <div class="form_item">
+            <p>Nom :</p>
+            <input type="text" [(ngModel)]="label">
+        </div>
+
+        <div class="form_item">
+            <p>Description :</p>
+            <input type="text" [(ngModel)]="description">
+        </div>
+
+        <div class="form_item">
+            <p>Prix :</p>
+            <input type="number" [(ngModel)]="priceDF">
+        </div>
+
+        <div class="form_item">
+            <p>Semaine Disponible (1 - 52) :</p>
+            <input type="number" [(ngModel)]="week">
+            <p id="available_week">{{ getAvailableWeek() }}</p>
+            <button id="btn_add_week" nz-button nzType="primary" (click)="onAddAvailableWeek()">Ajouter</button>
+        </div>
+
+      </ng-template>
+
+      <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleMealCancel()">Annuler</button>
+        <button nz-button nzType="primary" *ngIf="!editMode" (click)="handleMealOk()" [nzLoading]="isConfirmLoading">Créer</button>
+        <button nz-button nzType="primary" *ngIf="editMode" (click)="handleMealOk()" [nzLoading]="isConfirmLoading">Modifier</button>
+      </ng-template>
+    </nz-modal>
     
 </div>

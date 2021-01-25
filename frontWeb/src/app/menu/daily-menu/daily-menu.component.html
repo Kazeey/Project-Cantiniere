@@ -1,36 +1,22 @@
 <div>
 
-    <div *ngIf="!isLunchLady">
+    <div id="meal_container">
 
-        <div id="meal_container">
-
-            <!--<app-menu 
-                *ngFor="let menu of menus; index as i"
-                [menu]="menu"
-                [isAuthenticate]="isAuthenticate"
-                (onQuantityChange)="onMeal($event)">
-            </app-menu>-->
-
-            <app-meal-card 
-                *ngFor="let meal of meals; index as i"
-                [meal]="meal"
-                [isAuthenticate]="isAuthenticate"
-                (onQuantityChange)="onMeal($event)">
-            </app-meal-card>
-    
-        </div>
-    
-        <app-shopping-card 
-            [products]="products"
-            [userId]="userId"
-            [userWallet]="userWallet"
-            *ngIf="isAuthenticate">
-        </app-shopping-card>
+        <app-meal-card 
+            *ngFor="let product of products; index as i"
+            [product]="product"
+            [isAuthenticate]="isAuthenticate"
+            [isLunchLady]="isLunchLady"
+            (onAddMenu)="onAdd($event)">
+        </app-meal-card>
 
     </div>
 
-    <div *ngIf="isLunchLady">
-        <p>LunchLady</p>
-    </div>
+    <app-shopping-card 
+        *ngIf="isCartVisible"
+        [products]="orderProducts"
+        [userId]="userId"
+        [userWallet]="userWallet">
+    </app-shopping-card>
 
 </div>
