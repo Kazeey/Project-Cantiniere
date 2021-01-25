@@ -10,7 +10,7 @@ export class PreferencesComponent implements OnInit {
 
   // Si true, affiche le contenu du component 
   // Pour éviter tout problème d'affichage avec la connexion
-  isConnected:boolean = false;
+  isConnected: boolean = false;
 
   constructor() { }
 
@@ -18,9 +18,16 @@ export class PreferencesComponent implements OnInit {
     this.isConnected = verification();
   }
 
-  ngOnDestroy():void
-  {
+  ngOnDestroy(): void {
     this.isConnected = false;
   }
+  toggleTheme(event) {
+    if (event.detail.checked) {
+      document.body.setAttribute('color-theme', 'dark');
+    }
+    else {
+      document.body.setAttribute('color-theme', 'light');
 
+    }
+  }
 }
