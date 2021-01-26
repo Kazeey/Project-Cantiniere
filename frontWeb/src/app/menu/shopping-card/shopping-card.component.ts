@@ -28,14 +28,10 @@ export class ShoppingCardComponent implements OnInit {
 
   onMinusBtn(product: any, index: number) {
     if (product.quantity > 0) product.quantity--;
-
-    console.log(product)
   }
 
   onPlusBtn(product: any) {
     product.quantity++;
-
-    console.log(product)
   }
 
   calculateLine(index: number) {
@@ -67,10 +63,8 @@ export class ShoppingCardComponent implements OnInit {
       this.generateOrder();
 
       if (this.order.quantity.length > 0) {
-        console.log(this.order)
         this.dailyOrderService.addOrder(this.order)
           .subscribe(res => {
-            console.log(res)
             alert("Commande passé avec succès")
           });
       } else {

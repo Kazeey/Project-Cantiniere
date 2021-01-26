@@ -1,51 +1,69 @@
-.historic_lunchLady  h1, img{
-    font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
-    margin-left: 60px;
-    font-size: 2em;
-}
-
-.historic_client  h1, img{
-    font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
-    margin-left: 60px;
-    font-size: 2em;
-}
-
-.orders{
-    margin-left: 100px;
-    box-shadow: 5px 5px 10px #aaa;
-    border-width: 1px;
-    border-radius: 15px;
-    border-style: outset;
-    border-color: black;
-    width: 700px;
-}
-
-.meal{
+.historic_client {
     display: flex;
-    display: inline-block;
-    flex-direction: row;
-    margin-left: 50px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.historic_lunchLady {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.orders {
+    width: 50%;
+    margin: 8px;
+    padding: 16px;
+    background-color: #F5F5F6;
+    border-radius: 4px;
+    box-shadow: 1px 2px 2px gainsboro;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+p {
+    margin: 0;
+    color: #455A64;
+}
+
+#card_title {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+#username {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+#date {
+    margin-top: 8px;
+    font-size: 1.1em;
+}
+
+#meal_container {
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
     
 }
 
-.meal p{
-    float: right;
+#meal_container {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
 }
 
-.orders img{
-    width: 40px;
-    height: 40px;
+#meal {
+    margin-left: 12px;
 }
 
-.orders p{
-    font-size: 1.5em;
-    margin-left: 10px;
+#price {
+    color: #48BC48;
+    font-size: 1.25em;
 }
 
-.commandes h2{
-    margin-left: 40px;
-}
 
-.price{
-    float: right;
-}
