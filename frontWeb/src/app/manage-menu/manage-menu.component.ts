@@ -73,8 +73,6 @@ export class ManageMenuComponent implements OnInit {
   getMenus() {
     this.manageMenuService.getAllMenus()
       .subscribe(res => {
-        console.log(res)
-
         this.menus = res;
 
         this.tempMenus = this.menus;
@@ -102,8 +100,6 @@ export class ManageMenuComponent implements OnInit {
   onDeleteMenu(menu: any) {
     this.manageMenuService.deleteMenu(menu.id)
       .subscribe(res => {
-        console.log(res);
-
         this.updateViews();
       });
   }
@@ -125,8 +121,6 @@ export class ManageMenuComponent implements OnInit {
 
       this.manageMenuService.updateMenu(this.menu.id, this.menu)
       .subscribe(res => {
-        console.log(res)
-  
         this.updateViews()
       })
     } 
@@ -142,8 +136,6 @@ export class ManageMenuComponent implements OnInit {
 
       this.manageMenuService.addMenu(this.menu)
       .subscribe(res => {
-        console.log(res)
-
         this.updateViews()
       })
     }

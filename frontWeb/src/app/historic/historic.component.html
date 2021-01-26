@@ -1,11 +1,10 @@
 <!-- Front Users -->
 <div *ngIf="!canSee" class="historic_client"> 
 
-          <div *ngFor="let order of ordersData | async" class="orders commandes">
-              <h2>Commande du : {{order.creationDate}} : </h2><br>
+          <!--<div *ngFor="let order of ordersData | async" class="orders commandes">
+              <p id="card_title">Commande du : {{order.creationDate}} : <p>
   
               <div *ngIf="order.quantity" class="meal">
-                <img src="../../assets/icons/pizza.png"/>
                 <p>[{{order.quantity[0].meal.label}}]</p>
                 <p>Quantité : {{order.quantity[0].quantity}}</p>
               </div>
@@ -16,34 +15,24 @@
               </div><br>
               
 
-          </div>
+          </div>-->
 </div>
 
 
 <!-- Front Cantiniere -->
 <div *ngIf="canSee" class="historic_lunchLady">
       
-      <div *ngFor="let order of (orders | async)" class="commandes">
-        <h1 >{{order.user.firstname}} {{order.user.name}} </h1>
-        
-          <div class="orders">
-            <h2>Commande du : {{order.creationDate}} : </h2><br>
+  <div *ngFor="let order of (orders | async)" class="orders">
+    <p id="username">{{order.user.firstname}} {{order.user.name}} </p>
+    <p id="date">Commande du : {{order.creationDate}} : </p>
 
-            <div *ngIf="order.quantity" class="meal">
-              <img src="../../assets/icons/pizza.png"/>
-              <p>[{{order.quantity[0].meal.label}}]</p>
-              <p>Quantité : {{order.quantity[0].quantity}}</p>
-            </div>
-
-            <div *ngIf="order.quantity" class="price">
-              <p>&emsp;{{order.quantity[0].meal.priceDF}}€</p>           
-
-            </div>
-            
-          </div><br><br>
-        
-        </div>
+    <div id="meal_container" *ngIf="order.quantity">
+      <p id="title_orders">Contenu de la commande :</p>
+      <p id="meal">x {{ order.quantity[0].quantity }} - {{ order.quantity[0].meal.label }} <span id="price">{{ order.quantity[0].meal.priceDF }} €</span></p> 
     </div>
+    
+  </div>
+</div>
 
 
 
