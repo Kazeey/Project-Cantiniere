@@ -74,8 +74,6 @@ export class ManageProductComponent implements OnInit {
         this.meals = res;
 
         this.tempMeals = res
-
-        console.log(res);
       })
   }
 
@@ -83,34 +81,10 @@ export class ManageProductComponent implements OnInit {
     this.manageMenuService.getAllMenus()
       .subscribe(res => {
         this.menus = res;
-
-        console.log(res);
       })
   }
 
-  onDeleteMeal(meal: any) {
-      this.removeMealInMenus(meal);
-  }
-
-  removeMealInMenus(meal: any) {
-    /*for (let menu of this.menus) {
-
-      if (menu.meals !== undefined) {
-
-        for (let i = 0; i < menu.meals.length; i++) {
-
-          if (meal.id === menu.meals[i].id) {
-            menu.meals.splice(i, 1)
-
-            this.manageMenuService.updateMenu(menu.id, menu)
-              .subscribe(res => {
-                console.log(res)
-              })
-          }
-        }
-      }
-    }*/
-  }
+  onDeleteMeal(meal: any) {}
 
   onAddMeal() {
     this.editMode = false;
@@ -148,8 +122,6 @@ export class ManageProductComponent implements OnInit {
 
       this.mealService.updateMeal(this.meal.id, this.meal)
       .subscribe(res => {
-        console.log(res)
-  
         this.updateViews()
       })
     } 
@@ -166,8 +138,6 @@ export class ManageProductComponent implements OnInit {
 
       this.mealService.addMeal(this.meal)
       .subscribe(res => {
-        console.log(res)
-
         this.updateViews()
       })
     }

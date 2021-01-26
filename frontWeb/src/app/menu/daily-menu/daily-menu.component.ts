@@ -41,7 +41,6 @@ export class DailyMenuComponent implements OnInit {
     this.manageUserService.getUserById(userId)
       .subscribe(res => {
         let user: any = res[0];
-        console.log(user)
 
         this.isLunchLady = user.role === "Client" ? false : true;
         this.userWallet = user.wallet;
@@ -81,8 +80,6 @@ export class DailyMenuComponent implements OnInit {
       else this.orderProducts[index] = event;
     }
     else this.orderProducts.push(event);
-
-    console.log(this.orderProducts)
   }
 
   updateView() {
