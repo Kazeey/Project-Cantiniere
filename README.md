@@ -1,6 +1,9 @@
 # ProjetCantiniere
 Projet n°1 Aston.
 
+This project give to a student the possibility to order his meal in his High School, or for an employee for lunch.
+The user can order on a webapp (Angular), or on a mobile app (Ionic Angular)
+
 # Installs
 
 #### Angular
